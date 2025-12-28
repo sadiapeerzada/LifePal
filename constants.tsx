@@ -1,3 +1,4 @@
+
 import { Scheme, Campaign, Article, SupportGroup, ChildVideo, AppEvent, AppLanguage } from './types';
 
 const EN_STRINGS = {
@@ -503,6 +504,17 @@ export const SCHEMES: Scheme[] = [
     fundType: 'AYUSHMAN'
   },
   {
+    id: 'pm-cares-fund',
+    name: 'PM CARES Fund for Children',
+    description: 'Special support for children who lost guardians to public health emergencies, providing specialized oncology and education support.',
+    eligibility: ['Minors requiring critical care', 'Loss of primary breadwinner', 'Institutional recommendation'],
+    documents: ['Aadhaar Card', 'Clinical Recommendation', 'Death Certificate of guardian (if applicable)'],
+    steps: ['File application via PM CARES portal', 'District Magistrate verification', 'Institutional fund release'],
+    officialUrl: 'https://www.pmcares.gov.in/',
+    type: 'GOVERNMENT',
+    fundType: 'PM_CARE'
+  },
+  {
     id: 'alig-care-fund',
     name: 'Alig Care Foundation (Private Aid)',
     description: 'Local community-driven fund providing supplementary financial aid for diagnostic tests and medicines not covered by government schemes for JNMCH patients.',
@@ -515,7 +527,7 @@ export const SCHEMES: Scheme[] = [
   },
   {
     id: 'pm-relief-fund',
-    name: 'PM Relief Fund',
+    name: 'PM Relief Fund (PMNRF)',
     description: "The Prime Minister's National Relief Fund (PMNRF) provides immediate financial relief for specialized oncology treatments and life-saving procedures.",
     eligibility: ['Indian citizens in medical distress', 'Low-income households', 'Verification by clinical social work'],
     documents: ['Aadhaar Card', 'Income Certificate', 'Hospital Treatment Estimate'],
@@ -526,7 +538,7 @@ export const SCHEMES: Scheme[] = [
   },
   {
     id: 'cm-relief-fund-up',
-    name: 'CM Relief Fund',
+    name: 'UP CM Relief Fund',
     description: 'State-level assistance for residents of Uttar Pradesh facing high medical costs for critical cancer treatments at empanelled institutions like JNMCH.',
     eligibility: ['UP Domicile holders', 'Family income below threshold'],
     documents: ['Domicile Proof', 'Income Certificate', 'Estimate from JNMCH'],

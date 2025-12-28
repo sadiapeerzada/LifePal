@@ -42,8 +42,6 @@ export interface AIStudio {
 
 declare global {
   interface Window {
-    // Fixed: Removed readonly modifier to prevent conflicts with existing declarations
-    // which caused the "identical modifiers" and "subsequent property declarations" errors.
     aistudio: AIStudio;
   }
 }
