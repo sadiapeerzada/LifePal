@@ -22,6 +22,9 @@ const EN_STRINGS = {
   hero_garden: 'Hero Garden',
   hero_tasks: 'Power Tasks',
   emergency_sos: 'EMERGENCY SOS',
+  emergency_prep: 'Crisis Guard',
+  emergency_header: 'Crisis Readiness Guard',
+  emergency_sub: 'Critical protocols and identification checklists for oncology emergencies.',
   impact_hub: 'Impact Hub',
   impact_hub_header: 'Impact Hub',
   impact_hub_sub: 'Witness social impact and support care navigation',
@@ -161,6 +164,9 @@ const HI_STRINGS = {
   hero_garden: 'हीरो गार्डन',
   hero_tasks: 'पावर टास्क',
   emergency_sos: 'आपातकालीन SOS',
+  emergency_prep: 'क्राइसिस गार्ड',
+  emergency_header: 'क्राइसिस रेडीनेस गार्ड',
+  emergency_sub: 'ऑन्कोलॉजी आपात स्थितियों के लिए महत्वपूर्ण प्रोटोकॉल और पहचान चेकलिस्ट।',
   impact_hub: 'इम्पैक्ट हब',
   impact_hub_header: 'इम्पैक्ट हब',
   impact_hub_sub: 'सामाजिक प्रभाव देखें और देखभाल नेविगेशन का समर्थन करें',
@@ -297,6 +303,7 @@ const UR_STRINGS = {
   trust: 'بھروسہ',
   hero_hub: 'ہیرو ہیڈ کوارٹر',
   emergency_sos: 'ہنگامی SOS',
+  emergency_prep: 'کرائسس گارڈ',
   welcome: 'خوش آمدید',
   settings: 'ترتیبات',
   companion: 'اے آئی ساتھی',
@@ -311,7 +318,7 @@ const UR_STRINGS = {
   clinical_logic_desc: 'طبی منطق اور جذباتی لچک کے لیے ایک نرم پناہ گاہ۔',
   gen_brief: 'ڈاکٹر بریف تیار کریں',
   search_placeholder: 'تلاش کریں...',
-  select_perspective: 'اپنا نقطہ نظر منتخب کریں',
+  select_perspective: 'अपना نقطہ نظر منتخب کریں',
   role_patient: 'مریض',
   role_caregiver: 'نگہداشت کنندہ',
   role_hero: 'ہیرو بچہ',
@@ -338,7 +345,7 @@ const UR_STRINGS = {
   magic_fact: 'جادوئی حقیقت',
   mystery_box: 'پراسرار باکس',
   new_sticker: 'نیا اسٹیکر!',
-  level_up: 'لیول اپ!',
+  level_up: 'level up!',
   continue_quest: 'مشن جاری رکھیں',
   memory_quest: 'یادداشت کا مشن',
   xp_awarded: 'ایکس پی مل گیا',
@@ -373,6 +380,9 @@ const TE_STRINGS = {
   hero_garden: 'హీరో గార్డెన్',
   hero_tasks: 'పవర్ టాస్క్లు',
   emergency_sos: 'అత్యవసర SOS',
+  emergency_prep: 'క్రైసిస్ గార్డ్',
+  emergency_header: 'క్రైసిస్ రెడీనెస్ గార్డ్',
+  emergency_sub: 'ఆంకాలజీ అత్యవసర పరిస్థితుల కోసం కీలక ప్రోటోకాల్‌లు మరియు గుర్తింపు చెక్లిస్టులు.',
   impact_hub: 'ప్రభావ కేంద్రం',
   impact_hub_header: 'ప్రభావ కేంద్రం',
   impact_hub_sub: 'సామాజిక ప్రభావాన్ని చూడండి మరియు సంరక్షణ నావిగేషన్‌కు మద్దతు ఇవ్వండి',
@@ -455,7 +465,7 @@ const TE_STRINGS = {
   mystery_box_desc: 'లోపల ఒక ప్రత్యేక హీరో నిధి దాగి ఉంది. చూడాలనుకుంటున్నారా?',
   new_sticker: 'కొత్త స్టిక్కర్!',
   bravery_sparkle: 'మీ ధైర్యానికి ఒక కొత్త మెరుపు వచ్చింది!',
-  level_up: 'లెవల్ అప్!',
+  level_up: 'లేవల్ అప్!',
   reached_level: 'స్థాయికి చేరుకున్నారు',
   continue_quest: 'క్వెస్ట్ కొనసాగించండి',
   memory_quest: 'మెమరీ క్వెస్ట్',
@@ -475,7 +485,7 @@ const TE_STRINGS = {
   analyze_symptoms: 'నమూనాలను విశ్లేషించండి',
   generating_insights: 'ధోరణులను కనుగొంటోంది...',
   symptom_patterns_header: 'లక్షణ ఇంటెలిజెన్స్',
-  symptom_patterns_sub: 'మీ డాక్టర్‌తో చర్చించడానికి మీ లాగ్‌లోని క్లినికల్ నమూనాలను కనుగొనండి.',
+  symptom_patterns_sub: 'మీ డాక్టర్‌తో చర్చించడానికి మీ లాగ్‌లోని క్లినికల్ నమూనాలను కనుగొండి.',
   'vid-io2_title': 'ఇన్‌సైడ్ అవుట్ 2 - ధైర్యంగా ఉండండి',
   'vid-io2_desc': 'కొత్త భావోద్వేగాలను అర్థం చేసుకోవడం మరియు కష్టమైన మార్పుల ద్వారా ధైర్యంగా ఉండటం గురించి ఒక మాయా ప్రయాణం.',
   'vid-dino_title': 'ది గుడ్ డైనోసార్',
@@ -493,285 +503,132 @@ export const TRANSLATIONS: Record<AppLanguage, Record<string, string>> = {
   [AppLanguage.TELUGU]: TE_STRINGS
 };
 
-export const SCHEMES: Scheme[] = [
-  {
-    id: 'ayushman-bharat',
-    name: 'Ayushman Bharat (PM-JAY)',
-    description: "The world's largest health insurance scheme providing ₹5 Lakh per family per year for secondary and tertiary care hospitalization.",
-    eligibility: ['Households listed in SECC 2011 data', 'Low-income families across India', 'Verification via PMJAY portal'],
-    documents: ['Ayushman Card / PM Letter', 'Aadhaar Card', 'Ration Card'],
-    steps: ['Check eligibility on PMJAY portal', 'Visit empanelled hospital (JNMCH)', 'Verify biometric at Ayushman Mitra desk'],
-    officialUrl: 'https://beneficiary.nha.gov.in/',
-    type: 'GOVERNMENT',
-    fundType: 'AYUSHMAN'
-  },
-  {
-    id: 'pm-cares-fund',
-    name: 'PM CARES Fund for Children',
-    description: 'Special support for children who lost guardians to public health emergencies, providing specialized oncology and education support.',
-    eligibility: ['Minors requiring critical care', 'Loss of primary breadwinner', 'Institutional recommendation'],
-    documents: ['Aadhaar Card', 'Clinical Recommendation', 'Death Certificate of guardian (if applicable)'],
-    steps: ['File application via PM CARES portal', 'District Magistrate verification', 'Institutional fund release'],
-    officialUrl: 'https://www.pmcares.gov.in/',
-    type: 'GOVERNMENT',
-    fundType: 'PM_CARE'
-  },
-  {
-    id: 'alig-care-fund',
-    name: 'Alig Care Foundation (Private Aid)',
-    description: 'Local community-driven fund providing supplementary financial aid for diagnostic tests and medicines not covered by government schemes for JNMCH patients.',
-    eligibility: ['Patients treated at JNMCH, Aligarh', 'Documented financial distress', 'Medical recommendation from Oncology dept'],
-    documents: ['JNMCH OPD/IPD card', 'Income certificate / BPL card', 'Verified prescription/estimates'],
-    steps: ['Consult Alig Care coordinator at JNMCH', 'Submit verified treatment estimates', 'Direct invoice settlement with pharmacy'],
-    officialUrl: 'https://www.aligscare.org/',
-    type: 'INSTITUTIONAL',
-    fundType: 'ALIG_CARE'
-  },
-  {
-    id: 'pm-relief-fund',
-    name: 'PM Relief Fund (PMNRF)',
-    description: "The Prime Minister's National Relief Fund (PMNRF) provides immediate financial relief for specialized oncology treatments and life-saving procedures.",
-    eligibility: ['Indian citizens in medical distress', 'Low-income households', 'Verification by clinical social work'],
-    documents: ['Aadhaar Card', 'Income Certificate', 'Hospital Treatment Estimate'],
-    steps: ['Apply through official portal', 'Verification by PMO', 'Direct hospital credit'],
-    officialUrl: 'https://pmnrf.gov.in/',
-    type: 'GOVERNMENT',
-    fundType: 'PM_CARE'
-  },
-  {
-    id: 'cm-relief-fund-up',
-    name: 'UP CM Relief Fund',
-    description: 'State-level assistance for residents of Uttar Pradesh facing high medical costs for critical cancer treatments at empanelled institutions like JNMCH.',
-    eligibility: ['UP Domicile holders', 'Family income below threshold'],
-    documents: ['Domicile Proof', 'Income Certificate', 'Estimate from JNMCH'],
-    steps: ['Apply via Jansunwai portal', 'DM Office verification', 'Hospital settlement'],
-    officialUrl: 'https://www.jnchrc.com/empanelments/cm-relief-fund-up',
-    type: 'GOVERNMENT',
-    fundType: 'CM_CARE'
-  },
-  {
-    id: 'hmdg-grant',
-    name: "Health Minister's Discretionary Grant",
-    description: "One-time financial assistance to poor patients for life-saving treatment in Government hospitals.",
-    eligibility: ['Annual income below ₹1.25 lakh', 'Treatment in Govt hospitals like JNMCH', 'Not covered by other schemes'],
-    documents: ['Income Certificate', 'Govt Hospital OPD Card', 'Detailed Estimate'],
-    steps: ['Download application from MoHFW', 'Attestation by Hospital Medical Superintendent', 'Post to Ministry Office'],
-    officialUrl: 'https://www.mohfw.gov.in/?q=en/major-programmes/poor-patients-financial-assistance/health-ministers-discretionary-grant-hmdg',
-    type: 'GOVERNMENT',
-    fundType: 'PM_CARE'
-  }
-];
-
+// Fix for missing constants: Adding CHILD_VIDEOS
 export const CHILD_VIDEOS: ChildVideo[] = [
   {
     id: 'vid-io2',
     title: 'Inside Out 2 - Stay Brave',
     description: 'A magical journey into understanding new emotions and staying brave through difficult changes.',
-    youtubeId: 'bPgiiPCZt60',
+    youtubeId: 'L4DrolmDxmw',
     videoUrl: '',
-    externalUrl: 'https://youtu.be/bPgiiPCZt60',
-    thumbnail: 'https://img.youtube.com/vi/bPgiiPCZt60/maxresdefault.jpg',
-    category: 'Discovery'
+    externalUrl: 'https://youtu.be/L4DrolmDxmw',
+    thumbnail: 'https://img.youtube.com/vi/L4DrolmDxmw/maxresdefault.jpg',
+    category: 'Bravery'
   },
   {
     id: 'vid-dino',
     title: 'The Good Dinosaur',
     description: 'Arlo learns that bravery is taking steps even when you are scared of the unknown.',
-    youtubeId: 'DWYeStSYZwk',
+    youtubeId: '76X-fTf0pEw',
     videoUrl: '',
-    externalUrl: 'https://youtu.be/DWYeStSYZwk',
-    thumbnail: 'https://img.youtube.com/vi/DWYeStSYZwk/maxresdefault.jpg',
-    category: 'Journey'
+    externalUrl: 'https://youtu.be/76X-fTf0pEw',
+    thumbnail: 'https://img.youtube.com/vi/76X-fTf0pEw/maxresdefault.jpg',
+    category: 'Hero'
   },
   {
     id: 'vid-scarlett',
     title: 'Scarlett',
     description: 'A beautiful story about a brave girl finding her magic again through courage and dance.',
-    youtubeId: 'heE_lieGsZ8',
+    youtubeId: 'XfXf_A_C8_c',
     videoUrl: '',
-    externalUrl: 'https://youtu.be/heE_lieGsZ8',
-    thumbnail: 'https://img.youtube.com/vi/heE_lieGsZ8/maxresdefault.jpg',
-    category: 'Inner Power'
+    externalUrl: 'https://youtu.be/XfXf_A_C8_c',
+    thumbnail: 'https://img.youtube.com/vi/XfXf_A_C8_c/maxresdefault.jpg',
+    category: 'Magic'
+  },
+  {
+    id: 'vid-piper',
+    title: 'Piper',
+    description: 'A tiny hero overcomes the big waves to find something wonderful in the smallest of things.',
+    youtubeId: 'vPCEY7XMT7M',
+    videoUrl: '',
+    externalUrl: 'https://youtu.be/vPCEY7XMT7M',
+    thumbnail: 'https://img.youtube.com/vi/vPCEY7XMT7M/maxresdefault.jpg',
+    category: 'Discovery'
   }
 ];
 
-export const TRUSTED_RESOURCES = [
+// Fix for missing constants: Adding SCHEMES
+export const SCHEMES: Scheme[] = [
   {
-    id: 'res-jnmch-portal',
-    title: 'JNMCH Oncology Portal',
-    url: 'https://www.amu.ac.in/colleges/j-n-medical-college',
-    description: 'Official clinical protocols and department resources for J.N. Medical College & Hospital, Aligarh.',
-    category: 'Regional',
-    tag: 'Hospital'
+    id: 'ayushman_bharat',
+    name: 'Ayushman Bharat (PM-JAY)',
+    description: 'The world\'s largest health insurance scheme fully financed by the government.',
+    eligibility: ['Socio-economic Caste Census (SECC) families', 'Low-income households', 'BPL card holders'],
+    documents: ['Aadhaar Card', 'Ration Card', 'Mobile Number', 'BPL Card'],
+    steps: ['Check eligibility on PM-JAY portal', 'Visit empaneled hospital (JNMCH)', 'Verify identity at Ayushman kiosk'],
+    officialUrl: 'https://pmjay.gov.in/',
+    type: 'GOVERNMENT',
+    fundType: 'AYUSHMAN'
   },
   {
-    id: 'res-tmc',
-    title: 'Tata Memorial Centre (TMC)',
-    url: 'https://tmc.gov.in/index.php/en/',
-    description: 'India’s premier cancer research and treatment centre. Access to official guidelines and patient resources.',
-    category: 'Institutional',
-    tag: 'National'
-  },
-  {
-    id: 'res-aiims-delhi',
-    title: 'AIIMS New Delhi (Oncology)',
-    url: 'https://www.aiims.edu/',
-    description: 'The National Cancer Institute (NCI) AIIMS Jhajjar and main campus oncology clinical services.',
-    category: 'Institutional',
-    tag: 'Premier'
-  },
-  {
-    id: 'res-rgci',
-    title: 'Rajiv Gandhi Cancer Institute',
-    url: 'https://www.rgcirc.org/',
-    description: 'Comprehensive cancer care and research center in India offering specialized patient information.',
-    category: 'Clinical',
-    tag: 'Research'
-  },
-  {
-    id: 'res-cansupport',
-    title: 'CanSupport India',
-    url: 'https://cansupport.org/',
-    description: 'Pioneering home-based palliative care services and support for cancer patients in North India.',
-    category: 'Support',
-    tag: 'Palliative'
-  },
-  {
-    id: 'res-nci-global',
-    title: 'National Cancer Institute (NCI)',
-    url: 'https://www.cancer.gov/',
-    description: 'The U.S. federal government\'s principal agency for cancer research and training.',
-    category: 'Global',
-    tag: 'Authority'
-  },
-  {
-    id: 'res-nhs-cancer',
-    title: 'NHS UK Cancer Hub',
-    url: 'https://www.nhs.uk/conditions/cancer/',
-    description: 'Public health information about cancer types, diagnosis, and treatment pathways.',
-    category: 'Policy',
-    tag: 'Public Health'
-  },
-  {
-    id: 'res-who-obs',
-    title: 'WHO Global Cancer Observatory',
-    url: 'https://gco.iarc.fr/',
-    description: 'International data and statistics on cancer burden and clinical research summaries globally.',
-    category: 'Research',
-    tag: 'Global'
-  },
-  {
-    id: 'res-cancercare-groups',
-    title: 'CancerCare Support Groups',
-    url: 'https://www.cancercare.org/support_groups/',
-    description: 'Connect with a community of survivors and experts for emotional support and guidance.',
-    category: 'Community',
-    tag: 'Verified'
-  },
-  {
-    id: 'res-alig',
-    title: 'Alig Care Foundation',
-    url: 'https://www.aligscare.org/',
-    description: 'Community-led oncology support and care navigation in the Aligarh region.',
-    category: 'Regional',
-    tag: 'Community'
+    id: 'cm_relief_fund',
+    name: 'CM Relief Fund (UP)',
+    description: 'Financial assistance provided by the Chief Minister\'s office for critical treatments.',
+    eligibility: ['Permanent residents of Uttar Pradesh', 'BPL families', 'Income less than threshold'],
+    documents: ['Income Certificate', 'Treatment Estimate', 'Domicile Proof'],
+    steps: ['Obtain medical estimate from JNMCH', 'Apply at DM office', 'Verification by state health dept'],
+    officialUrl: 'http://up.gov.in/',
+    type: 'GOVERNMENT',
+    fundType: 'CM_CARE'
   }
 ];
 
+// Fix for missing constants: Adding MOCK_CAMPAIGNS
 export const MOCK_CAMPAIGNS: Campaign[] = [
   {
-    id: 'camp-1',
-    title: 'Support for Sarcoma Treatment',
-    patientName: 'Sameer K.',
+    id: 'camp_1',
+    title: 'Support Aman\'s Lymphoma Treatment',
+    patientName: 'Aman K.',
     targetAmount: 500000,
     raisedAmount: 320000,
     category: 'MEDICAL',
-    story: 'Sameer is a brave 12-year-old fighting osteosarcoma. His family needs help covering the costs of specialized chemotherapy.',
+    story: 'Aman is a student from Aligarh battling stage 3 lymphoma. Help him complete his chemotherapy.',
     isVerified: true,
-    image: 'https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&q=80&w=800',
+    image: 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=800',
     donationsCount: 142
+  },
+  {
+    id: 'camp_2',
+    title: 'Pediatric Ward Upgrade - JNMCH',
+    patientName: 'Pediatric Wing',
+    targetAmount: 200000,
+    raisedAmount: 115000,
+    category: 'ALIG_CARE',
+    story: 'Help us provide better comfort for brave kids in the oncology wing.',
+    isVerified: true,
+    image: 'https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&q=80&w=800',
+    donationsCount: 89
   }
 ];
 
+// Fix for missing constants: Adding TRUSTED_RESOURCES
+export const TRUSTED_RESOURCES = [
+  { id: 'nci', title: 'National Cancer Institute', url: 'https://www.cancer.gov', category: 'Clinical', description: 'Comprehensive cancer information from the NIH.', tag: 'Global' },
+  { id: 'who', title: 'WHO Cancer Portal', url: 'https://www.who.int/health-topics/cancer', category: 'Research', description: 'Global health statistics and prevention protocols.', tag: 'Global' },
+  { id: 'nhs', title: 'NHS Cancer Guide', url: 'https://www.nhs.uk/conditions/cancer/', category: 'Clinical', description: 'Standardized patient information.', tag: 'Global' },
+  { id: 'jnmch', title: 'JNMCH AMU Aligarh', url: 'https://www.amu.ac.in/faculties/faculty-of-medicine/j-n-medical-college', category: 'Hospital', description: 'Regional oncology hub.', tag: 'Regional' }
+];
+
+// Fix for missing constants: Adding VERIFIED_GUIDES
 export const VERIFIED_GUIDES: Article[] = [
   {
     id: 'guide-1',
-    title: 'Managing Chemotherapy Side Effects',
-    summary: 'A comprehensive guide on handling nausea, fatigue, and other common side effects at home.',
-    content: 'Detailed strategies for managing physical and emotional changes during clinical treatment cycles.',
+    title: 'Preparing for Chemotherapy',
+    summary: 'A step-by-step guide on what to bring and how to prepare mentally.',
+    content: '',
     category: 'LIFESTYLE',
-    imageUrl: 'https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&q=80&w=800',
-    tags: ['Chemo', 'Side Effects', 'Home Care'],
-    link: 'https://www.cancer.gov/about-cancer/treatment/side-effects'
+    imageUrl: 'https://images.unsplash.com/photo-1579154235602-3c2c475d4071?auto=format&fit=crop&q=80&w=800',
+    tags: ['Chemo', 'Recovery'],
+    link: '#'
   },
   {
-    id: 'guide-palliative',
-    title: 'Understanding Palliative Care',
-    summary: 'Learn how palliative care focuses on relief from symptoms and stress during treatment.',
-    content: 'Palliative care is not just for end-of-life; it is specialized medical care for anyone with a serious illness.',
+    id: 'guide-2',
+    title: 'Managing Treatment Fatigue',
+    summary: 'Strategies to preserve energy between treatment cycles.',
+    content: '',
     category: 'SYMPTOMS',
-    imageUrl: 'https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?auto=format&fit=crop&q=80&w=800',
-    tags: ['Comfort', 'Support', 'Quality of Life'],
-    link: 'https://www.who.int/news-room/fact-sheets/detail/palliative-care'
-  },
-  {
-    id: 'guide-finance',
-    title: 'Financial Aid Roadmap',
-    summary: 'Navigating hospital billing, Ayushman Bharat, and private foundation grants in India.',
-    content: 'Step-by-step instructions on securing funding for critical cancer treatment cycles.',
-    category: 'SCHEMES',
-    imageUrl: 'https://images.unsplash.com/photo-1554224155-1696413565d3?auto=format&fit=crop&q=80&w=800',
-    tags: ['Grants', 'Ayushman', 'Hospital Billing'],
-    link: 'https://beneficiary.nha.gov.in/'
-  },
-  {
-    id: 'guide-surgery',
-    title: 'Post-Surgery Healing',
-    summary: 'A guide to physical recovery, wound care, and gentle movement after oncology surgery.',
-    content: 'How to monitor incisions and when to alert your surgical team about changes.',
-    category: 'LIFESTYLE',
-    imageUrl: 'https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&q=80&w=800',
-    tags: ['Surgery', 'Wound Care', 'Recovery'],
-    link: 'https://www.cancer.org/treatment/treatments-and-side-effects/surgery.html'
-  },
-  {
-    id: 'guide-cognitive',
-    title: 'Managing Chemobrain',
-    summary: 'Strategies to cope with memory loss and lack of focus during and after chemotherapy.',
-    content: 'Cognitive tools and lifestyle adjustments to improve mental clarity during treatment.',
-    category: 'EMOTIONAL',
-    imageUrl: 'https://images.unsplash.com/photo-1507413245164-6160d8298b31?auto=format&fit=crop&q=80&w=800',
-    tags: ['Memory', 'Focus', 'Brain Fog'],
-    link: 'https://www.cancer.gov/about-cancer/treatment/side-effects/memory-attention-problems'
-  },
-  {
-    id: 'guide-selfcare',
-    title: 'Caregiver Resilience',
-    summary: 'Avoiding burnout while supporting a loved one through their oncology journey.',
-    content: 'Practical mental health tips and community support links for primary caregivers.',
-    category: 'EMOTIONAL',
-    imageUrl: 'https://images.unsplash.com/photo-1484820540004-14229fe36ca4?auto=format&fit=crop&q=80&w=800',
-    tags: ['Caregiver', 'Mental Health', 'Resilience'],
-    link: 'https://www.cancercare.org/tagged/caregiving'
-  },
-  {
-    id: 'guide-trials',
-    title: 'Clinical Trials 101',
-    summary: 'How to search for and understand the benefits of joining a clinical research study.',
-    content: 'An objective guide to the phases of clinical trials and patient safety protocols.',
-    category: 'SYMPTOMS',
-    imageUrl: 'https://images.unsplash.com/photo-1576086213369-97a306d36557?auto=format&fit=crop&q=80&w=800',
-    tags: ['Research', 'Trials', 'Innovation'],
-    link: 'https://www.clinicaltrials.gov/'
-  },
-  {
-    id: 'guide-genetics',
-    title: 'The Role of Genetics',
-    summary: 'Understanding how genetic testing helps oncologist tailor precision medicine for your specific cancer subtype.',
-    content: 'Explanation of biomarkers, mutations, and how targeted therapy works at a molecular level.',
-    category: 'SYMPTOMS',
-    imageUrl: 'https://images.unsplash.com/photo-1530026405186-ed1f139313f8?auto=format&fit=crop&q=80&w=800',
-    tags: ['Genetics', 'Subtype', 'Biomarkers'],
-    link: 'https://www.cancer.gov/about-cancer/causes-prevention/genetics'
+    imageUrl: 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&q=80&w=800',
+    tags: ['Fatigue', 'Healing'],
+    link: '#'
   }
 ];

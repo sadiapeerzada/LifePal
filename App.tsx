@@ -27,6 +27,7 @@ import CaregiverDashboard from './components/CaregiverDashboard';
 import SavedHubView from './components/SavedHubView';
 import AdvancedToolsView from './components/AdvancedToolsView';
 import DonationView from './components/DonationView';
+import EmergencyProtocolView from './components/EmergencyProtocolView';
 import { 
   Heart, Home, MessageCircle, Navigation2, ShieldCheck, Zap, Scan, 
   Sun, Moon, ChevronRight, BookOpen, Users, LogOut, User, Camera, Bell, 
@@ -38,7 +39,7 @@ import {
   ArrowRight, BookMarked, PenTool, UsersRound, MessageSquare, Cloud, Flower, Ghost, Bookmark as BookmarkIcon, Apple, Shield as ShieldIcon,
   LayoutDashboard, Activity, Timer, Cpu, Award, Rocket, Ghost as GhostIcon, Music, Coffee, Gem, HandMetal, Gift, RefreshCw, BellRing, Pause, VolumeX, Maximize, Box, RefreshCcw, Crown, Microscope, Wand,
   Medal, Target, Diamond, Orbit, Map, Component, RefreshCcw as RefreshIcon,
-  Loader2
+  Loader2, ShieldAlert, AlertTriangle
 } from 'lucide-react';
 import { CHILD_VIDEOS, TRANSLATIONS, SCHEMES } from './constants';
 import { getGeminiResponse, fetchHeroCinemaVideos } from './services/geminiService';
@@ -432,6 +433,7 @@ const App: React.FC = () => {
           <SidebarLink to="/skills" icon={<GraduationCap className="w-5 h-5" />} label={t('skills_hub')} isRTL={isRTL} />
           <SidebarLink to="/schemes" icon={<Landmark className="w-5 h-5" />} label={t('schemes')} isRTL={isRTL} />
           {safeProfile.role === UserRole.DONOR ? <SidebarLink to="/impact" icon={<HandHeart className="w-5 h-5" />} label={t('impact_hub')} isRTL={isRTL} /> : <SidebarLink to="/finder" icon={<MapPin className="w-5 h-5" />} label={t('finder')} isRTL={isRTL} />}
+          {safeProfile.role !== UserRole.DONOR && <SidebarLink to="/emergency" icon={<ShieldAlert className="w-5 h-5" />} label={t('emergency_prep')} isRTL={isRTL} />}
         </div>
         <div className="p-6 border-t dark:border-slate-800">
            <SidebarLink to="/settings" icon={<Settings className="w-5 h-5" />} label={t('settings')} isRTL={isRTL} />
@@ -479,6 +481,7 @@ const App: React.FC = () => {
             <Route path="/symptoms" element={<SymptomTrackerView logs={symptoms} onAdd={s => setSymptoms([s, ...symptoms])} language={safeProfile.language} searchQuery={globalSearch} profile={safeProfile} />} />
             <Route path="/settings" element={<SettingsView profile={safeProfile} onUpdate={updateProfile} onLogout={handleLogout} />} />
             <Route path="/companion" element={<ChatBot role={safeProfile.role} language={safeProfile.language} gender={safeProfile.gender} isChild={safeProfile.role === UserRole.CHILD} />} />
+            <Route path="/emergency" element={<EmergencyProtocolView language={safeProfile.language} />} />
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
         </div>

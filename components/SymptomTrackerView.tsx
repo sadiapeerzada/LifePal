@@ -1,9 +1,10 @@
+
 import React, { useState } from 'react';
 import { SymptomLog, AppLanguage, UserProfile } from '../types';
 import { analyzeSymptomPatterns } from '../services/geminiService';
 import { 
   Thermometer, Activity, Droplets, Utensils, AlertCircle, 
-  Plus, History, BarChart3, ChevronRight, X, Save, Brain, Search, Sparkles, Loader2, Info, ShieldAlert
+  Plus, History, BarChart3, ChevronRight, X, Save, Brain, Search, Sparkles, Loader2, Info, ShieldAlert, CheckCircle2
 } from 'lucide-react';
 import { TRANSLATIONS } from '../constants';
 
@@ -47,13 +48,16 @@ const SymptomTrackerView: React.FC<Props> = ({ logs: allLogs, onAdd, language, s
   };
 
   const handleGenerateInsights = async () => {
-    if (allLogs.length < 3) {
-      alert("Please log at least 3 physical shifts for AI to find patterns.");
+    // Only analyze if there's enough data (minimum 2 entries for pattern discovery)
+    if (allLogs.length < 2) {
+      alert("Please log at least 2 physical shifts for AI to find patterns.");
       return;
     }
     setIsAnalyzing(true);
     try {
-      const result = await analyzeSymptomPatterns(allLogs, profile, language);
+      // Ensure we pass only relevant context to save tokens
+      const recentLogs = allLogs.slice(0, 30); 
+      const result = await analyzeSymptomPatterns(recentLogs, profile, language);
       setInsights(result);
     } catch (e) {
       console.error(e);
@@ -73,7 +77,7 @@ const SymptomTrackerView: React.FC<Props> = ({ logs: allLogs, onAdd, language, s
         <div className="flex gap-4">
           <button 
             onClick={handleGenerateInsights} 
-            disabled={isAnalyzing || allLogs.length < 3} 
+            disabled={isAnalyzing || allLogs.length < 2} 
             className={`px-8 py-6 rounded-[2.5rem] font-black shadow-xl flex items-center gap-4 text-lg transition-all ${isAnalyzing ? 'bg-indigo-100 text-indigo-400' : 'bg-white dark:bg-slate-900 text-indigo-600 dark:text-indigo-400 border-4 border-indigo-50 dark:border-indigo-900/30 hover:scale-105 active:scale-95'}`}
           >
             {isAnalyzing ? <Loader2 className="w-8 h-8 animate-spin" /> : <Sparkles className="w-8 h-8" />} {isAnalyzing ? t('generating_insights') : t('analyze_symptoms')}
