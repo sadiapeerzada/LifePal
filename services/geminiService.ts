@@ -2,22 +2,11 @@
 import { UserRole, AppLanguage, EmotionalState, CareContext, NavigationPlan, PatientAgeGroup, UserProfile, ScannedDoc, MedicineScan, HarmonyMetric, HarmonyInsight, ChildVideo, SymptomLog } from "../types";
 import { GoogleGenAI, Type, Modality } from "@google/genai";
 
-// Fix: Use the globally defined AIStudio type with appropriate modifiers to avoid declaration conflicts.
-declare global {
-  interface Window {
-    readonly aistudio: AIStudio;
-  }
-}
-
 interface ResourceResult {
   text: string;
   links: { title: string; url: string }[];
 }
 
-/**
- * Manual PCM Audio Decoding as per Gemini Live API standards.
- * Bypasses native decodeAudioData for raw streams.
- */
 const decodeRawPCM = async (
   base64Data: string,
   ctx: AudioContext,
@@ -44,9 +33,6 @@ const decodeRawPCM = async (
 
 const LIFEPAL_SYSTEM = "You are the LifePal AI assistant, a compassionate and expert clinical companion in oncology. Use clear language. NEVER diagnose. ALWAYS direct to JNMCH for medical decisions.";
 
-/**
- * Helper to check and prompt for API Key selection if using Pro/Veo models.
- */
 export const ensureApiKey = async (): Promise<boolean> => {
   if (typeof window === 'undefined' || !window.aistudio) return true;
   const hasKey = await window.aistudio.hasSelectedApiKey();
@@ -66,7 +52,6 @@ export const getGeminiResponse = async (
   mood?: EmotionalState,
   history: { role: 'user' | 'model', text: string }[] = []
 ): Promise<string> => {
-  // Fix: Initialize GoogleGenAI directly with process.env.API_KEY per guidelines.
   const ai = new GoogleGenAI({ apiKey: process.env.API_KEY as string });
   const model = useThinking ? 'gemini-3-pro-preview' : 'gemini-3-flash-preview';
   
@@ -94,7 +79,6 @@ export const getGeminiResponse = async (
 };
 
 export const analyzeMedicineImage = async (base64: string, lang: AppLanguage): Promise<Partial<MedicineScan>> => {
-  // Fix: Initialize GoogleGenAI directly with process.env.API_KEY per guidelines.
   const ai = new GoogleGenAI({ apiKey: process.env.API_KEY as string });
   const schema = {
     type: Type.OBJECT,
@@ -127,7 +111,6 @@ export const analyzeMedicineImage = async (base64: string, lang: AppLanguage): P
 };
 
 export const analyzeMedicalDocument = async (base64: string, lang: AppLanguage) => {
-  // Fix: Initialize GoogleGenAI directly with process.env.API_KEY per guidelines.
   const ai = new GoogleGenAI({ apiKey: process.env.API_KEY as string });
   const schema = {
     type: Type.OBJECT,
@@ -159,7 +142,6 @@ export const analyzeMedicalDocument = async (base64: string, lang: AppLanguage) 
 };
 
 export const fetchOncoLinkNews = async (lang: AppLanguage) => {
-  // Fix: Initialize GoogleGenAI directly with process.env.API_KEY per guidelines.
   const ai = new GoogleGenAI({ apiKey: process.env.API_KEY as string });
   const schema = {
     type: Type.ARRAY,
@@ -189,7 +171,6 @@ export const fetchOncoLinkNews = async (lang: AppLanguage) => {
 };
 
 export const fetchHeroCinemaVideos = async (lang: AppLanguage): Promise<ChildVideo[]> => {
-  // Fix: Initialize GoogleGenAI directly with process.env.API_KEY per guidelines.
   const ai = new GoogleGenAI({ apiKey: process.env.API_KEY as string });
   const schema = {
     type: Type.ARRAY,
@@ -226,7 +207,6 @@ export const fetchHeroCinemaVideos = async (lang: AppLanguage): Promise<ChildVid
 };
 
 export const findNearbyResources = async (query: string, lat?: number, lng?: number): Promise<ResourceResult> => {
-  // Fix: Initialize GoogleGenAI directly with process.env.API_KEY per guidelines.
   const ai = new GoogleGenAI({ apiKey: process.env.API_KEY as string });
   try {
     const response = await ai.models.generateContent({
@@ -252,7 +232,6 @@ export const findNearbyResources = async (query: string, lat?: number, lng?: num
 };
 
 export const generateSpeech = async (text: string, lang: AppLanguage) => {
-  // Fix: Initialize GoogleGenAI directly with process.env.API_KEY per guidelines.
   const ai = new GoogleGenAI({ apiKey: process.env.API_KEY as string });
   try {
     const response = await ai.models.generateContent({
@@ -281,7 +260,6 @@ export const playAudio = async (base64: string) => {
 };
 
 export const getCareNavigationPlan = async (context: CareContext, modelOverride?: string): Promise<NavigationPlan> => {
-  // Fix: Initialize GoogleGenAI directly with process.env.API_KEY per guidelines.
   const ai = new GoogleGenAI({ apiKey: process.env.API_KEY as string });
   const model = modelOverride || 'gemini-3-pro-preview';
   
@@ -318,7 +296,6 @@ export const getCareNavigationPlan = async (context: CareContext, modelOverride?
 };
 
 export const generateImage = async (prompt: string, size: "1K" | "2K" | "4K" = "1K") => {
-  // Fix: Initialize GoogleGenAI directly with process.env.API_KEY per guidelines.
   const ai = new GoogleGenAI({ apiKey: process.env.API_KEY as string });
   const model = (size === "2K" || size === "4K") ? 'gemini-3-pro-image-preview' : 'gemini-2.5-flash-image';
   
@@ -341,7 +318,6 @@ export const generateImage = async (prompt: string, size: "1K" | "2K" | "4K" = "
 };
 
 export const animateImage = async (base64: string, prompt: string): Promise<string | null> => {
-  // Fix: Initialize GoogleGenAI directly with process.env.API_KEY per guidelines.
   const ai = new GoogleGenAI({ apiKey: process.env.API_KEY as string });
   try {
     let operation = await ai.models.generateVideos({
@@ -368,7 +344,6 @@ export const animateImage = async (base64: string, prompt: string): Promise<stri
 };
 
 export const analyzeVideo = async (base64: string, prompt: string): Promise<string> => {
-  // Fix: Initialize GoogleGenAI directly with process.env.API_KEY per guidelines.
   const ai = new GoogleGenAI({ apiKey: process.env.API_KEY as string });
   try {
     const response = await ai.models.generateContent({
@@ -385,7 +360,6 @@ export const analyzeVideo = async (base64: string, prompt: string): Promise<stri
 };
 
 export const analyzeHarmonyData = async (data: HarmonyMetric, profile: UserProfile): Promise<HarmonyInsight> => {
-  // Fix: Initialize GoogleGenAI directly with process.env.API_KEY per guidelines.
   const ai = new GoogleGenAI({ apiKey: process.env.API_KEY as string });
   const schema = {
     type: Type.OBJECT,
@@ -412,7 +386,6 @@ export const analyzeHarmonyData = async (data: HarmonyMetric, profile: UserProfi
 };
 
 export const analyzeSymptomPatterns = async (logs: SymptomLog[], profile: UserProfile, lang: AppLanguage): Promise<string> => {
-  // Fix: Initialize GoogleGenAI directly with process.env.API_KEY per guidelines.
   const ai = new GoogleGenAI({ apiKey: process.env.API_KEY as string });
   const logCtx = logs.map(l => `[${new Date(l.date).toLocaleDateString()}] ${l.type}, Severity: ${l.severity}/10`).join('\n');
   try {
@@ -425,27 +398,23 @@ export const analyzeSymptomPatterns = async (logs: SymptomLog[], profile: UserPr
   } catch (e) { return "Pattern engine offline."; }
 };
 
-export const uploadToAzureVault = async (b: string, m: any) => { return; };
+export const uploadToAzureVault = async (_b: string, _m: any) => { return; };
 export const getClinicalTutorial = async (title: string, lang: AppLanguage) => {
-  // Fix: Initialize GoogleGenAI directly with process.env.API_KEY per guidelines.
   const ai = new GoogleGenAI({ apiKey: process.env.API_KEY as string });
   const res = await ai.models.generateContent({ model: 'gemini-3-flash-preview', contents: `Detailed tutorial for ${title} in ${lang}. Step by step guide for home care.` });
   return res.text || "";
 };
 export const getSimplifiedExplanation = async (ctx: string, role: UserRole, lang: AppLanguage) => {
-  // Fix: Initialize GoogleGenAI directly with process.env.API_KEY per guidelines.
   const ai = new GoogleGenAI({ apiKey: process.env.API_KEY as string });
   const res = await ai.models.generateContent({ model: 'gemini-3-flash-preview', contents: `Explain this to a ${role} in simple ${lang}: ${ctx}` });
   return res.text || "";
 };
 export const getFollowupQuestions = async (status: string, lang: AppLanguage) => {
-  // Fix: Initialize GoogleGenAI directly with process.env.API_KEY per guidelines.
   const ai = new GoogleGenAI({ apiKey: process.env.API_KEY as string });
   const res = await ai.models.generateContent({ model: 'gemini-3-flash-preview', contents: `Based on status: ${status}, suggest 5 follow-up questions for oncology team in ${lang}. JSON array of strings only.` });
   try { return JSON.parse(res.text || "[]"); } catch { return []; }
 };
 export const generateVaultSummary = async (docs: ScannedDoc[], lang: AppLanguage) => {
-  // Fix: Initialize GoogleGenAI directly with process.env.API_KEY per guidelines.
   const ai = new GoogleGenAI({ apiKey: process.env.API_KEY as string });
   const summaryCtx = docs.map(d => `${d.name}: ${d.summary}`).join('\n');
   const res = await ai.models.generateContent({ model: 'gemini-3-flash-preview', contents: `Summarize these medical documents for an oncology visit brief in ${lang}:\n${summaryCtx}` });

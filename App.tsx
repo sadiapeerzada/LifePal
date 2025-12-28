@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { Routes, Route, NavLink, Navigate, Link, useNavigate, useLocation } from 'react-router-dom';
 import { UserRole, PatientAgeGroup, UserProfile, AppLanguage, AppTheme, ScannedDoc, EmotionalState, MoodEntry, Reminder, ChildVideo, CaregiverJournalEntry, SavedResource, ResourceType, DonationRecord, SOSContact, SymptomLog } from './types';

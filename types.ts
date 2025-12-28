@@ -35,10 +35,23 @@ export enum AppTheme {
   DARK = 'dark'
 }
 
+export interface AIStudio {
+  hasSelectedApiKey: () => Promise<boolean>;
+  openSelectKey: () => Promise<void>;
+}
+
+declare global {
+  interface Window {
+    // Fixed: Removed readonly modifier to prevent conflicts with existing declarations
+    // which caused the "identical modifiers" and "subsequent property declarations" errors.
+    aistudio: AIStudio;
+  }
+}
+
 export interface ChatAction {
   label: string;
   type: 'BUTTON' | 'LINK';
-  action: string; // e.g. 'OPEN_BREATHING', 'NAVIGATE_NAVIGATOR'
+  action: string;
   uri?: string;
 }
 
@@ -111,7 +124,7 @@ export interface Reminder {
   type: 'MEDICINE' | 'APPOINTMENT' | 'WATER' | 'REST' | 'SUPPORT_GROUP' | 'CHECKIN' | 'JOURNAL';
   completed: boolean;
   category: 'CLINICAL' | 'GENTLE';
-  lastTriggered?: number; // Timestamp of when the alert last fired
+  lastTriggered?: number;
 }
 
 export type ResourceType = 'ARTICLE' | 'SCHEME' | 'GROUP' | 'VIDEO' | 'SKILL';
@@ -262,10 +275,10 @@ export interface ChildVideo {
   title: string;
   description: string;
   youtubeId: string;
-  videoUrl: string; // Direct MP4 URL for internal playback
-  externalUrl: string; // YouTube/External URL for redirection
+  videoUrl: string;
+  externalUrl: string;
   thumbnail: string;
-  category?: string; // Short descriptor for UI
+  category?: string;
 }
 
 export interface AppEvent {
