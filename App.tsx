@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { Routes, Route, NavLink, Navigate, Link, useNavigate, useLocation } from 'react-router-dom';
 import { UserRole, PatientAgeGroup, UserProfile, AppLanguage, AppTheme, ScannedDoc, EmotionalState, MoodEntry, Reminder, ChildVideo, CaregiverJournalEntry, SavedResource, ResourceType, DonationRecord, SOSContact, SymptomLog } from './types';
@@ -46,11 +45,11 @@ import { getGeminiResponse, fetchHeroCinemaVideos } from './services/geminiServi
 
 const commonStickers = [
   '🌟', '🚀', '🎨', '💖', '🍭', '🦁', '🛸', '🌈', '🍦', '💎', '🔥', '🌊', '🍄', '🦖', '🦄', '🪐',
-  '🐯', '🦉', '🦋', '🎈', '🍪', '🥨', '🦸‍♂️', '🦸‍♀️', '🐼', '🦊', '🐢', '🍀', '🍎', '🪁', '🧸', '🎮'
+  '🐯', '🦉', '🦋', '🎈'
 ];
 
 const rareStickers = [
-  '👑', '🐉', '🌋', '🌌', '🧬', '⚔️', '🛡️', '🏆', '🛸', '🦜', '🐳', '🐘', '🎭', '🔮', '🧿', '🦾', '🦿', '🧠', '⚡', '🧊'
+  '👑', '🐉', '🌋', '🌌', '🧬', '⚔️', '🛡️', '🏆', '🛸', '🦜'
 ];
 
 const SidebarLink: React.FC<{ to: string; icon: React.ReactNode; label: string; isRTL: boolean }> = ({ to, icon, label, isRTL }) => (
@@ -592,6 +591,13 @@ const HeroKidDashboard = ({ profile: safeProfile, t, onOpenStudio, onQuestComple
     { id: 'q31', icon: <Sparkles />, title: "Magic Dust", xp: 160, color: "purple" },
     { id: 'q32', icon: <Ghost />, title: "Friendly Spirit", xp: 140, color: "cyan" },
     { id: 'q33', icon: <HeartPulse />, title: "Brave Heartbeat", xp: 200, color: "rose" },
+    { id: 'q34', icon: <Footprints />, title: "Nature Trail", xp: 135, color: "emerald" },
+    { id: 'q35', icon: <Cloud />, title: "Dream Cloud", xp: 115, color: "blue" },
+    { id: 'q36', icon: <Gem />, title: "Found Treasure", xp: 280, color: "indigo" },
+    { id: 'q37', icon: <GhostIcon />, title: "Brave Shadow", xp: 105, color: "violet" },
+    { id: 'q38', icon: <Award />, title: "Medal Polish", xp: 95, color: "amber" },
+    { id: 'q39', icon: <Compass />, title: "Golden Way", xp: 185, color: "yellow" },
+    { id: 'q40', icon: <Flame />, title: "Power Up", xp: 450, color: "rose" }
   ];
 
   const progressPercent = Math.min((completedQuests.length / quests.length) * 100, 100);
@@ -621,7 +627,7 @@ const HeroKidDashboard = ({ profile: safeProfile, t, onOpenStudio, onQuestComple
     if (completedQuests.includes(id)) return;
     setCompletedQuests([...completedQuests, id]);
     
-    // Reward a random sticker from all stickers
+    // Reward a random sticker from refined pools
     const allPossible = [...commonStickers, ...rareStickers];
     const randomSticker = allPossible[Math.floor(Math.random() * allPossible.length)];
     
@@ -670,44 +676,44 @@ const HeroKidDashboard = ({ profile: safeProfile, t, onOpenStudio, onQuestComple
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 relative z-30">
          <section className="lg:col-span-7 space-y-8">
-            <div className="bg-white dark:bg-slate-900 rounded-[3.5rem] p-10 border-4 border-slate-200 dark:border-slate-800 shadow-xl overflow-hidden text-left">
-                <div className="flex justify-between items-center mb-8">
-                    <h2 className="text-3xl font-black text-amber-500 flex items-center gap-3 uppercase"><Award className="w-8 h-8" /> {t('sticker_vault')}</h2>
-                    <div className="px-4 py-2 bg-slate-50 dark:bg-slate-800 rounded-2xl text-[10px] font-black uppercase text-slate-400 tracking-widest">{safeProfile?.stickers?.length || 0} {t('collected')}</div>
+            <div className="bg-white dark:bg-slate-900 rounded-[3.5rem] p-8 border-4 border-slate-100 dark:border-slate-800 shadow-xl overflow-hidden text-left">
+                <div className="flex justify-between items-center mb-6">
+                    <h2 className="text-2xl font-black text-amber-500 flex items-center gap-3 uppercase"><Award className="w-6 h-6" /> {t('sticker_vault')}</h2>
+                    <div className="px-3 py-1 bg-slate-50 dark:bg-slate-800 rounded-xl text-[9px] font-black uppercase text-slate-400 tracking-widest">{safeProfile?.stickers?.length || 0} {t('collected')}</div>
                 </div>
                 
-                <div className="space-y-8">
-                  <div className="space-y-4">
-                    <h4 className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">Common Rewards</h4>
-                    <div className="grid grid-cols-4 sm:grid-cols-8 gap-3">
+                <div className="space-y-6">
+                  <div className="space-y-3">
+                    <h4 className="text-[9px] font-black uppercase tracking-widest text-slate-400 ml-2">Common Rewards</h4>
+                    <div className="grid grid-cols-5 sm:grid-cols-10 gap-2">
                       {commonStickers.map((s, i) => {
                         const isEarned = (safeProfile?.stickers || []).includes(s);
                         return (
-                          <div key={i} className={`aspect-square rounded-2xl flex items-center justify-center text-3xl border-2 transition-all ${isEarned ? 'bg-amber-50 border-amber-200 shadow-sm scale-110' : 'bg-slate-50 dark:bg-slate-800 opacity-20 border-transparent grayscale'}`}>
-                            {isEarned ? s : <Lock className="w-4 h-4 text-slate-300" />}
+                          <div key={i} className={`aspect-square rounded-xl flex items-center justify-center text-xl border-2 transition-all ${isEarned ? 'bg-amber-50 border-amber-200 shadow-sm scale-110' : 'bg-slate-50 dark:bg-slate-800 opacity-20 border-transparent grayscale'}`}>
+                            {isEarned ? s : <Lock className="w-3 h-3 text-slate-300" />}
                           </div>
                         );
                       })}
                     </div>
                   </div>
 
-                  <div className="space-y-4 pt-4 border-t border-slate-100 dark:border-slate-800">
+                  <div className="space-y-3 pt-4 border-t border-slate-50 dark:border-slate-800">
                     <div className="flex items-center gap-2">
-                       <h4 className="text-[10px] font-black uppercase tracking-widest text-purple-500">Legendary Rares</h4>
-                       <Sparkles className="w-3 h-3 text-purple-400 animate-pulse" />
+                       <h4 className="text-[9px] font-black uppercase tracking-widest text-purple-500">Legendary Rares</h4>
+                       <Sparkles className="w-2 h-2 text-purple-400 animate-pulse" />
                     </div>
-                    <div className="grid grid-cols-5 gap-4">
+                    <div className="grid grid-cols-5 gap-3">
                       {rareStickers.map((s, i) => {
                         const isEarned = (safeProfile?.stickers || []).includes(s);
                         return (
-                          <div key={i} className={`aspect-square rounded-[1.5rem] flex items-center justify-center text-4xl border-4 transition-all relative overflow-hidden ${isEarned ? 'bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 border-white shadow-2xl scale-110 animate-pulse' : 'bg-slate-100 dark:bg-slate-800 opacity-10 border-transparent grayscale'}`}>
+                          <div key={i} className={`aspect-square rounded-[1.2rem] flex items-center justify-center text-3xl border-4 transition-all relative overflow-hidden ${isEarned ? 'bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 border-white shadow-2xl scale-110 animate-pulse' : 'bg-slate-100 dark:bg-slate-800 opacity-10 border-transparent grayscale'}`}>
                             {isEarned ? (
                               <>
                                 <div className="absolute inset-0 bg-white/20 animate-shine pointer-events-none" />
                                 <span className="relative z-10 drop-shadow-lg">{s}</span>
                               </>
                             ) : (
-                              <Crown className="w-6 h-6 text-slate-300" />
+                              <Crown className="w-5 h-5 text-slate-300" />
                             )}
                           </div>
                         );
@@ -731,7 +737,7 @@ const HeroKidDashboard = ({ profile: safeProfile, t, onOpenStudio, onQuestComple
          <section className="lg:col-span-5 bg-white dark:bg-slate-900 rounded-[3.5rem] p-10 border-4 border-slate-200 dark:border-slate-800 shadow-xl flex flex-col text-left">
             <div className="flex justify-between items-center mb-6"><h2 className="text-3xl font-black uppercase text-slate-900 dark:text-white"><Zap className="text-amber-500 inline mr-2 w-8 h-8" /> {t('hero_tasks')}</h2><p className="text-3xl font-black text-emerald-500">{Math.round(progressPercent)}%</p></div>
             <div className="w-full h-12 bg-slate-100 dark:bg-slate-800 rounded-full mb-8 overflow-hidden border-4 border-white dark:border-slate-700 shadow-inner"><div className="h-full bg-gradient-to-r from-emerald-400 to-emerald-600 transition-all duration-1000 shadow-lg" style={{ width: `${progressPercent}%` }} /></div>
-            <div className="space-y-4 flex-1 overflow-y-auto pr-2 max-h-[650px] custom-scrollbar">
+            <div className="space-y-4 flex-1 overflow-y-auto pr-2 max-h-[600px] custom-scrollbar">
               {quests.map(q => <QuestBadge key={q.id} {...q} isCompleted={completedQuests.includes(q.id)} onComplete={() => handleQuestAction(q.id, q.xp)} />)}
             </div>
          </section>
