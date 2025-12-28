@@ -322,7 +322,7 @@ const UR_STRINGS = {
   buddy_desc: 'آپ کا جادوئی اے آئی دوست',
   hero_quests: 'سپر کوئسٹس',
   hero_quest_banner: 'ہیرو مشن',
-  hero_welcome: 'ہیرو ہیڈ کوارٹر میں خوش آمدید!',
+  hero_welcome: 'ہیرو ہیڈ کوارٹر में خوش آمدید!',
   hero_level: 'ہیرو کی سطح',
   magic_energy_needed: 'ایکس پی درکار ہے',
   memory_quest: 'یادداشت کا مشن',
@@ -342,7 +342,7 @@ const UR_STRINGS = {
   stay_brave: 'بہادر رہیں',
   magic_energy: 'جادوئی توانائی',
   symptom_log: 'علامات کا لاگ',
-  symptom_log_header: 'علامات का لاگ',
+  symptom_log_header: 'علامات کا لاگ',
   symptom_log_sub: 'جسمانی تبدیلیوں کو ٹریک کریں۔',
   scan_history: 'اسکین کی تاریخ',
   add_reminder: 'یاد دہانی شامل کریں',
@@ -351,11 +351,11 @@ const UR_STRINGS = {
   generating_insights: 'بصیرتیں تلاش کی جا رہی ہیں...',
   symptom_patterns_header: 'علامات کی ذہانت',
   symptom_patterns_sub: 'اپنے لاگ میں طبی پیٹرن دریافت کریں۔',
-  daily_sanctuary_focus: 'روزانہ की توجہ',
+  daily_sanctuary_focus: 'روزانہ کی توجہ',
   completed: 'مکمل ہو گیا',
   mark_complete: 'مکمل نشان زد کریں',
   open_now: 'ابھی کھولیں',
-  later: 'بعد में',
+  later: 'بعد میں',
   new_sticker: 'نیا اسٹیکر!',
   bravery_sparkle: 'آپ کی بہادری میں ایک نئی چمک آگئی ہے!',
   xp_awarded: 'XP مل گیا',
@@ -492,73 +492,6 @@ export const TRANSLATIONS: Record<AppLanguage, Record<string, string>> = {
   [AppLanguage.TELUGU]: TE_STRINGS
 };
 
-export const TRUSTED_RESOURCES = [
-  {
-    id: 'who-cancer',
-    title: 'WHO Cancer Portal',
-    description: 'Global authority on cancer prevention, control and international health protocols.',
-    url: 'https://www.who.int/health-topics/cancer',
-    category: 'Global',
-    tag: 'GLOBAL_STANDARD'
-  },
-  {
-    id: 'nci-usa',
-    title: 'National Cancer Institute',
-    description: 'Comprehensive research and treatment information from the US National Institutes of Health.',
-    url: 'https://www.cancer.gov/',
-    category: 'Research',
-    tag: 'RESEARCH_LEADER'
-  },
-  {
-    id: 'tata-memorial',
-    title: 'Tata Memorial Centre',
-    description: 'India\'s premier cancer research and treatment institution based in Mumbai.',
-    url: 'https://tmc.gov.in/',
-    category: 'Hospital',
-    tag: 'INDIA_EXCELLENCE'
-  },
-  {
-    id: 'alig-care-main',
-    title: 'ALIG CARE Support',
-    description: 'Regional coordination hub for oncology patients at JNMCH AMU Aligarh.',
-    url: 'https://aligscare.org/',
-    category: 'Regional',
-    tag: 'ALIGARH_LOCAL'
-  },
-  {
-    id: 'mayo-clinic',
-    title: 'Mayo Clinic',
-    description: 'World-renowned medical research and care guidelines for complex oncology cases.',
-    url: 'https://www.mayoclinic.org/tests-procedures/cancer-treatment/about/pac-20385127',
-    category: 'Clinical',
-    tag: 'CLINICAL_LEADER'
-  },
-  {
-    id: 'asco-cancer-net',
-    title: 'ASCO - Cancer.Net',
-    description: 'Patient-centric information from the American Society of Clinical Oncology.',
-    url: 'https://www.cancer.net/',
-    category: 'Clinical',
-    tag: 'ONCOLOGY_PROFESSIONAL'
-  },
-  {
-    id: 'cru-cancer-research-uk',
-    title: 'Cancer Research UK',
-    description: 'Breakthrough research data and patient-friendly trial information.',
-    url: 'https://www.cancerresearchuk.org/',
-    category: 'Research',
-    tag: 'PATIENT_ADVOCACY'
-  },
-  {
-    id: 'cri-cancer-research-inst',
-    title: 'Cancer Research Institute',
-    description: 'Specializing in immunotherapy and revolutionary cancer treatments.',
-    url: 'https://www.cancerresearch.org/',
-    category: 'Research',
-    tag: 'IMMUNOTHERAPY'
-  }
-];
-
 export const CHILD_VIDEOS: ChildVideo[] = [
   {
     id: 'vid-bluey',
@@ -599,6 +532,16 @@ export const CHILD_VIDEOS: ChildVideo[] = [
     externalUrl: 'https://youtu.be/aNXKjGF_0tE',
     thumbnail: 'https://img.youtube.com/vi/aNXKjGF_0tE/maxresdefault.jpg',
     category: 'Calm Power'
+  },
+  {
+    id: 'vid-inside-out',
+    title: 'Inside Out: Joy and Sadness',
+    description: 'Understanding that all feelings are okay and help us be brave.',
+    youtubeId: 'QT9fGz6C6qM',
+    videoUrl: '',
+    externalUrl: 'https://youtu.be/QT9fGz6C6qM',
+    thumbnail: 'https://img.youtube.com/vi/QT9fGz6C6qM/maxresdefault.jpg',
+    category: 'Magic Feelings'
   }
 ];
 
@@ -615,39 +558,6 @@ export const SCHEMES: Scheme[] = [
     fundType: 'AYUSHMAN'
   },
   {
-    id: 'cm_relief_fund',
-    name: 'CM Relief Fund (UP)',
-    description: 'Financial assistance provided by the Chief Minister\'s office for critical treatments for residents of Uttar Pradesh.',
-    eligibility: ['Permanent residents of Uttar Pradesh', 'BPL families', 'Income less than threshold'],
-    documents: ['Income Certificate', 'Treatment Estimate', 'Domicile Proof'],
-    steps: ['Obtain medical estimate from JNMCH', 'Apply at DM office', 'Verification by state health dept'],
-    officialUrl: 'http://up.gov.in/',
-    type: 'GOVERNMENT',
-    fundType: 'CM_CARE'
-  },
-  {
-    id: 'pm_nrf',
-    name: 'PM National Relief Fund (PMNRF)',
-    description: 'Immediate relief for victims of natural calamities and critical medical treatments like cancer.',
-    eligibility: ['Patients with severe financial distress', 'Cases vetted by regional DM/Collector'],
-    documents: ['Medical estimate from govt hospital', 'Income certificate', 'ID proof'],
-    steps: ['Prepare application to PMO', 'Submit through Member of Parliament or DM', 'Direct transfer to hospital account'],
-    officialUrl: 'https://pmnrf.gov.in/',
-    type: 'GOVERNMENT',
-    fundType: 'PM_CARE'
-  },
-  {
-    id: 'ran_scheme',
-    name: 'Rashtriya Arogya Nidhi (RAN)',
-    description: 'Financial assistance to patients living below poverty line (BPL) who are suffering from life-threatening diseases.',
-    eligibility: ['BPL households only', 'Treatment must be at Government hospitals/institutes'],
-    documents: ['BPL Ration Card', 'Medical Estimate', 'Identity Proof'],
-    steps: ['Obtain certificate from hospital Medical Superintendent', 'Fill RAN application form', 'Submit to MoHFW'],
-    officialUrl: 'https://mohfw.gov.in/?q=en/major-programmes/poor-patients-financial-assistance/rashtriya-arogya-nidhi',
-    type: 'GOVERNMENT',
-    fundType: 'PM_CARE'
-  },
-  {
     id: 'alig_care_fund',
     name: 'ALIG CARE Support (ACF)',
     description: 'Regional fund supporting oncology patients at JNMCH Aligarh.',
@@ -657,6 +567,49 @@ export const SCHEMES: Scheme[] = [
     officialUrl: 'https://aligscare.org/',
     type: 'INSTITUTIONAL',
     fundType: 'ALIG_CARE'
+  }
+];
+
+export const TRUSTED_RESOURCES = [
+  {
+    id: 'who-cancer',
+    title: 'WHO Cancer Portal',
+    description: 'Global authority on cancer prevention, control and international health protocols.',
+    url: 'https://www.who.int/health-topics/cancer',
+    category: 'Global',
+    tag: 'GLOBAL_STANDARD'
+  },
+  {
+    id: 'nci-usa',
+    title: 'National Cancer Institute',
+    description: 'Comprehensive research and treatment information from the US National Institutes of Health.',
+    url: 'https://www.cancer.gov/',
+    category: 'Research',
+    tag: 'RESEARCH_LEADER'
+  },
+  {
+    id: 'tata-memorial',
+    title: 'Tata Memorial Centre',
+    description: 'India\'s premier cancer research and treatment institution based in Mumbai.',
+    url: 'https://tmc.gov.in/',
+    category: 'Hospital',
+    tag: 'INDIA_EXCELLENCE'
+  },
+  {
+    id: 'alig-care-main',
+    title: 'ALIG CARE Support',
+    description: 'Regional coordination hub for oncology patients at JNMCH AMU Aligarh.',
+    url: 'https://aligscare.org/',
+    category: 'Regional',
+    tag: 'ALIGARH_LOCAL'
+  },
+  {
+    id: 'mayo-clinic',
+    title: 'Mayo Clinic',
+    description: 'World-renowned medical research and care guidelines for complex oncology cases.',
+    url: 'https://www.mayoclinic.org/tests-procedures/cancer-treatment/about/pac-20385127',
+    category: 'Clinical',
+    tag: 'CLINICAL_LEADER'
   }
 ];
 
@@ -672,18 +625,6 @@ export const MOCK_CAMPAIGNS: Campaign[] = [
     isVerified: true,
     image: 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=800',
     donationsCount: 142
-  },
-  {
-    id: 'camp_2',
-    title: 'Pediatric Ward Upgrade - JNMCH',
-    patientName: 'Pediatric Wing',
-    targetAmount: 200000,
-    raisedAmount: 115000,
-    category: 'ALIG_CARE',
-    story: 'Help us provide better comfort for brave kids in the oncology wing.',
-    isVerified: true,
-    image: 'https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&q=80&w=800',
-    donationsCount: 89
   }
 ];
 
