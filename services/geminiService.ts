@@ -38,8 +38,6 @@ const decodeRawPCM = async (
 
 const LIFEPAL_SYSTEM = "You are the LifePal AI assistant, a compassionate and expert clinical companion in oncology. Use clear language. NEVER diagnose. ALWAYS direct to JNMCH for medical decisions.";
 
-// Fixed: Removed AIStudio logic that caused build errors. 
-// Assuming API_KEY is provided via environment variables as per guidelines.
 export const ensureApiKey = async (): Promise<boolean> => {
   return true;
 };
@@ -239,7 +237,7 @@ export const generateSpeech = async (text: string, lang: AppLanguage) => {
       model: "gemini-2.5-flash-preview-tts",
       contents: [{ parts: [{ text }] }],
       config: {
-        responseModalities: [Modality.AUDIO], // Corrected spelling from 'responseModalalities'
+        responseModalities: [Modality.AUDIO],
         speechConfig: { 
           voiceConfig: { 
             prebuiltVoiceConfig: { voiceName: lang === AppLanguage.HINDI ? 'Puck' : 'Zephyr' } 
