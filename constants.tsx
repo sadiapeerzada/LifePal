@@ -205,7 +205,7 @@ const HI_STRINGS = {
   news_tab: 'समाचार',
   guides_tab: 'गाइड',
   portals_tab: 'पोर्टल',
-  back: 'पीछे',
+  back: 'बैठें',
   continue: 'जारी रखें',
   save: 'सहेजें',
   add: 'जोड़ें',
@@ -412,7 +412,7 @@ const TE_STRINGS = {
   role_patient_desc: 'క్లినికల్ నావిగేషన్, నర్సింగ్ సహాయం, సులభమైన గైడ్‌లు మరియు AI తోడు',
   role_caregiver_desc: 'సంరక్షకులు మరియు కుటుంబ మద్దతు కోసం పూర్తి వనరుల కేంద్రం',
   role_hero_desc: 'బడ్డీ హీరో తోడుతో ఒక గేమిఫైడ్ మ్యాజిక్ క్వెస్ట్',
-  role_donor_desc: 'సామాజిక ప్రభావాన్ని చూడండి और సంరక్షణ నావిగేషన్‌కు మద్దతు ఇవ్వండి. ఫీజులు లేవు, స్వచ్ఛమైన ప్రభావం.',
+  role_donor_desc: 'సామాజిక ప్రభావాన్ని చూడండి మరియు సంరక్షణ నావిగేషన్‌కు మద్దతు ఇవ్వండి. ఫీజులు లేవు, స్వచ్ఛమైన ప్రభావం.',
   role_survivor_desc: 'ఫాలో-అప్ మానిటరింగ్, స్కాన్ ఆందోళన మద్దతు మరియు క్యాన్సర్ తర్వాత జీవితం గైడ్‌లు',
   news_tab: 'వార్తలు',
   guides_tab: 'గైడ్లు',
@@ -501,7 +501,7 @@ export const SCHEMES: Scheme[] = [
     eligibility: ['Households listed in SECC 2011 data', 'Low-income families across India', 'Verification via PMJAY portal'],
     documents: ['Ayushman Card / PM Letter', 'Aadhaar Card', 'Ration Card'],
     steps: ['Check eligibility on PMJAY portal', 'Visit empanelled hospital (JNMCH)', 'Verify biometric at Ayushman Mitra desk'],
-    officialUrl: 'https://pmjay.gov.in/',
+    officialUrl: 'https://beneficiary.nha.gov.in/',
     type: 'GOVERNMENT',
     fundType: 'AYUSHMAN'
   },
@@ -545,7 +545,7 @@ export const SCHEMES: Scheme[] = [
     eligibility: ['UP Domicile holders', 'Family income below threshold'],
     documents: ['Domicile Proof', 'Income Certificate', 'Estimate from JNMCH'],
     steps: ['Apply via Jansunwai portal', 'DM Office verification', 'Hospital settlement'],
-    officialUrl: 'http://cmrf.up.nic.in/',
+    officialUrl: 'https://www.jnchrc.com/empanelments/cm-relief-fund-up',
     type: 'GOVERNMENT',
     fundType: 'CM_CARE'
   },
@@ -556,7 +556,7 @@ export const SCHEMES: Scheme[] = [
     eligibility: ['Annual income below ₹1.25 lakh', 'Treatment in Govt hospitals like JNMCH', 'Not covered by other schemes'],
     documents: ['Income Certificate', 'Govt Hospital OPD Card', 'Detailed Estimate'],
     steps: ['Download application from MoHFW', 'Attestation by Hospital Medical Superintendent', 'Post to Ministry Office'],
-    officialUrl: 'https://main.mohfw.gov.in/',
+    officialUrl: 'https://www.mohfw.gov.in/?q=en/major-programmes/poor-patients-financial-assistance/health-ministers-discretionary-grant-hmdg',
     type: 'GOVERNMENT',
     fundType: 'PM_CARE'
   }
@@ -722,7 +722,7 @@ export const VERIFIED_GUIDES: Article[] = [
     category: 'SCHEMES',
     imageUrl: 'https://images.unsplash.com/photo-1554224155-1696413565d3?auto=format&fit=crop&q=80&w=800',
     tags: ['Grants', 'Ayushman', 'Hospital Billing'],
-    link: 'https://pmjay.gov.in/'
+    link: 'https://beneficiary.nha.gov.in/'
   },
   {
     id: 'guide-surgery',
