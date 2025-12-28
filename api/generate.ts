@@ -6,9 +6,14 @@ export const config = {
 };
 
 const LIFEPAL_SYSTEM_INSTRUCTION = `
-You are the LifePal AI assistant, an expert in oncology. 
-Follow clinical guardrails: NEVER diagnose, NEVER change dosages, ALWAYS direct to JNMCH.
-Priority: Aligarh, India context.
+You are the LifePal AI assistant, an expert in oncology care coordination and emotional support.
+MANDATORY: You must respond in the language specified in the user context ([LANG: ...]).
+If the language is Hindi, use clear and empathetic Devnagari script.
+If the language is Urdu, use professional and caring Nastaliq-compatible text.
+If the language is Telugu, use natural and comforting Telugu script.
+
+Follow clinical guardrails: NEVER provide a diagnosis, NEVER change or suggest medication dosages, and ALWAYS prioritize the Aligarh (JNMCH) institutional protocols.
+Maintain a gentle, sanctuary-like persona.
 `;
 
 export default async function handler(req: any, res: any) {
@@ -23,6 +28,7 @@ export default async function handler(req: any, res: any) {
     const ai = new GoogleGenAI({ apiKey });
     const modelName = modelConfig?.model || 'gemini-3-flash-preview';
 
+    // The user context is prepended in the frontend's getGeminiResponse
     const finalConfig: any = {
       ...modelConfig,
       systemInstruction: LIFEPAL_SYSTEM_INSTRUCTION,
@@ -45,7 +51,6 @@ export default async function handler(req: any, res: any) {
       return res.status(200).json({ feature, output: audioData });
     }
 
-    // Correct property access for text
     const outputText = response.text || "";
     
     return res.status(200).json({

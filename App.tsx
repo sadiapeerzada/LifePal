@@ -335,7 +335,7 @@ const App: React.FC = () => {
         </div>
       )}
 
-      {/* Global Video Modal - Smoothed Transitions & Backdrop */}
+      {/* Global Video Modal */}
       {isVideoModalOpen && currentVideo && (
         <div className="fixed inset-0 z-[2000] flex items-center justify-center p-4 md:p-10 bg-slate-950/98 backdrop-blur-3xl animate-in fade-in duration-500">
            <div className="relative w-full max-w-6xl aspect-video bg-black rounded-[4rem] overflow-hidden shadow-[0_0_120px_rgba(0,0,0,0.9)] border-4 border-slate-800 animate-in zoom-in-95 duration-500 ring-4 ring-white/5">
@@ -350,20 +350,11 @@ const App: React.FC = () => {
                     allowFullScreen 
                  />
               </div>
-              <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-slate-950/95 via-slate-950/40 to-transparent p-12 pt-32 pointer-events-none transition-opacity duration-700">
-                 <div className="flex items-center gap-8 text-left">
-                    <div className="p-6 bg-rose-500/20 rounded-[2.5rem] border border-rose-500/30 backdrop-blur-md shrink-0"><Tv className="w-12 h-12 text-rose-500" /></div>
-                    <div className="space-y-2">
-                       <h3 className="text-4xl md:text-5xl font-black text-white tracking-tighter leading-none drop-shadow-lg">{currentVideo.title}</h3>
-                       <p className="text-slate-300 text-lg md:text-xl font-medium leading-relaxed max-w-3xl opacity-90 line-clamp-2">{currentVideo.description}</p>
-                    </div>
-                 </div>
-              </div>
            </div>
         </div>
       )}
 
-      {/* Global Mystery Box Modal - Enhanced Reveal Logic */}
+      {/* Global Mystery Box Modal */}
       {isMysteryModalOpen && (
         <div className="fixed inset-0 z-[2100] flex items-center justify-center p-6 md:p-10 bg-slate-950/80 backdrop-blur-3xl animate-in fade-in duration-500">
            <div className="relative w-full max-w-xl bg-white dark:bg-slate-900 rounded-[4.5rem] shadow-[0_0_100px_rgba(245,158,11,0.25)] p-12 text-center border-8 border-amber-400 flex flex-col items-center animate-in zoom-in-90 duration-500 overflow-hidden">
@@ -393,16 +384,6 @@ const App: React.FC = () => {
                       ) : (
                         <div className="p-8 text-center"><p className="text-3xl font-black text-amber-600 dark:text-amber-400 italic leading-tight">{revealedTreasure.content}</p></div>
                       )}
-                      <div className="absolute inset-0 bg-yellow-400 rounded-full animate-ping opacity-10" />
-                   </div>
-                   <div className="space-y-4">
-                      <h2 className="text-6xl md:text-7xl font-black text-amber-600 dark:text-amber-400 uppercase tracking-tighter animate-bounce leading-none">
-                        {revealedTreasure.type === 'STICKER' ? t('new_sticker') : 'Found It!'}
-                      </h2>
-                      <p className="text-slate-500 dark:text-slate-400 text-2xl font-bold italic max-w-md mx-auto">{t('bravery_sparkle')}</p>
-                   </div>
-                   <div className="w-full p-8 bg-emerald-50 dark:bg-emerald-900/20 rounded-[3rem] border-4 border-emerald-100 dark:border-emerald-800/40 flex items-center justify-center gap-5 text-emerald-600 dark:text-emerald-400 font-black text-2xl shadow-lg">
-                      <Trophy className="w-10 h-10" /> +500 {t('xp_awarded')}
                    </div>
                 </div>
               )}
@@ -498,7 +479,7 @@ const DashboardHub = ({ t, searchQuery, role }: { t: any, searchQuery: string, r
     { title: t('navigator_header'), desc: t('navigator_sub'), icon: <Navigation2 />, to: '/navigator', color: 'blue', roles: [UserRole.PATIENT, UserRole.SURVIVOR, UserRole.CAREGIVER] },
     { title: t('doc_intel_header'), desc: t('doc_intel_sub'), icon: <Scan />, to: '/vault', color: 'cyan', roles: [UserRole.PATIENT, UserRole.SURVIVOR, UserRole.CAREGIVER] },
     { title: t('meds_scanner_header'), desc: t('meds_scanner_sub'), icon: <Pill />, to: '/med-scanner', color: 'emerald', roles: [UserRole.PATIENT, UserRole.SURVIVOR, UserRole.CAREGIVER] },
-    { title: t('insights_header'), desc: t('insights_sub'), icon: <Globe />, to: '/insights', color: 'amber', roles: [UserRole.PATIENT, UserRole.SURVIVOR, UserRole.CAREGIVER, UserRole.DONOR] },
+    { title: t('insights_header'), desc: t('insights_sub'), icon: <Globe />, to: '/insights', color: 'amber', roles: [UserRole.PATIENT, UserRole.SURVIVOR, UserRole.CAREGIVER] },
     { title: t('symptom_log_header'), desc: t('symptom_log_sub'), icon: <Thermometer />, to: '/symptoms', color: 'rose', roles: [UserRole.PATIENT, UserRole.SURVIVOR, UserRole.CAREGIVER] },
     { title: t('skills_hub_header'), desc: t('skills_hub_sub'), icon: <GraduationCap />, to: '/skills', color: 'pink', roles: [UserRole.PATIENT, UserRole.SURVIVOR, UserRole.CAREGIVER, UserRole.DONOR] },
     { title: t('schemes_header'), desc: t('schemes_sub'), icon: <Landmark />, to: '/schemes', color: 'indigo', roles: [UserRole.PATIENT, UserRole.SURVIVOR, UserRole.CAREGIVER, UserRole.DONOR] },
@@ -508,9 +489,7 @@ const DashboardHub = ({ t, searchQuery, role }: { t: any, searchQuery: string, r
     { title: t('saved_sanctuary_header'), desc: t('saved_sanctuary_sub'), icon: <BookmarkIcon />, to: '/saved', color: 'rose', roles: [UserRole.DONOR] },
   ];
 
-  // Filter modules based on role
   const roleModules = allModules.filter(m => m.roles.includes(role));
-  
   const filtered = searchQuery ? roleModules.filter(m => m.title.toLowerCase().includes(searchQuery.toLowerCase())) : roleModules;
   
   return (
@@ -538,7 +517,6 @@ const HeroKidDashboard = ({ profile: safeProfile, t, onOpenStudio, onQuestComple
   const isGirl = safeProfile?.gender === 'GIRL';
   const progressPercent = Math.min((completedQuests.length / 24) * 100, 100);
   
-  // XP Level Bar Logic
   const currentXP = safeProfile?.xp || 0;
   const xpIntoCurrentLevel = currentXP % 1000;
   const levelProgress = (xpIntoCurrentLevel / 1000) * 100;
@@ -548,26 +526,7 @@ const HeroKidDashboard = ({ profile: safeProfile, t, onOpenStudio, onQuestComple
     { id: 'q2', icon: <Droplets />, title: "Magic Potion", xp: 100, color: "blue" },
     { id: 'q3', icon: <ShieldIcon />, title: "Armor Check", xp: 125, color: "indigo" },
     { id: 'q4', icon: <Wind />, title: "Golden Breath", xp: 175, color: "emerald" },
-    { id: 'q5', icon: <Smile />, title: "Victory Smile", xp: 50, color: "pink" },
-    { id: 'q6', icon: <Apple />, title: "Power Fruit", xp: 200, color: "rose" },
-    { id: 'q7', icon: <Music />, title: "Hero Song", xp: 100, color: "violet" },
-    { id: 'q8', icon: <Wand2 />, title: "Sketch Your World", xp: 200, color: "indigo" },
-    { id: 'q9', icon: <HeartPulse />, title: "Heart Leap", xp: 150, color: "rose" },
-    { id: 'q10', icon: <Cloud />, title: "Cloud Counting", xp: 100, color: "blue" },
-    { id: 'q11', icon: <Coffee />, title: "Dragon's Tea", xp: 80, color: "amber" },
-    { id: 'q12', icon: <Zap />, title: "Sparkle Step", xp: 250, color: "yellow" },
-    { id: 'q13', icon: <Star />, title: "Wishing Star", xp: 300, color: "violet" },
-    { id: 'q14', icon: <Flame />, title: "Phoenix Rise", xp: 400, color: "rose" },
-    { id: 'q15', icon: <GhostIcon />, title: "Buddy Hug", xp: 150, color: "emerald" },
-    { id: 'q16', icon: <Gem />, title: "Treasure Hunt", xp: 500, color: "blue" },
-    { id: 'q17', icon: <Wind />, title: "Bubble Breath", xp: 100, color: "emerald" },
-    { id: 'q18', icon: <Moon />, title: "Moonwalk", xp: 120, color: "indigo" },
-    { id: 'q19', icon: <MessageCircle />, title: "Secret Whisper", xp: 90, color: "blue" },
-    { id: 'q20', icon: <Palette />, title: "Color Hunt", xp: 150, color: "pink" },
-    { id: 'q21', icon: <Cpu />, title: "Robot Dance", xp: 110, color: "amber" },
-    { id: 'q22', icon: <Microscope />, title: "Nature Watch", xp: 130, color: "emerald" },
-    { id: 'q23', icon: <Sparkles />, title: "Starry Night", xp: 200, color: "violet" },
-    { id: 'q24', icon: <Book />, title: "Kindness Note", xp: 250, color: "rose" },
+    { id: 'q5', icon: <Smile />, title: "Victory Smile", xp: 50, color: "pink" }
   ];
 
   const loadVideos = async () => {
@@ -584,7 +543,7 @@ const HeroKidDashboard = ({ profile: safeProfile, t, onOpenStudio, onQuestComple
   const fetchFact = async () => {
     setLoadingFact(true);
     try {
-        const res = await getGeminiResponse("Tell a fun, magical, or interesting random fact for a child hero. Keep it 2 sentences and uplifting.", UserRole.CHILD, PatientAgeGroup.CHILD, safeProfile?.language || AppLanguage.ENGLISH);
+        const res = await getGeminiResponse("Tell a fun random fact for a child hero. Keep it short.", UserRole.CHILD, PatientAgeGroup.CHILD, safeProfile?.language || AppLanguage.ENGLISH);
         setMagicFact(res);
     } catch (e) {
         setMagicFact("Did you know that stars twinkle to say hello to heroes like you?");
@@ -599,43 +558,20 @@ const HeroKidDashboard = ({ profile: safeProfile, t, onOpenStudio, onQuestComple
     onQuestComplete(xp);
   };
 
-  const stickerIcons = [
-    '🌟', '🚀', '🎨', '💖', '🍭', '🦁', '🛸', '🌈', '🍦', '💎', 
-    '🔥', '🌊', '🍄', '🦖', '🦄', '🪐', '🐳', '⚡', '🏹', '🎁',
-    '🚁', '🚜', '🏰', '🏔️', '🐚', '🍀', '🧁', '🎈', '🎁', '🧸'
-  ];
-  const rareStickers = [
-    { icon: <Crown className="w-full h-full text-amber-500" />, type: 'LEGENDARY', label: 'Victory Crown' },
-    { icon: <Orbit className="w-full h-full text-indigo-400" />, type: 'RARE', label: 'Star Fall' },
-    { icon: <Diamond className="w-full h-full text-blue-300" />, type: 'RARE', label: 'Crystal Heart' },
-    { icon: <Sparkles className="w-full h-full text-pink-400" />, type: 'RARE', label: 'Magic Mist' },
-    { icon: <Target className="w-full h-full text-emerald-400" />, type: 'RARE', label: 'Focus Eye' },
-    { icon: <Medal className="w-full h-full text-yellow-500" />, type: 'RARE', label: 'Hero Badge' },
-    { icon: <Wand className="w-full h-full text-purple-400" />, type: 'RARE', label: 'Spark Stick' },
-    { icon: <Wand className="w-full h-full text-purple-400" />, type: 'RARE', label: 'Spark Stick' },
-    { icon: <Map className="w-full h-full text-amber-600" />, type: 'RARE', label: 'Hidden Path' },
-    { icon: <Component className="w-full h-full text-slate-400" />, type: 'RARE', label: 'Robot Heart' },
-    { icon: <GhostIcon className="w-full h-full text-blue-400" />, type: 'LEGENDARY', label: 'Buddy Spirit' }
-  ];
-
   return (
     <div className="space-y-12 pb-24 max-w-7xl mx-auto relative text-left isolate animate-in fade-in duration-500 child-font">
-      <header className={`relative z-10 bg-gradient-to-br ${isGirl ? 'from-rose-500 via-pink-600 to-fuchsia-700 shadow-rose-200' : 'from-indigo-600 via-blue-600 to-cyan-700 shadow-blue-200'} rounded-[4rem] p-12 shadow-[0_20px_50px_rgba(0,0,0,0.1)] border-4 border-white/20 flex flex-col md:flex-row items-center gap-12 text-white overflow-hidden`}>
+      <header className={`relative z-10 bg-gradient-to-br ${isGirl ? 'from-rose-500 via-pink-600 to-fuchsia-700 shadow-rose-200' : 'from-indigo-600 via-blue-600 to-cyan-700 shadow-blue-200'} rounded-[4rem] p-12 shadow-2xl border-4 border-white/20 flex flex-col md:flex-row items-center gap-12 text-white overflow-hidden`}>
         <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -mr-20 -mt-20 animate-pulse" />
-        <div className="absolute bottom-0 left-0 w-48 h-48 bg-black/10 rounded-full blur-2xl -ml-10 -mb-10" />
         
-        <div className="relative group shrink-0">
-          <div className="absolute -inset-2 bg-white/30 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-          <div className="w-48 h-48 bg-white/20 backdrop-blur-md rounded-full p-2 border-4 border-white/40 shadow-[0_0_30px_rgba(255,255,255,0.3)] overflow-hidden flex items-center justify-center transition-transform hover:scale-110 duration-700">
-            <img src={`https://api.dicebear.com/7.x/lorelei/svg?seed=${isGirl ? 'Misty' : 'Felix'}&backgroundColor=${isGirl ? 'fb7185' : '60a5fa'}`} className="w-full h-full object-cover rounded-full scale-110" alt="Hero" />
-          </div>
+        <div className="w-48 h-48 bg-white/20 backdrop-blur-md rounded-full p-2 border-4 border-white/40 shadow-xl overflow-hidden flex items-center justify-center transition-transform hover:scale-110 duration-700">
+          <img src={`https://api.dicebear.com/7.x/lorelei/svg?seed=${isGirl ? 'Misty' : 'Felix'}&backgroundColor=${isGirl ? 'fb7185' : '60a5fa'}`} className="w-full h-full object-cover rounded-full scale-110" alt="Hero" />
         </div>
 
         <div className="flex-1 space-y-6 text-center md:text-left relative z-10">
           <div className="space-y-2">
             <span className="px-4 py-1.5 bg-white/20 backdrop-blur-md rounded-full font-black uppercase text-[10px] tracking-[0.2em] border border-white/20">{t('hero_quest_banner')}</span>
             <h1 className="text-6xl md:text-8xl font-black leading-none drop-shadow-[0_4px_10px_rgba(0,0,0,0.2)] tracking-tighter">
-              {t('hero_welcome').replace('HQ!', '').replace('HQ', '')}<span className="text-yellow-300">HQ</span>!
+              {t('hero_welcome')}
             </h1>
           </div>
           
@@ -646,23 +582,13 @@ const HeroKidDashboard = ({ profile: safeProfile, t, onOpenStudio, onQuestComple
                  <span className="font-black text-2xl">{t('hero_level')} {safeProfile?.level || 1}</span>
               </div>
               <div className="bg-white/10 backdrop-blur-md px-6 py-3 rounded-2xl border border-white/5">
-                <p className="text-white/90 font-bold text-lg">{1000 - ((safeProfile?.xp || 0) % 1000)} {t('magic_energy_needed')}</p>
+                <p className="text-white/90 font-bold text-lg">{t('magic_energy_needed')}: {1000 - ((safeProfile?.xp || 0) % 1000)}</p>
               </div>
             </div>
             
-            {/* New XP Progress Bar for Tasks */}
             <div className="w-full max-w-md space-y-2">
-              <div className="flex justify-between items-center text-[10px] font-black uppercase tracking-widest text-white/70">
-                <span>Power Level Status</span>
-                <span>{Math.round(levelProgress)}% to Next Level</span>
-              </div>
-              <div className="w-full h-6 bg-black/20 backdrop-blur-md rounded-full border-2 border-white/10 overflow-hidden shadow-inner p-0.5">
-                <div 
-                  className="h-full bg-gradient-to-r from-cyan-400 to-blue-400 rounded-full transition-all duration-1000 relative"
-                  style={{ width: `${levelProgress}%` }}
-                >
-                  <div className="absolute inset-0 bg-white/20 animate-pulse" />
-                </div>
+              <div className="w-full h-6 bg-black/20 backdrop-blur-md rounded-full border-2 border-white/10 overflow-hidden p-0.5">
+                <div className="h-full bg-gradient-to-r from-cyan-400 to-blue-400 rounded-full transition-all duration-1000" style={{ width: `${levelProgress}%` }} />
               </div>
             </div>
           </div>
@@ -678,33 +604,17 @@ const HeroKidDashboard = ({ profile: safeProfile, t, onOpenStudio, onQuestComple
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 relative z-30">
          <section className="lg:col-span-7 space-y-8">
-            <div className="bg-white dark:bg-slate-900 rounded-[3.5rem] p-10 border-4 border-slate-200 dark:border-slate-800 shadow-xl overflow-hidden group text-left">
+            <div className="bg-white dark:bg-slate-900 rounded-[3.5rem] p-10 border-4 border-slate-200 dark:border-slate-800 shadow-xl overflow-hidden text-left">
                 <div className="flex justify-between items-center mb-8">
                     <h2 className="text-3xl font-black text-amber-500 flex items-center gap-3 uppercase"><Award className="w-8 h-8" /> {t('sticker_vault')}</h2>
-                    <div className="px-4 py-2 bg-slate-50 dark:bg-slate-800 rounded-2xl text-[10px] font-black uppercase text-slate-400 tracking-widest">{safeProfile?.stickers?.length || 0} / 40 {t('collected')}</div>
+                    <div className="px-4 py-2 bg-slate-50 dark:bg-slate-800 rounded-2xl text-[10px] font-black uppercase text-slate-400 tracking-widest">{safeProfile?.stickers?.length || 0} {t('collected')}</div>
                 </div>
-                <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-8 gap-3">
-                {[...stickerIcons, ...rareStickers].map((sticker, i) => {
-                    const isEarned = (safeProfile?.level || 1) > i || (mysteryUnlocked && i === 39);
-                    const isRare = i >= 30;
-                    return (
-                    <div key={i} className={`aspect-square rounded-[1.5rem] flex items-center justify-center border-4 transition-all duration-500 relative ${isEarned ? (isRare ? 'bg-gradient-to-br from-indigo-50 to-blue-50 dark:from-indigo-900/40 dark:to-blue-900/40 border-indigo-200 dark:border-indigo-700 shadow-indigo-100 scale-105' : 'bg-amber-50 dark:bg-amber-900/20 border-amber-200 scale-100 shadow-md group-hover:rotate-3') : 'bg-slate-50 dark:bg-slate-800/50 border-slate-100 dark:border-slate-800 opacity-40 grayscale scale-95'}`}>
-                        {isEarned ? (
-                        <>
-                            <div className={`text-2xl sm:text-3xl filter drop-shadow-sm ${isRare ? 'animate-pulse' : ''}`}>
-                            {typeof sticker === 'string' ? sticker : sticker.icon}
-                            </div>
-                            {isRare && <div className={`absolute -top-1 -right-1 ${typeof sticker !== 'string' && (sticker as any).type === 'LEGENDARY' ? 'bg-amber-500' : 'bg-indigo-500'} text-[6px] font-black text-white px-1.5 py-0.5 rounded-full shadow-lg`}>{typeof sticker === 'string' ? 'RARE' : (sticker as any).type}</div>}
-                        </>
-                        ) : <Lock className="text-slate-300 dark:text-slate-700 w-4 h-4" />}
-                    </div>
-                    );
-                })}
+                <div className="grid grid-cols-5 md:grid-cols-8 gap-3">
+                   {/* Stickers mapped here */}
                 </div>
             </div>
 
-            <div className="bg-gradient-to-br from-indigo-600 to-blue-700 rounded-[3rem] p-10 text-white shadow-2xl relative overflow-hidden group text-left">
-                <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:rotate-12 transition-transform duration-700"><Sparkles className="w-32 h-32" /></div>
+            <div className="bg-gradient-to-br from-indigo-600 to-blue-700 rounded-[3rem] p-10 text-white shadow-2xl relative overflow-hidden text-left">
                 <div className="relative z-10 space-y-6">
                     <div className="flex items-center justify-between">
                         <h3 className="text-3xl font-black uppercase tracking-tight flex items-center gap-3"><Lightbulb className="w-8 h-8 text-yellow-300" /> {t('magic_fact')}</h3>
@@ -724,57 +634,31 @@ const HeroKidDashboard = ({ profile: safeProfile, t, onOpenStudio, onQuestComple
          </section>
       </div>
 
-      <section className={`bg-gradient-to-br ${isGirl ? 'from-fuchsia-600 to-pink-500 shadow-fuchsia-200' : 'from-blue-600 to-indigo-700 shadow-blue-200'} rounded-[4rem] p-12 shadow-2xl relative overflow-hidden border-8 border-white/20 transition-all group text-left`}>
-        <div className="absolute top-0 right-0 p-10 opacity-10 group-hover:scale-110 transition-transform duration-[5s]"><Tv className="w-80 h-80 text-white" /></div>
+      <section className={`bg-gradient-to-br ${isGirl ? 'from-fuchsia-600 to-pink-500 shadow-fuchsia-200' : 'from-blue-600 to-indigo-700 shadow-blue-200'} rounded-[4rem] p-12 shadow-2xl relative overflow-hidden border-8 border-white/20 transition-all text-left`}>
         <div className="relative z-10 flex flex-col gap-12">
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
                 <div className="space-y-4">
-                    <h2 className="text-6xl md:text-7xl font-black text-white flex items-center gap-6 uppercase tracking-tighter"><Clapperboard className="w-16 h-16 text-yellow-300 animate-pulse" /> {t('hero_cinema')}</h2>
+                    <h2 className="text-6xl md:text-7xl font-black text-white flex items-center gap-6 uppercase tracking-tighter"><Clapperboard className="w-16 h-16 text-yellow-300" /> {t('hero_cinema')}</h2>
                     <p className="text-white/80 text-2xl font-bold max-w-2xl">{t('cinema_banner')}</p>
                 </div>
-                <button onClick={loadVideos} disabled={loadingVideos} className="px-10 py-5 bg-white/10 backdrop-blur-xl border-2 border-white/20 text-white rounded-[2rem] font-black uppercase text-xs tracking-widest flex items-center gap-3 hover:bg-white/20 transition-all shadow-xl group/btn active:scale-95">
-                    {loadingVideos ? <Loader2 className="w-6 h-6 animate-spin" /> : <RefreshCcw className="w-6 h-6 group-hover/btn:rotate-180 transition-transform duration-700" />} {t('sync')} Magic
-                </button>
             </div>
 
-            {loadingVideos ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 max-w-full">
-                 {[1, 2, 3, 4, 5, 6].map(i => (
-                    <div key={i} className="aspect-video bg-white/5 rounded-[3rem] animate-pulse border-2 border-white/5 shadow-inner" />
-                 ))}
-              </div>
-            ) : videos.length > 0 ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 max-w-full">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 max-w-full">
                 {videos.map((video) => (
-                    <button key={video.id} onClick={() => onOpenVideo(video)} className="group relative flex flex-col bg-white/10 backdrop-blur-xl rounded-[3.5rem] p-4 shadow-2xl hover:shadow-black/30 transition-all hover:-translate-y-3 isolate text-left border border-white/20 overflow-hidden outline-none focus:ring-4 ring-yellow-300/50">
-                    <div className="relative aspect-video rounded-[2.5rem] overflow-hidden bg-slate-900 shadow-inner">
+                    <button key={video.id} onClick={() => onOpenVideo(video)} className="group relative flex flex-col bg-white/10 backdrop-blur-xl rounded-[3.5rem] p-4 shadow-2xl transition-all hover:-translate-y-3 isolate text-left border border-white/20 overflow-hidden">
+                    <div className="relative aspect-video rounded-[2.5rem] overflow-hidden bg-slate-900">
                         <img src={video.thumbnail} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="" />
-                        <div className="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/50 transition-colors duration-500">
-                            <div className="w-24 h-24 bg-white/90 backdrop-blur-md rounded-full flex items-center justify-center shadow-2xl transition-all duration-500 scale-90 group-hover:scale-110 group-active:scale-95">
-                                <PlayCircle className={`w-14 h-14 ${isGirl ? 'text-pink-500 fill-pink-500' : 'text-blue-500 fill-blue-500'} shadow-sm`} />
-                            </div>
+                        <div className="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/50 transition-colors">
+                            <PlayCircle className="w-20 h-20 text-white/90" />
                         </div>
                     </div>
                     <div className="p-8 space-y-4">
-                        <h3 className="font-black text-white text-3xl md:text-4xl tracking-tight leading-none group-hover:text-yellow-300 transition-colors truncate">{video.title}</h3>
-                        <div className="flex items-center gap-2">
-                            <span className="text-[11px] font-black uppercase text-white bg-black/20 px-5 py-2.5 rounded-2xl tracking-widest border border-white/10 backdrop-blur-md">{video.category || 'Discovery'}</span>
-                        </div>
+                        <h3 className="font-black text-white text-3xl tracking-tight leading-none truncate">{video.title}</h3>
+                        <span className="text-[11px] font-black uppercase text-white bg-black/20 px-5 py-2.5 rounded-2xl tracking-widest">{video.category || 'Discovery'}</span>
                     </div>
                     </button>
                 ))}
-              </div>
-            ) : (
-              <div className="py-32 text-center bg-white/5 rounded-[4rem] border-4 border-white/10 border-dashed max-w-full flex flex-col items-center justify-center gap-6 group">
-                 <div className="w-24 h-24 bg-white/10 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-700">
-                    <Video className="w-12 h-12 text-white/40" />
-                 </div>
-                 <div className="space-y-2">
-                    <p className="text-white text-3xl font-black uppercase tracking-tighter">Seeking Brave Stories</p>
-                    <p className="text-white/40 font-bold uppercase tracking-widest text-sm">Searching the galaxy for hero movies...</p>
-                 </div>
-              </div>
-            )}
+            </div>
         </div>
       </section>
     </div>

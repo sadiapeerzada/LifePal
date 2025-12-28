@@ -25,7 +25,6 @@ const callGateway = async (feature: string, contents: any, config: any = {}) => 
 };
 
 export const ensureApiKey = async (): Promise<boolean> => {
-  // In Vercel deployment, the key is already in process.env
   return true;
 };
 
@@ -38,13 +37,14 @@ export const getGeminiResponse = async (
   mood?: EmotionalState,
   history: { role: 'user' | 'model', text: string }[] = []
 ): Promise<string> => {
-  const personaContext = `[ROLE: ${role}] [MOOD: ${mood}] Language: ${lang}. Return plain text unless action requested.`;
+  // Enhanced prompt context to force language compliance
+  const personaContext = `[ROLE: ${role}] [MOOD: ${mood}] [LANG: ${lang}]. MANDATORY: You MUST reply entirely in the script of ${lang}. No English glitches.`;
   
   try {
     const res = await callGateway('chat', 
       [
         ...history.map(h => ({ role: h.role, parts: [{ text: h.text }] })),
-        { role: 'user', parts: [{ text: personaContext + "\n\nUser: " + prompt }] }
+        { role: 'user', parts: [{ text: `${personaContext}\n\nUser: ${prompt}` }] }
       ],
       {
         model: useThinking ? 'gemini-3-pro-preview' : 'gemini-3-flash-preview',
@@ -78,7 +78,7 @@ export const analyzeMedicineImage = async (base64: string, lang: AppLanguage): P
       {
         parts: [
           { inlineData: { data: base64, mimeType: 'image/jpeg' } },
-          { text: `Identify this medicine in ${lang}. Provide a professional clinical analysis including composition and interactions. Return JSON.` }
+          { text: `Identify medicine in ${lang}. Provide clinical analysis (composition, interactions). JSON.` }
         ]
       },
       { model: 'gemini-3-flash-preview', responseSchema: schema }
@@ -107,7 +107,7 @@ export const analyzeMedicalDocument = async (base64: string, lang: AppLanguage) 
       {
         parts: [
           { inlineData: { data: base64, mimeType: 'image/jpeg' } },
-          { text: `Analyze medical document in ${lang}. JSON output.` }
+          { text: `Analyze report in ${lang}. JSON.` }
         ]
       },
       { model: 'gemini-3-flash-preview', responseSchema: schema }
