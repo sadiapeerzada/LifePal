@@ -1,8 +1,12 @@
-
 import React, { useState, useEffect } from 'react';
 import { findNearbyResources } from '../services/geminiService';
 import { MapPin, Search, Loader2, Hospital, Building2, ExternalLink, Map as MapIcon, ChevronRight, Bookmark, BookmarkCheck } from 'lucide-react';
 import { SavedResource } from '../types';
+
+interface ResourceResult {
+  text: string;
+  links: { title: string; url: string }[];
+}
 
 interface Props {
   onToggleSave?: (res: Omit<SavedResource, 'timestamp'>) => void;
@@ -13,7 +17,7 @@ interface Props {
 const MapsGroundingView: React.FC<Props> = ({ onToggleSave, savedResources = [], searchQuery = '' }) => {
   const [query, setQuery] = useState('oncology pharmacies');
   const [loading, setLoading] = useState(false);
-  const [results, setResults] = useState<{ text: string, links: { title: string, url: string }[] } | null>(null);
+  const [results, setResults] = useState<ResourceResult | null>(null);
 
   useEffect(() => {
     if (searchQuery && searchQuery.length > 3) {
@@ -25,11 +29,11 @@ const MapsGroundingView: React.FC<Props> = ({ onToggleSave, savedResources = [],
     setLoading(true);
     navigator.geolocation.getCurrentPosition(async (pos) => {
       const res = await findNearbyResources(query, pos.coords.latitude, pos.coords.longitude);
-      setResults(res);
+      setResults(res as ResourceResult);
       setLoading(false);
     }, async () => {
       const res = await findNearbyResources(query);
-      setResults(res);
+      setResults(res as ResourceResult);
       setLoading(false);
     });
   };

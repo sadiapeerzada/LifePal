@@ -287,7 +287,10 @@ const App: React.FC = () => {
     }, 4500);
   };
 
-  const t = (key: string) => TRANSLATIONS[profile?.language || AppLanguage.ENGLISH]?.[key] || TRANSLATIONS[AppLanguage.ENGLISH]?.[key] || key;
+  const t = (key: string) => {
+    const currentLanguage = profile?.language || AppLanguage.ENGLISH;
+    return (TRANSLATIONS as any)[currentLanguage]?.[key] || (TRANSLATIONS as any)[AppLanguage.ENGLISH]?.[key] || key;
+  };
   const isRTL = profile?.language === AppLanguage.URDU;
 
   if (!isAuthenticated) return (
@@ -301,16 +304,18 @@ const App: React.FC = () => {
 
   if (isAuthenticated && !profile) return (
     <Routes>
-      <Route path="/role" element={<RoleSelection language={profile?.language || AppLanguage.ENGLISH} onSelect={(r, a, g) => {
-        setProfile({ id: Math.random().toString(36).substr(2,9), name: 'Hero', role: r, ageGroup: a, gender: g, language: profile?.language || AppLanguage.ENGLISH, theme: AppTheme.LIGHT, xp: 0, level: 1, stickers: [], reminders: [], savedResources: [], emergencyContacts: [] });
+      <Route path="/role" element={<RoleSelection language={AppLanguage.ENGLISH} onSelect={(r, a, g) => {
+        setProfile({ id: Math.random().toString(36).substr(2,9), name: 'Hero', role: r, ageGroup: a, gender: g, language: AppLanguage.ENGLISH, theme: AppTheme.LIGHT, xp: 0, level: 1, stickers: [], reminders: [], savedResources: [], emergencyContacts: [] });
         navigate('/');
       }} />} />
     </Routes>
   );
 
+  const safeProfile = profile!;
+
   return (
     <div className="flex h-screen bg-white dark:bg-slate-950 transition-colors duration-500" dir={isRTL ? 'rtl' : 'ltr'}>
-      <SOSDialog isOpen={isSOSOpen} onClose={() => setIsSOSOpen(false)} isChild={profile!.role === UserRole.CHILD} contacts={profile!.emergencyContacts || []} onUpdateContacts={c => updateProfile({ emergencyContacts: c })} />
+      <SOSDialog isOpen={isSOSOpen} onClose={() => setIsSOSOpen(false)} isChild={safeProfile.role === UserRole.CHILD} contacts={safeProfile.emergencyContacts || []} onUpdateContacts={c => updateProfile({ emergencyContacts: c })} />
       <MagicStudio isOpen={isStudioOpen} onClose={() => setIsStudioOpen(false)} onEarnSticker={(s) => addXP(100, s)} />
       {isGameOpen && <MatchingGame onClose={() => setIsGameOpen(false)} onWin={addXP} t={t} />}
       
@@ -321,7 +326,7 @@ const App: React.FC = () => {
                 <Trophy className="w-16 h-16 text-yellow-500" />
               </div>
               <h2 className="text-5xl font-black text-slate-900 dark:text-white uppercase mb-4">{t('level_up')}</h2>
-              <p className="text-2xl font-bold text-slate-500 mb-10">{t('reached_level')} <span className="text-yellow-500">{profile!.level}</span>!</p>
+              <p className="text-2xl font-bold text-slate-500 mb-10">{t('reached_level')} <span className="text-yellow-500">{safeProfile.level}</span>!</p>
               <button onClick={() => setShowLevelUp(false)} className="w-full py-6 bg-blue-600 text-white font-black rounded-3xl text-xl shadow-xl hover:bg-blue-700 transition-all">{t('continue_quest')}</button>
            </div>
         </div>
@@ -410,25 +415,25 @@ const App: React.FC = () => {
         <div className="flex-1 p-6 space-y-2 overflow-y-auto">
           <SidebarLink to="/" icon={<Home className="w-5 h-5" />} label={t('dashboard')} isRTL={isRTL} />
           <SidebarLink to="/companion" icon={<MessageCircle className="w-5 h-5" />} label={t('companion')} isRTL={isRTL} />
-          {profile!.role !== UserRole.DONOR && (
+          {safeProfile.role !== UserRole.DONOR && (
             <>
-              {profile!.role === UserRole.CAREGIVER && <SidebarLink to="/journal" icon={<Book className="w-5 h-5" />} label="Care Journal" isRTL={isRTL} />}
+              {safeProfile.role === UserRole.CAREGIVER && <SidebarLink to="/journal" icon={<Book className="w-5 h-5" />} label="Care Journal" isRTL={isRTL} />}
               <SidebarLink to="/symptoms" icon={<Thermometer className="w-5 h-5" />} label={t('symptom_log')} isRTL={isRTL} />
               <SidebarLink to="/navigator" icon={<MessageCircleHeart className="w-5 h-5" />} label={t('navigator')} isRTL={isRTL} />
               <SidebarLink to="/med-scanner" icon={<Camera className="w-5 h-5" />} label={t('med_scanner')} isRTL={isRTL} />
               <SidebarLink to="/vault" icon={<Scan className="w-5 h-5" />} label={t('doc_intel')} isRTL={isRTL} />
-              <SidebarLink to="/reminders" icon={<Bell className="w-5 h-5" />} label={profile!.role === UserRole.CHILD ? t('hero_tasks') : 'Reminders'} isRTL={isRTL} />
+              <SidebarLink to="/reminders" icon={<Bell className="w-5 h-5" />} label={safeProfile.role === UserRole.CHILD ? t('hero_tasks') : 'Reminders'} isRTL={isRTL} />
             </>
           )}
           <SidebarLink to="/insights" icon={<Globe className="w-5 h-5" />} label={t('insights')} isRTL={isRTL} />
           <SidebarLink to="/saved" icon={<BookmarkIcon className="w-5 h-5" />} label={t('saved_sanctuary')} isRTL={isRTL} />
           <SidebarLink to="/skills" icon={<GraduationCap className="w-5 h-5" />} label={t('skills_hub')} isRTL={isRTL} />
           <SidebarLink to="/schemes" icon={<Landmark className="w-5 h-5" />} label={t('schemes')} isRTL={isRTL} />
-          {profile!.role === UserRole.DONOR ? <SidebarLink to="/impact" icon={<HandHeart className="w-5 h-5" />} label={t('impact_hub')} isRTL={isRTL} /> : <SidebarLink to="/finder" icon={<MapPin className="w-5 h-5" />} label={t('finder')} isRTL={isRTL} />}
+          {safeProfile.role === UserRole.DONOR ? <SidebarLink to="/impact" icon={<HandHeart className="w-5 h-5" />} label={t('impact_hub')} isRTL={isRTL} /> : <SidebarLink to="/finder" icon={<MapPin className="w-5 h-5" />} label={t('finder')} isRTL={isRTL} />}
         </div>
         <div className="p-6 border-t dark:border-slate-800">
            <SidebarLink to="/settings" icon={<Settings className="w-5 h-5" />} label={t('settings')} isRTL={isRTL} />
-           <button onClick={handleLogout} className="mt-4 p-4 text-rose-500 font-black flex items-center gap-4 hover:bg-rose-50 rounded-xl transition-all w-full"><LogOut /> <span className="hidden md:block">LOGOUT</span></button>
+           <button onClick={handleLogout} className="mt-4 p-4 text-rose-50 font-black flex items-center gap-4 hover:bg-rose-50 rounded-xl transition-all w-full text-rose-500"><LogOut /> <span className="hidden md:block">LOGOUT</span></button>
         </div>
       </nav>
 
@@ -443,8 +448,8 @@ const App: React.FC = () => {
         <div className="flex-1 overflow-y-auto p-12 relative animate-in fade-in duration-500">
           <Routes>
             <Route path="/" element={
-              profile!.role === UserRole.CHILD ? <HeroKidDashboard 
-                profile={profile!} 
+              safeProfile.role === UserRole.CHILD ? <HeroKidDashboard 
+                profile={safeProfile} 
                 onQuestComplete={addXP} 
                 t={t} 
                 onOpenStudio={() => setIsStudioOpen(true)} 
@@ -454,24 +459,24 @@ const App: React.FC = () => {
                 onOpenMystery={() => setIsMysteryModalOpen(true)}
                 mysteryUnlocked={mysteryUnlocked}
               /> 
-              : profile!.role === UserRole.CAREGIVER ? <CaregiverDashboard profile={profile!} onUpdate={updateProfile} t={t} searchQuery={globalSearch} />
-              : profile!.role === UserRole.SURVIVOR ? <SurvivorsHubView role={profile!.role} language={profile!.language} documents={documents} />
-              : profile!.role === UserRole.DONOR ? <SupporterImpactView profile={profile!} />
+              : safeProfile.role === UserRole.CAREGIVER ? <CaregiverDashboard profile={safeProfile} onUpdate={updateProfile} t={t} searchQuery={globalSearch} />
+              : safeProfile.role === UserRole.SURVIVOR ? <SurvivorsHubView role={safeProfile.role} language={safeProfile.language} documents={documents} />
+              : safeProfile.role === UserRole.DONOR ? <SupporterImpactView profile={safeProfile} />
               : <DashboardHub t={t} searchQuery={globalSearch} />
             } />
-            <Route path="/vault" element={<DocIntelView documents={documents} onUpdate={setDocuments} language={profile!.language} isDark={profile!.theme === AppTheme.DARK} />} />
-            <Route path="/med-scanner" element={<MedicineScannerView language={profile!.language} isDark={profile!.theme === AppTheme.DARK} onAddReminder={r => updateProfile({ reminders: [...(profile!.reminders || []), { ...r, id: Math.random().toString(36).substr(2,9), completed: false }] })} />} />
-            <Route path="/reminders" element={<RemindersView reminders={profile!.reminders || []} onUpdate={r => updateProfile({ reminders: r })} isChild={profile!.role === UserRole.CHILD} onHabitXP={addXP} />} />
-            <Route path="/insights" element={<OncoLinkNewsView profile={profile!} onToggleSave={handleToggleSave} searchQuery={globalSearch} />} />
-            <Route path="/finder" element={<MapsGroundingView onToggleSave={handleToggleSave} savedResources={profile!.savedResources || []} searchQuery={globalSearch} />} />
-            <Route path="/navigator" element={<NavigatorView role={profile!.role} language={profile!.language} savedResources={profile!.savedResources || []} onToggleSave={handleToggleSave} />} />
-            <Route path="/schemes" element={<GovernmentSchemesView language={profile!.language} role={profile!.role} searchQuery={globalSearch} />} />
-            <Route path="/skills" element={<SkillsHubView language={profile!.language} searchQuery={globalSearch} />} />
+            <Route path="/vault" element={<DocIntelView documents={documents} onUpdate={setDocuments} language={safeProfile.language} isDark={safeProfile.theme === AppTheme.DARK} />} />
+            <Route path="/med-scanner" element={<MedicineScannerView language={safeProfile.language} isDark={safeProfile.theme === AppTheme.DARK} onAddReminder={r => updateProfile({ reminders: [...(safeProfile.reminders || []), { ...r, id: Math.random().toString(36).substr(2,9), completed: false }] })} />} />
+            <Route path="/reminders" element={<RemindersView reminders={safeProfile.reminders || []} onUpdate={r => updateProfile({ reminders: r })} isChild={safeProfile.role === UserRole.CHILD} onHabitXP={addXP} />} />
+            <Route path="/insights" element={<OncoLinkNewsView profile={safeProfile} onToggleSave={handleToggleSave} searchQuery={globalSearch} />} />
+            <Route path="/finder" element={<MapsGroundingView onToggleSave={handleToggleSave} savedResources={safeProfile.savedResources || []} searchQuery={globalSearch} />} />
+            <Route path="/navigator" element={<NavigatorView role={safeProfile.role} language={safeProfile.language} savedResources={safeProfile.savedResources || []} onToggleSave={handleToggleSave} />} />
+            <Route path="/schemes" element={<GovernmentSchemesView language={safeProfile.language} role={safeProfile.role} searchQuery={globalSearch} />} />
+            <Route path="/skills" element={<SkillsHubView language={safeProfile.language} searchQuery={globalSearch} />} />
             <Route path="/journal" element={<CaregiverJournalView entries={journal} onAdd={e => setJournal([e, ...journal])} searchQuery={globalSearch} />} />
-            <Route path="/saved" element={<SavedHubView profile={profile!} onToggleSave={handleToggleSave} searchQuery={globalSearch} />} />
-            <Route path="/symptoms" element={<SymptomTrackerView logs={symptoms} onAdd={s => setSymptoms([s, ...symptoms])} language={profile!.language} searchQuery={globalSearch} profile={profile!} />} />
-            <Route path="/settings" element={<SettingsView profile={profile!} onUpdate={updateProfile} onLogout={handleLogout} />} />
-            <Route path="/companion" element={<ChatBot role={profile!.role} language={profile!.language} gender={profile!.gender} isChild={profile!.role === UserRole.CHILD} />} />
+            <Route path="/saved" element={<SavedHubView profile={safeProfile} onToggleSave={handleToggleSave} searchQuery={globalSearch} />} />
+            <Route path="/symptoms" element={<SymptomTrackerView logs={symptoms} onAdd={s => setSymptoms([s, ...symptoms])} language={safeProfile.language} searchQuery={globalSearch} profile={safeProfile} />} />
+            <Route path="/settings" element={<SettingsView profile={safeProfile} onUpdate={updateProfile} onLogout={handleLogout} />} />
+            <Route path="/companion" element={<ChatBot role={safeProfile.role} language={safeProfile.language} gender={safeProfile.gender} isChild={safeProfile.role === UserRole.CHILD} />} />
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
         </div>
@@ -482,14 +487,14 @@ const App: React.FC = () => {
 
 const DashboardHub = ({ t, searchQuery }: any) => {
   const modules = [
-    { title: t('navigator_header'), desc: t('navigator_sub'), icon: <Navigation2 />, path: '/navigator', color: 'blue' },
-    { title: t('doc_intel_header'), desc: t('doc_intel_sub'), icon: <Scan />, path: '/vault', color: 'cyan' },
-    { title: t('meds_scanner_header'), desc: t('meds_scanner_sub'), icon: <Pill />, path: '/med-scanner', color: 'emerald' },
-    { title: t('insights_header'), desc: t('insights_sub'), icon: <Globe />, path: '/insights', color: 'amber' },
-    { title: t('symptom_log_header'), desc: t('symptom_log_sub'), icon: <Thermometer />, path: '/symptoms', color: 'rose' },
-    { title: t('skills_hub_header'), desc: t('skills_hub_sub'), icon: <GraduationCap />, path: '/skills', color: 'pink' },
-    { title: t('schemes_header'), desc: t('schemes_sub'), icon: <Landmark />, path: '/schemes', color: 'indigo' },
-    { title: t('finder_header'), desc: t('finder_sub'), icon: <MapPin />, path: '/finder', color: 'yellow' },
+    { title: t('navigator_header'), desc: t('navigator_sub'), icon: <Navigation2 />, to: '/navigator', color: 'blue' },
+    { title: t('doc_intel_header'), desc: t('doc_intel_sub'), icon: <Scan />, to: '/vault', color: 'cyan' },
+    { title: t('meds_scanner_header'), desc: t('meds_scanner_sub'), icon: <Pill />, to: '/med-scanner', color: 'emerald' },
+    { title: t('insights_header'), desc: t('insights_sub'), icon: <Globe />, to: '/insights', color: 'amber' },
+    { title: t('symptom_log_header'), desc: t('symptom_log_sub'), icon: <Thermometer />, to: '/symptoms', color: 'rose' },
+    { title: t('skills_hub_header'), desc: t('skills_hub_sub'), icon: <GraduationCap />, to: '/skills', color: 'pink' },
+    { title: t('schemes_header'), desc: t('schemes_sub'), icon: <Landmark />, to: '/schemes', color: 'indigo' },
+    { title: t('finder_header'), desc: t('finder_sub'), icon: <MapPin />, to: '/finder', color: 'yellow' },
   ];
   const filtered = searchQuery ? modules.filter(m => m.title.toLowerCase().includes(searchQuery.toLowerCase())) : modules;
   return (
@@ -501,13 +506,13 @@ const DashboardHub = ({ t, searchQuery }: any) => {
   );
 };
 
-const HeroKidDashboard = ({ profile, t, onOpenStudio, onQuestComplete, searchQuery, onOpenVideo, onOpenMystery, mysteryUnlocked, onOpenGame }: any) => {
+const HeroKidDashboard = ({ safeProfile, t, onOpenStudio, onQuestComplete, searchQuery, onOpenVideo, onOpenMystery, mysteryUnlocked, onOpenGame }: any) => {
   const [completedQuests, setCompletedQuests] = useState<string[]>([]);
   const [magicFact, setMagicFact] = useState('Tap the button to discover a hero secret!');
   const [loadingFact, setLoadingFact] = useState(false);
   const [videos, setVideos] = useState<ChildVideo[]>([]);
   const [loadingVideos, setLoadingVideos] = useState(false);
-  const isGirl = profile.gender === 'GIRL';
+  const isGirl = safeProfile?.gender === 'GIRL';
   const progressPercent = Math.min((completedQuests.length / 24) * 100, 100);
 
   const quests = [
@@ -539,19 +544,19 @@ const HeroKidDashboard = ({ profile, t, onOpenStudio, onQuestComplete, searchQue
 
   const loadVideos = async () => {
     setLoadingVideos(true);
-    const discovered = await fetchHeroCinemaVideos(profile.language);
+    const discovered = await fetchHeroCinemaVideos(safeProfile?.language || AppLanguage.ENGLISH);
     setVideos(discovered.length > 0 ? discovered : CHILD_VIDEOS);
     setLoadingVideos(false);
   };
 
   useEffect(() => {
     loadVideos();
-  }, [profile.language]);
+  }, [safeProfile?.language]);
 
   const fetchFact = async () => {
     setLoadingFact(true);
     try {
-        const res = await getGeminiResponse("Tell a fun, magical, or interesting random fact for a child hero. Keep it 2 sentences and uplifting.", UserRole.CHILD, PatientAgeGroup.CHILD, profile.language);
+        const res = await getGeminiResponse("Tell a fun, magical, or interesting random fact for a child hero. Keep it 2 sentences and uplifting.", UserRole.CHILD, PatientAgeGroup.CHILD, safeProfile?.language || AppLanguage.ENGLISH);
         setMagicFact(res);
     } catch (e) {
         setMagicFact("Did you know that stars twinkle to say hello to heroes like you?");
@@ -608,10 +613,10 @@ const HeroKidDashboard = ({ profile, t, onOpenStudio, onQuestComplete, searchQue
           <div className="flex flex-wrap items-center justify-center md:justify-start gap-4">
             <div className="flex items-center gap-3 bg-black/20 backdrop-blur-lg px-6 py-3 rounded-2xl border border-white/10">
                <Trophy className="w-6 h-6 text-yellow-300" />
-               <span className="font-black text-2xl">{t('hero_level')} {profile.level}</span>
+               <span className="font-black text-2xl">{t('hero_level')} {safeProfile?.level || 1}</span>
             </div>
             <div className="bg-white/10 backdrop-blur-md px-6 py-3 rounded-2xl border border-white/5">
-              <p className="text-white/90 font-bold text-lg">{1000 - ((profile.xp || 0) % 1000)} {t('magic_energy_needed')}</p>
+              <p className="text-white/90 font-bold text-lg">{1000 - ((safeProfile?.xp || 0) % 1000)} {t('magic_energy_needed')}</p>
             </div>
           </div>
         </div>
@@ -629,11 +634,11 @@ const HeroKidDashboard = ({ profile, t, onOpenStudio, onQuestComplete, searchQue
             <div className="bg-white dark:bg-slate-900 rounded-[3.5rem] p-10 border-4 border-slate-200 dark:border-slate-800 shadow-xl overflow-hidden group text-left">
                 <div className="flex justify-between items-center mb-8">
                     <h2 className="text-3xl font-black text-amber-500 flex items-center gap-3 uppercase"><Award className="w-8 h-8" /> {t('sticker_vault')}</h2>
-                    <div className="px-4 py-2 bg-slate-50 dark:bg-slate-800 rounded-2xl text-[10px] font-black uppercase text-slate-400 tracking-widest">{profile.stickers?.length || 0} / 40 {t('collected')}</div>
+                    <div className="px-4 py-2 bg-slate-50 dark:bg-slate-800 rounded-2xl text-[10px] font-black uppercase text-slate-400 tracking-widest">{safeProfile?.stickers?.length || 0} / 40 {t('collected')}</div>
                 </div>
                 <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-8 gap-3">
                 {[...stickerIcons, ...rareStickers].map((sticker, i) => {
-                    const isEarned = profile.level! > i || (mysteryUnlocked && i === 39);
+                    const isEarned = (safeProfile?.level || 1) > i || (mysteryUnlocked && i === 39);
                     const isRare = i >= 30;
                     return (
                     <div key={i} className={`aspect-square rounded-[1.5rem] flex items-center justify-center border-4 transition-all duration-500 relative ${isEarned ? (isRare ? 'bg-gradient-to-br from-indigo-50 to-blue-50 dark:from-indigo-900/40 dark:to-blue-900/40 border-indigo-200 dark:border-indigo-700 shadow-indigo-100 scale-105' : 'bg-amber-50 dark:bg-amber-900/20 border-amber-200 scale-100 shadow-md group-hover:rotate-3') : 'bg-slate-50 dark:bg-slate-800/50 border-slate-100 dark:border-slate-800 opacity-40 grayscale scale-95'}`}>
@@ -696,7 +701,7 @@ const HeroKidDashboard = ({ profile, t, onOpenStudio, onQuestComplete, searchQue
                 {videos.map((video) => (
                     <button key={video.id} onClick={() => onOpenVideo(video)} className="group relative flex flex-col bg-white/10 backdrop-blur-xl rounded-[3rem] p-4 shadow-2xl hover:shadow-black/20 transition-all hover:-translate-y-2 isolate text-left border border-white/20 overflow-hidden">
                     <div className="relative aspect-video rounded-[2rem] overflow-hidden bg-slate-900 shadow-inner">
-                        <img src={video.thumbnail} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="" />
+                        <img src={video.thumbnail} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="" />
                         <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/40 transition-colors">
                             <div className="w-20 h-20 bg-white/90 backdrop-blur-md rounded-full flex items-center justify-center shadow-2xl transition-transform group-hover:scale-110">
                                 <PlayCircle className="w-12 h-12 text-rose-500 fill-rose-500" />
