@@ -40,9 +40,11 @@ export interface AIStudio {
   openSelectKey: () => Promise<void>;
 }
 
+// Global augmentation for the window object
 declare global {
   interface Window {
-    aistudio: AIStudio;
+    // Fix: Changed 'aistudio' to optional to match standard environment declarations and resolve modifier mismatch errors.
+    aistudio?: AIStudio;
   }
 }
 

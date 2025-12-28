@@ -447,6 +447,11 @@ const TE_STRINGS = {
   watch_movie: 'సినిమా చూడండి',
   start_quest: 'క్వెస్ట్ ప్రారంభించండి',
   sticker_vault: 'స్టిక్కర్ వాల్ట్',
+  commander_hub: 'కమాండర్ హబ్',
+  collected: 'సేకరించబడింది',
+  locked: 'లాక్ చేయబడింది',
+  tap_to_open: 'తెరవడానికి ట్యాప్ చేయండి',
+  unlocked: 'అన్‌లాక్ చేయబడింది',
   mark_complete: 'పూర్తయినట్లు గుర్తించండి',
   completed: 'పూర్తయింది',
   magic_fact: 'మాయా నిజం',
@@ -474,6 +479,8 @@ const TE_STRINGS = {
   vision_logic: 'జెమిని ప్రో విజన్ లాజిక్',
   analyze_symptoms: 'నమూనాలను విశ్లేషించండి',
   generating_insights: 'ధోరణులను కనుగొంటోంది...',
+  symptom_patterns_header: 'లక్షణ ఇంటెలిజెన్స్',
+  symptom_patterns_sub: 'మీ డాక్టర్‌తో చర్చించడానికి మీ లాగ్‌లోని క్లినికల్ నమూనాలను కనుగొనండి.',
   'vid-io2_title': 'ఇన్‌సైడ్ అవుట్ 2 - ధైర్యంగా ఉండండి',
   'vid-io2_desc': 'కొత్త భావోద్వేగాలను అర్థం చేసుకోవడం మరియు కష్టమైన మార్పుల ద్వారా ధైర్యంగా ఉండటం గురించి ఒక మాయా ప్రయాణం.',
   'vid-dino_title': 'ది గుడ్ డైనోసార్',
@@ -546,6 +553,17 @@ export const SCHEMES: Scheme[] = [
     officialUrl: 'http://cmrf.up.nic.in/',
     type: 'GOVERNMENT',
     fundType: 'CM_CARE'
+  },
+  {
+    id: 'hmdg-grant',
+    name: "Health Minister's Discretionary Grant",
+    description: "One-time financial assistance to poor patients for life-saving treatment in Government hospitals.",
+    eligibility: ['Annual income below ₹1.25 lakh', 'Treatment in Govt hospitals like JNMCH', 'Not covered by other schemes'],
+    documents: ['Income Certificate', 'Govt Hospital OPD Card', 'Detailed Estimate'],
+    steps: ['Download application from MoHFW', 'Attestation by Hospital Medical Superintendent', 'Post to Ministry Office'],
+    officialUrl: 'https://main.mohfw.gov.in/',
+    type: 'GOVERNMENT',
+    fundType: 'PM_CARE'
   }
 ];
 
