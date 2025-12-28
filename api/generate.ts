@@ -47,7 +47,8 @@ export default async function handler(req: any, res: any) {
     // Extract image if present (important for nano banana series models)
     const imagePart = response.candidates?.[0]?.content?.parts?.find((p: any) => p.inlineData && p.inlineData.mimeType.startsWith('image/'));
     if (feature === 'image' && imagePart) {
-      return res.status(200).json({ feature, output: imagePart.inlineData.data });
+      // Fix: Added optional chaining to inlineData to satisfy TypeScript compiler
+      return res.status(200).json({ feature, output: imagePart.inlineData?.data });
     }
 
     // Extract audio if present
