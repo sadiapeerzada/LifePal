@@ -350,6 +350,15 @@ const App: React.FC = () => {
                     allowFullScreen 
                  />
               </div>
+              <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-slate-950/95 via-slate-950/40 to-transparent p-12 pointer-events-none transition-opacity duration-700">
+                 <div className="flex items-center gap-8 text-left">
+                    <div className="p-6 bg-rose-500/20 rounded-[2.5rem] border border-rose-500/30 backdrop-blur-md shrink-0"><Tv className="w-12 h-12 text-rose-500" /></div>
+                    <div className="space-y-2">
+                       <h3 className="text-4xl md:text-5xl font-black text-white tracking-tighter leading-none drop-shadow-lg">{currentVideo.title}</h3>
+                       <p className="text-slate-300 text-lg md:text-xl font-medium leading-relaxed max-w-3xl opacity-90 line-clamp-2">{currentVideo.description}</p>
+                    </div>
+                 </div>
+              </div>
            </div>
         </div>
       )}
@@ -384,6 +393,16 @@ const App: React.FC = () => {
                       ) : (
                         <div className="p-8 text-center"><p className="text-3xl font-black text-amber-600 dark:text-amber-400 italic leading-tight">{revealedTreasure.content}</p></div>
                       )}
+                      <div className="absolute inset-0 bg-yellow-400 rounded-full animate-ping opacity-10" />
+                   </div>
+                   <div className="space-y-4">
+                      <h2 className="text-6xl md:text-7xl font-black text-amber-600 dark:text-amber-400 uppercase tracking-tighter animate-bounce leading-none">
+                        {revealedTreasure.type === 'STICKER' ? t('new_sticker') : 'Found It!'}
+                      </h2>
+                      <p className="text-slate-500 dark:text-slate-400 text-2xl font-bold italic max-w-md mx-auto">{t('bravery_sparkle')}</p>
+                   </div>
+                   <div className="w-full p-8 bg-emerald-50 dark:bg-emerald-900/20 rounded-[3rem] border-4 border-emerald-100 dark:border-emerald-800/40 flex items-center justify-center gap-5 text-emerald-600 dark:text-emerald-400 font-black text-2xl shadow-lg">
+                      <Trophy className="w-10 h-10" /> +500 {t('xp_awarded')}
                    </div>
                 </div>
               )}
@@ -412,7 +431,9 @@ const App: React.FC = () => {
           {safeProfile.role === UserRole.DONOR && (
             <SidebarLink to="/impact" icon={<HandHeart className="w-5 h-5" />} label={t('impact_hub')} isRTL={isRTL} />
           )}
-          <SidebarLink to="/insights" icon={<Globe className="w-5 h-5" />} label={t('insights')} isRTL={isRTL} />
+          {safeProfile.role !== UserRole.DONOR && (
+             <SidebarLink to="/insights" icon={<Globe className="w-5 h-5" />} label={t('insights')} isRTL={isRTL} />
+          )}
           <SidebarLink to="/saved" icon={<BookmarkIcon className="w-5 h-5" />} label={t('saved_sanctuary')} isRTL={isRTL} />
           <SidebarLink to="/skills" icon={<GraduationCap className="w-5 h-5" />} label={t('skills_hub')} isRTL={isRTL} />
           <SidebarLink to="/schemes" icon={<Landmark className="w-5 h-5" />} label={t('schemes')} isRTL={isRTL} />
@@ -444,7 +465,7 @@ const App: React.FC = () => {
                 onOpenGame={() => setIsGameOpen(true)}
                 searchQuery={globalSearch}
                 onOpenVideo={(v: ChildVideo) => { setCurrentVideo(v); setIsVideoModalOpen(true); }}
-                onOpenMystery={(v: any) => setIsMysteryModalOpen(true)}
+                onOpenMystery={() => setIsMysteryModalOpen(true)}
                 mysteryUnlocked={mysteryUnlocked}
               /> 
               : safeProfile.role === UserRole.CAREGIVER ? <CaregiverDashboard profile={safeProfile} onUpdate={updateProfile} t={t} searchQuery={globalSearch} />
@@ -515,7 +536,7 @@ const HeroKidDashboard = ({ profile: safeProfile, t, onOpenStudio, onQuestComple
   const [videos, setVideos] = useState<ChildVideo[]>([]);
   const [loadingVideos, setLoadingVideos] = useState(false);
   const isGirl = safeProfile?.gender === 'GIRL';
-  const progressPercent = Math.min((completedQuests.length / 24) * 100, 100);
+  const progressPercent = Math.min((completedQuests.length / 5) * 100, 100);
   
   const currentXP = safeProfile?.xp || 0;
   const xpIntoCurrentLevel = currentXP % 1000;
@@ -536,9 +557,7 @@ const HeroKidDashboard = ({ profile: safeProfile, t, onOpenStudio, onQuestComple
     setLoadingVideos(false);
   };
 
-  useEffect(() => {
-    loadVideos();
-  }, [safeProfile?.language]);
+  useEffect(() => { loadVideos(); }, [safeProfile?.language]);
 
   const fetchFact = async () => {
     setLoadingFact(true);
@@ -558,15 +577,15 @@ const HeroKidDashboard = ({ profile: safeProfile, t, onOpenStudio, onQuestComple
     onQuestComplete(xp);
   };
 
+  const stickerIcons = ['🌟', '🚀', '🎨', '💖', '🍭', '🦁', '🛸', '🌈', '🍦', '💎', '🔥', '🌊', '🍄', '🦖', '🦄', '🪐'];
+
   return (
     <div className="space-y-12 pb-24 max-w-7xl mx-auto relative text-left isolate animate-in fade-in duration-500 child-font">
       <header className={`relative z-10 bg-gradient-to-br ${isGirl ? 'from-rose-500 via-pink-600 to-fuchsia-700 shadow-rose-200' : 'from-indigo-600 via-blue-600 to-cyan-700 shadow-blue-200'} rounded-[4rem] p-12 shadow-2xl border-4 border-white/20 flex flex-col md:flex-row items-center gap-12 text-white overflow-hidden`}>
         <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -mr-20 -mt-20 animate-pulse" />
-        
         <div className="w-48 h-48 bg-white/20 backdrop-blur-md rounded-full p-2 border-4 border-white/40 shadow-xl overflow-hidden flex items-center justify-center transition-transform hover:scale-110 duration-700">
           <img src={`https://api.dicebear.com/7.x/lorelei/svg?seed=${isGirl ? 'Misty' : 'Felix'}&backgroundColor=${isGirl ? 'fb7185' : '60a5fa'}`} className="w-full h-full object-cover rounded-full scale-110" alt="Hero" />
         </div>
-
         <div className="flex-1 space-y-6 text-center md:text-left relative z-10">
           <div className="space-y-2">
             <span className="px-4 py-1.5 bg-white/20 backdrop-blur-md rounded-full font-black uppercase text-[10px] tracking-[0.2em] border border-white/20">{t('hero_quest_banner')}</span>
@@ -574,7 +593,6 @@ const HeroKidDashboard = ({ profile: safeProfile, t, onOpenStudio, onQuestComple
               {t('hero_welcome')}
             </h1>
           </div>
-          
           <div className="flex flex-col gap-4">
             <div className="flex flex-wrap items-center justify-center md:justify-start gap-4">
               <div className="flex items-center gap-3 bg-black/20 backdrop-blur-lg px-6 py-3 rounded-2xl border border-white/10">
@@ -585,9 +603,8 @@ const HeroKidDashboard = ({ profile: safeProfile, t, onOpenStudio, onQuestComple
                 <p className="text-white/90 font-bold text-lg">{t('magic_energy_needed')}: {1000 - ((safeProfile?.xp || 0) % 1000)}</p>
               </div>
             </div>
-            
             <div className="w-full max-w-md space-y-2">
-              <div className="w-full h-6 bg-black/20 backdrop-blur-md rounded-full border-2 border-white/10 overflow-hidden p-0.5">
+              <div className="w-full h-6 bg-black/20 backdrop-blur-md rounded-full border-2 border-white/10 overflow-hidden p-0.5 shadow-inner">
                 <div className="h-full bg-gradient-to-r from-cyan-400 to-blue-400 rounded-full transition-all duration-1000" style={{ width: `${levelProgress}%` }} />
               </div>
             </div>
@@ -609,11 +626,17 @@ const HeroKidDashboard = ({ profile: safeProfile, t, onOpenStudio, onQuestComple
                     <h2 className="text-3xl font-black text-amber-500 flex items-center gap-3 uppercase"><Award className="w-8 h-8" /> {t('sticker_vault')}</h2>
                     <div className="px-4 py-2 bg-slate-50 dark:bg-slate-800 rounded-2xl text-[10px] font-black uppercase text-slate-400 tracking-widest">{safeProfile?.stickers?.length || 0} {t('collected')}</div>
                 </div>
-                <div className="grid grid-cols-5 md:grid-cols-8 gap-3">
-                   {/* Stickers mapped here */}
+                <div className="grid grid-cols-4 sm:grid-cols-8 gap-3">
+                   {stickerIcons.map((s, i) => {
+                     const isEarned = (safeProfile?.stickers || []).includes(s);
+                     return (
+                       <div key={i} className={`aspect-square rounded-2xl flex items-center justify-center text-3xl border-2 transition-all ${isEarned ? 'bg-amber-50 border-amber-200 shadow-sm scale-110' : 'bg-slate-50 dark:bg-slate-800 opacity-20 border-transparent grayscale'}`}>
+                         {isEarned ? s : <Lock className="w-4 h-4 text-slate-300" />}
+                       </div>
+                     );
+                   })}
                 </div>
             </div>
-
             <div className="bg-gradient-to-br from-indigo-600 to-blue-700 rounded-[3rem] p-10 text-white shadow-2xl relative overflow-hidden text-left">
                 <div className="relative z-10 space-y-6">
                     <div className="flex items-center justify-between">
@@ -626,7 +649,6 @@ const HeroKidDashboard = ({ profile: safeProfile, t, onOpenStudio, onQuestComple
                 </div>
             </div>
          </section>
-         
          <section className="lg:col-span-5 bg-white dark:bg-slate-900 rounded-[3.5rem] p-10 border-4 border-slate-200 dark:border-slate-800 shadow-xl flex flex-col text-left">
             <div className="flex justify-between items-center mb-6"><h2 className="text-3xl font-black uppercase text-slate-900 dark:text-white"><Zap className="text-amber-500 inline mr-2 w-8 h-8" /> {t('hero_tasks')}</h2><p className="text-3xl font-black text-emerald-500">{Math.round(progressPercent)}%</p></div>
             <div className="w-full h-12 bg-slate-100 dark:bg-slate-800 rounded-full mb-8 overflow-hidden border-4 border-white dark:border-slate-700 shadow-inner"><div className="h-full bg-gradient-to-r from-emerald-400 to-emerald-600 transition-all duration-1000 shadow-lg" style={{ width: `${progressPercent}%` }} /></div>
@@ -641,20 +663,24 @@ const HeroKidDashboard = ({ profile: safeProfile, t, onOpenStudio, onQuestComple
                     <h2 className="text-6xl md:text-7xl font-black text-white flex items-center gap-6 uppercase tracking-tighter"><Clapperboard className="w-16 h-16 text-yellow-300" /> {t('hero_cinema')}</h2>
                     <p className="text-white/80 text-2xl font-bold max-w-2xl">{t('cinema_banner')}</p>
                 </div>
+                <button onClick={loadVideos} disabled={loadingVideos} className="px-10 py-5 bg-white/20 hover:bg-white/30 backdrop-blur-md rounded-full text-white font-black text-xs uppercase tracking-widest flex items-center gap-3 transition-all border border-white/20">
+                  {loadingVideos ? <Loader2 className="animate-spin w-5 h-5" /> : <RefreshCw className="w-5 h-5" />} Refresh Movies
+                </button>
             </div>
-
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 max-w-full">
                 {videos.map((video) => (
-                    <button key={video.id} onClick={() => onOpenVideo(video)} className="group relative flex flex-col bg-white/10 backdrop-blur-xl rounded-[3.5rem] p-4 shadow-2xl transition-all hover:-translate-y-3 isolate text-left border border-white/20 overflow-hidden">
-                    <div className="relative aspect-video rounded-[2.5rem] overflow-hidden bg-slate-900">
+                    <button key={video.id} onClick={() => onOpenVideo(video)} className="group relative flex flex-col bg-white/10 backdrop-blur-xl rounded-[3.5rem] p-4 shadow-2xl transition-all hover:-translate-y-3 isolate text-left border border-white/20 overflow-hidden ring-4 ring-transparent focus:ring-yellow-300">
+                    <div className="relative aspect-video rounded-[2.5rem] overflow-hidden bg-slate-900 shadow-inner">
                         <img src={video.thumbnail} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="" />
                         <div className="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/50 transition-colors">
-                            <PlayCircle className="w-20 h-20 text-white/90" />
+                            <div className="p-6 bg-white/90 rounded-full shadow-2xl transform group-hover:scale-110 transition-all">
+                              <PlayCircle className={`w-14 h-14 ${isGirl ? 'text-rose-500' : 'text-blue-500'}`} />
+                            </div>
                         </div>
                     </div>
                     <div className="p-8 space-y-4">
-                        <h3 className="font-black text-white text-3xl tracking-tight leading-none truncate">{video.title}</h3>
-                        <span className="text-[11px] font-black uppercase text-white bg-black/20 px-5 py-2.5 rounded-2xl tracking-widest">{video.category || 'Discovery'}</span>
+                        <h3 className="font-black text-white text-3xl tracking-tight leading-none truncate group-hover:text-yellow-300 transition-colors">{video.title}</h3>
+                        <span className="text-[11px] font-black uppercase text-white bg-black/20 px-5 py-2.5 rounded-2xl tracking-widest border border-white/10">{video.category || 'Magic Story'}</span>
                     </div>
                     </button>
                 ))}

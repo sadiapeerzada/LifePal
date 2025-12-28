@@ -44,11 +44,17 @@ export default async function handler(req: any, res: any) {
       config: finalConfig,
     });
 
-    const isAudio = modelConfig?.responseModalities?.[0] === 'AUDIO';
+    // Extract image if present (important for nano banana series models)
+    const imagePart = response.candidates?.[0]?.content?.parts?.find((p: any) => p.inlineData && p.inlineData.mimeType.startsWith('image/'));
+    if (feature === 'image' && imagePart) {
+      return res.status(200).json({ feature, output: imagePart.inlineData.data });
+    }
 
+    // Extract audio if present
+    const isAudio = modelConfig?.responseModalities?.[0] === 'AUDIO';
     if (isAudio) {
-      const audioData = response.candidates?.[0]?.content?.parts?.find((p: any) => p.inlineData)?.inlineData?.data;
-      return res.status(200).json({ feature, output: audioData });
+      const audioPart = response.candidates?.[0]?.content?.parts?.find((p: any) => p.inlineData && p.inlineData.mimeType.startsWith('audio/'));
+      return res.status(200).json({ feature, output: audioPart?.inlineData?.data });
     }
 
     const outputText = response.text || "";
