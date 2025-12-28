@@ -44,6 +44,15 @@ import {
 import { CHILD_VIDEOS, TRANSLATIONS, SCHEMES } from './constants';
 import { getGeminiResponse, fetchHeroCinemaVideos } from './services/geminiService';
 
+const commonStickers = [
+  '🌟', '🚀', '🎨', '💖', '🍭', '🦁', '🛸', '🌈', '🍦', '💎', '🔥', '🌊', '🍄', '🦖', '🦄', '🪐',
+  '🐯', '🦉', '🦋', '🎈', '🍪', '🥨', '🦸‍♂️', '🦸‍♀️', '🐼', '🦊', '🐢', '🍀', '🍎', '🪁', '🧸', '🎮'
+];
+
+const rareStickers = [
+  '👑', '🐉', '🌋', '🌌', '🧬', '⚔️', '🛡️', '🏆', '🛸', '🦜', '🐳', '🐘', '🎭', '🔮', '🧿', '🦾', '🦿', '🧠', '⚡', '🧊'
+];
+
 const SidebarLink: React.FC<{ to: string; icon: React.ReactNode; label: string; isRTL: boolean }> = ({ to, icon, label, isRTL }) => (
   <NavLink 
     to={to} 
@@ -113,9 +122,9 @@ const MatchingGame: React.FC<{ onClose: () => void; onWin: (xp: number) => void;
     setCards(shuffled);
   }, []);
 
-  const handleFlip = (index: number) => {
-    if (flipped.length === 2 || flipped.includes(index) || matched.includes(index)) return;
-    const newFlipped = [...flipped, index];
+  const handleFlip = (idx: number) => {
+    if (flipped.length === 2 || flipped.includes(idx) || matched.includes(idx)) return;
+    const newFlipped = [...flipped, idx];
     setFlipped(newFlipped);
     
     if (newFlipped.length === 2) {
@@ -282,7 +291,10 @@ const App: React.FC = () => {
       { type: 'STICKER', content: '🍦' },
       { type: 'STICKER', content: '👑' },
       { type: 'STICKER', content: '🏆' },
-      { type: 'FACT', content: "The world's oldest tree is over 5,000 years old!" }
+      { type: 'FACT', content: "The world's oldest tree is over 5,000 years old!" },
+      { type: 'STICKER', content: '🧬' },
+      { type: 'MESSAGE', content: "Believe in the magic within you!" },
+      { type: 'FACT', content: "Sloths can hold their breath longer than dolphins!" }
     ];
     const pick = treasures[Math.floor(Math.random() * treasures.length)];
     setRevealedTreasure(pick);
@@ -577,6 +589,9 @@ const HeroKidDashboard = ({ profile: safeProfile, t, onOpenStudio, onQuestComple
     { id: 'q28', icon: <Crown />, title: "Kindness Crown", xp: 150, color: "yellow" },
     { id: 'q29', icon: <Moon />, title: "Sleep Guardian", xp: 130, color: "indigo" },
     { id: 'q30', icon: <Flame />, title: "Courage Spark", xp: 400, color: "rose" },
+    { id: 'q31', icon: <Sparkles />, title: "Magic Dust", xp: 160, color: "purple" },
+    { id: 'q32', icon: <Ghost />, title: "Friendly Spirit", xp: 140, color: "cyan" },
+    { id: 'q33', icon: <HeartPulse />, title: "Brave Heartbeat", xp: 200, color: "rose" },
   ];
 
   const progressPercent = Math.min((completedQuests.length / quests.length) * 100, 100);
@@ -605,17 +620,13 @@ const HeroKidDashboard = ({ profile: safeProfile, t, onOpenStudio, onQuestComple
   const handleQuestAction = (id: string, xp: number) => {
     if (completedQuests.includes(id)) return;
     setCompletedQuests([...completedQuests, id]);
-    onQuestComplete(xp);
+    
+    // Reward a random sticker from all stickers
+    const allPossible = [...commonStickers, ...rareStickers];
+    const randomSticker = allPossible[Math.floor(Math.random() * allPossible.length)];
+    
+    onQuestComplete(xp, randomSticker);
   };
-
-  const commonStickers = [
-    '🌟', '🚀', '🎨', '💖', '🍭', '🦁', '🛸', '🌈', '🍦', '💎', '🔥', '🌊', '🍄', '🦖', '🦄', '🪐',
-    '🐯', '🦉', '🦋', '🎈', '🍪', '🥨', '🦸‍♂️', '🦸‍♀️', '🐼', '🦊', '🐢', '🍀', '🍎', '🪁', '🧸', '🎮'
-  ];
-
-  const rareStickers = [
-    '👑', '🐉', '🌋', '🌌', '🧬', '⚔️', '🛡️', '🏆', '💎', '🛸'
-  ];
 
   return (
     <div className="space-y-12 pb-24 max-w-7xl mx-auto relative text-left isolate animate-in fade-in duration-500 child-font">
