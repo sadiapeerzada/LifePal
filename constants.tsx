@@ -226,7 +226,7 @@ const HI_STRINGS = {
   magic_desc: 'अपने सपनों को रंग दें',
   hero_cinema: 'हीरो सिनेमा',
   cinema_choice: 'देखें और सीखें',
-  stay_brave: 'बहादुर बनें',
+  stay_brave: 'बहादुर रहें',
   magic_energy: 'जादुई ऊर्जा',
   next_level: 'अगला स्तर',
   symptom_log: 'लक्षण लॉग',
@@ -422,7 +422,7 @@ const TE_STRINGS = {
   role_patient_desc: 'క్లినికల్ నావిగేషన్, నర్సింగ్ సహాయం, సులభమైన గైడ్‌లు మరియు AI తోడు',
   role_caregiver_desc: 'సంరక్షకులు మరియు కుటుంబ మద్దతు కోసం పూర్తి వనరుల కేంద్రం',
   role_hero_desc: 'బడ్డీ హీరో తోడుతో ఒక గేమిఫైడ్ మ్యాజిక్ క్వెస్ట్',
-  role_donor_desc: 'సామాజిక ప్రభావాన్ని చూడండిและ సంరక్షణ నావిగేషన్‌కు మద్దతు ఇవ్వండి. ఫీజులు లేవు, స్వచ్ఛమైన ప్రభావం.',
+  role_donor_desc: 'సామాజిక ప్రభావాన్ని చూడండి మరియు సంరక్షణ నావిగేషన్‌కు మద్దతు ఇవ్వండి. ఫీజులు లేవు, స్వచ్ఛమైన ప్రభావం.',
   role_survivor_desc: 'ఫాలో-అప్ మానిటరింగ్, స్కాన్ ఆందోళన మద్దతు మరియు క్యాన్సర్ తర్వాత జీవితం గైడ్‌లు',
   news_tab: 'వార్తలు',
   guides_tab: 'గైడ్లు',
@@ -559,17 +559,6 @@ export const SCHEMES: Scheme[] = [
     fundType: 'AYUSHMAN'
   },
   {
-    id: 'cm_relief_fund',
-    name: 'CM Relief Fund (UP)',
-    description: 'Financial assistance provided by the Chief Minister\'s office for critical treatments for residents of Uttar Pradesh.',
-    eligibility: ['Permanent residents of Uttar Pradesh', 'BPL families', 'Income less than threshold'],
-    documents: ['Income Certificate', 'Treatment Estimate', 'Domicile Proof'],
-    steps: ['Obtain medical estimate from JNMCH', 'Apply at DM office', 'Verification by state health dept'],
-    officialUrl: 'http://up.gov.in/',
-    type: 'GOVERNMENT',
-    fundType: 'CM_CARE'
-  },
-  {
     id: 'pm_nrf',
     name: 'PM National Relief Fund (PMNRF)',
     description: 'Immediate relief for victims of natural calamities and critical medical treatments like cancer.',
@@ -604,7 +593,7 @@ export const SCHEMES: Scheme[] = [
   },
   {
     id: 'alig_care_fund',
-    name: 'Ali Care Support (ACF)',
+    name: 'ALIG CARE Support (ACF)',
     description: 'Regional fund supporting oncology patients at JNMCH and surrounding AMU clinics.',
     eligibility: ['Students and local Aligarh residents', 'Verified financial distress'],
     documents: ['Student ID (if applicable)', 'JNMCH OPD card', 'Verified income docs'],
@@ -634,6 +623,17 @@ export const SCHEMES: Scheme[] = [
     officialUrl: 'https://nhm.gov.in/',
     type: 'GOVERNMENT',
     fundType: 'CM_CARE'
+  },
+  {
+    id: 'cghs_cancer',
+    name: 'CGHS Cancer Treatment',
+    description: 'Health facilities for Central Government employees and pensioners through empanelled hospitals.',
+    eligibility: ['Central Government Employees', 'Pensioners', 'Dependents of eligible persons'],
+    documents: ['CGHS Card', 'Prescription from Specialist', 'Treatment Estimate'],
+    steps: ['Obtain referral from CGHS Wellness Centre', 'Visit empanelled Oncology Center', 'Apply for advance or reimbursement'],
+    officialUrl: 'https://cghs.nic.in/',
+    type: 'GOVERNMENT',
+    fundType: 'AYUSHMAN'
   }
 ];
 
@@ -674,7 +674,15 @@ export const TRUSTED_RESOURCES = [
   { id: 'tmc', title: 'Tata Memorial Centre', url: 'https://tmc.gov.in/', category: 'Hospital', description: 'India\'s premier cancer research and treatment center.', tag: 'India' },
   { id: 'acs', title: 'American Cancer Society', url: 'https://www.cancer.org/', category: 'Support', description: 'Patient support, advocacy, and research updates.', tag: 'Global' },
   { id: 'cru', title: 'Cancer Research UK', url: 'https://www.cancerresearchuk.org/', category: 'Research', description: 'Breakthrough research and patient-friendly trial data.', tag: 'Global' },
-  { id: 'mskcc', title: 'MSK Cancer Center', url: 'https://www.mskcc.org/', category: 'Clinical', description: 'Specialized cancer care and innovation protocols.', tag: 'Global' }
+  { id: 'mskcc', title: 'MSK Cancer Center', url: 'https://www.mskcc.org/', category: 'Clinical', description: 'Specialized cancer care and innovation protocols.', tag: 'Global' },
+  { id: 'asco', title: 'ASCO - Cancer.Net', url: 'https://www.cancer.net/', category: 'Clinical', description: 'Patient information from the American Society of Clinical Oncology.', tag: 'Global' },
+  { id: 'esmo', title: 'ESMO Patient Guides', url: 'https://www.esmo.org/for-patients/patient-guides', category: 'Clinical', description: 'European Society for Medical Oncology detailed patient pathways.', tag: 'Global' },
+  { id: 'stjude', title: 'St. Jude Children Research', url: 'https://www.stjude.org/', category: 'Research', description: 'Advancing cures, and means of prevention, for pediatric catastrophic diseases.', tag: 'Global' },
+  { id: 'bcc', title: 'Breast Cancer Consortium', url: 'https://breastcancerconsortium.net/', category: 'Support', description: 'Critical thinking and evidence-based info for breast cancer.', tag: 'Global' },
+  { id: 'macmillan', title: 'Macmillan Cancer Support', url: 'https://www.macmillan.org.uk/', category: 'Support', description: 'Providing physical, financial and emotional support to help you live life as fully as you can.', tag: 'Global' },
+  { id: 'cri', title: 'Cancer Research Institute', url: 'https://www.cancerresearch.org/', category: 'Research', description: 'Leading the discovery and development of powerful immunotherapies for all types of cancer.', tag: 'Global' },
+  { id: 'livestrong', title: 'Livestrong Foundation', url: 'https://www.livestrong.org/', category: 'Support', description: 'Practical assistance, cancer navigation, and support for patients and families.', tag: 'Global' },
+  { id: 'fredhutch', title: 'Fred Hutch Cancer Center', url: 'https://www.fredhutch.org/', category: 'Research', description: 'Leading cancer research and pioneering discoveries that save lives.', tag: 'Global' }
 ];
 
 export const VERIFIED_GUIDES: Article[] = [
@@ -684,7 +692,7 @@ export const VERIFIED_GUIDES: Article[] = [
     summary: 'A step-by-step guide on what to bring and how to prepare mentally.',
     content: '',
     category: 'LIFESTYLE',
-    imageUrl: 'https://images.unsplash.com/photo-1579154235602-3c2c475d4071?auto=format&fit=crop&q=80&w=800',
+    imageUrl: 'https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&q=80&w=800',
     tags: ['Chemo', 'Recovery'],
     link: '#'
   },

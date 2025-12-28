@@ -428,11 +428,14 @@ const App: React.FC = () => {
               <SidebarLink to="/reminders" icon={<Bell className="w-5 h-5" />} label={safeProfile.role === UserRole.CHILD ? t('hero_tasks') : 'Reminders'} isRTL={isRTL} />
             </>
           )}
+          {safeProfile.role === UserRole.DONOR && (
+            <SidebarLink to="/impact" icon={<HandHeart className="w-5 h-5" />} label={t('impact_hub')} isRTL={isRTL} />
+          )}
           <SidebarLink to="/insights" icon={<Globe className="w-5 h-5" />} label={t('insights')} isRTL={isRTL} />
           <SidebarLink to="/saved" icon={<BookmarkIcon className="w-5 h-5" />} label={t('saved_sanctuary')} isRTL={isRTL} />
           <SidebarLink to="/skills" icon={<GraduationCap className="w-5 h-5" />} label={t('skills_hub')} isRTL={isRTL} />
           <SidebarLink to="/schemes" icon={<Landmark className="w-5 h-5" />} label={t('schemes')} isRTL={isRTL} />
-          {safeProfile.role === UserRole.DONOR ? <SidebarLink to="/impact" icon={<HandHeart className="w-5 h-5" />} label={t('impact_hub')} isRTL={isRTL} /> : <SidebarLink to="/finder" icon={<MapPin className="w-5 h-5" />} label={t('finder')} isRTL={isRTL} />}
+          {safeProfile.role !== UserRole.DONOR ? <SidebarLink to="/finder" icon={<MapPin className="w-5 h-5" />} label={t('finder')} isRTL={isRTL} /> : null}
           {safeProfile.role !== UserRole.DONOR && <SidebarLink to="/emergency" icon={<ShieldAlert className="w-5 h-5" />} label={t('emergency_prep')} isRTL={isRTL} />}
         </div>
         <div className="p-6 border-t dark:border-slate-800">
@@ -460,14 +463,14 @@ const App: React.FC = () => {
                 onOpenGame={() => setIsGameOpen(true)}
                 searchQuery={globalSearch}
                 onOpenVideo={(v: ChildVideo) => { setCurrentVideo(v); setIsVideoModalOpen(true); }}
-                onOpenMystery={() => setIsMysteryModalOpen(true)}
+                onOpenMystery={(v: any) => setIsMysteryModalOpen(true)}
                 mysteryUnlocked={mysteryUnlocked}
               /> 
               : safeProfile.role === UserRole.CAREGIVER ? <CaregiverDashboard profile={safeProfile} onUpdate={updateProfile} t={t} searchQuery={globalSearch} />
               : safeProfile.role === UserRole.SURVIVOR ? <SurvivorsHubView role={safeProfile.role} language={safeProfile.language} documents={documents} />
-              : safeProfile.role === UserRole.DONOR ? <SupporterImpactView profile={safeProfile} />
-              : <DashboardHub t={t} searchQuery={globalSearch} />
+              : <DashboardHub t={t} searchQuery={globalSearch} role={safeProfile.role} />
             } />
+            <Route path="/impact" element={<SupporterImpactView profile={safeProfile} />} />
             <Route path="/vault" element={<DocIntelView documents={documents} onUpdate={setDocuments} language={safeProfile.language} isDark={safeProfile.theme === AppTheme.DARK} />} />
             <Route path="/med-scanner" element={<MedicineScannerView language={safeProfile.language} isDark={safeProfile.theme === AppTheme.DARK} onAddReminder={r => updateProfile({ reminders: [...(safeProfile.reminders || []), { ...r, id: Math.random().toString(36).substr(2,9), completed: false }] })} />} />
             <Route path="/reminders" element={<RemindersView reminders={safeProfile.reminders || []} onUpdate={r => updateProfile({ reminders: r })} isChild={safeProfile.role === UserRole.CHILD} onHabitXP={addXP} />} />
@@ -490,21 +493,36 @@ const App: React.FC = () => {
   );
 };
 
-const DashboardHub = ({ t, searchQuery }: any) => {
-  const modules = [
-    { title: t('navigator_header'), desc: t('navigator_sub'), icon: <Navigation2 />, to: '/navigator', color: 'blue' },
-    { title: t('doc_intel_header'), desc: t('doc_intel_sub'), icon: <Scan />, to: '/vault', color: 'cyan' },
-    { title: t('meds_scanner_header'), desc: t('meds_scanner_sub'), icon: <Pill />, to: '/med-scanner', color: 'emerald' },
-    { title: t('insights_header'), desc: t('insights_sub'), icon: <Globe />, to: '/insights', color: 'amber' },
-    { title: t('symptom_log_header'), desc: t('symptom_log_sub'), icon: <Thermometer />, to: '/symptoms', color: 'rose' },
-    { title: t('skills_hub_header'), desc: t('skills_hub_sub'), icon: <GraduationCap />, to: '/skills', color: 'pink' },
-    { title: t('schemes_header'), desc: t('schemes_sub'), icon: <Landmark />, to: '/schemes', color: 'indigo' },
-    { title: t('finder_header'), desc: t('finder_sub'), icon: <MapPin />, to: '/finder', color: 'yellow' },
+const DashboardHub = ({ t, searchQuery, role }: { t: any, searchQuery: string, role: UserRole }) => {
+  const allModules = [
+    { title: t('navigator_header'), desc: t('navigator_sub'), icon: <Navigation2 />, to: '/navigator', color: 'blue', roles: [UserRole.PATIENT, UserRole.SURVIVOR, UserRole.CAREGIVER] },
+    { title: t('doc_intel_header'), desc: t('doc_intel_sub'), icon: <Scan />, to: '/vault', color: 'cyan', roles: [UserRole.PATIENT, UserRole.SURVIVOR, UserRole.CAREGIVER] },
+    { title: t('meds_scanner_header'), desc: t('meds_scanner_sub'), icon: <Pill />, to: '/med-scanner', color: 'emerald', roles: [UserRole.PATIENT, UserRole.SURVIVOR, UserRole.CAREGIVER] },
+    { title: t('insights_header'), desc: t('insights_sub'), icon: <Globe />, to: '/insights', color: 'amber', roles: [UserRole.PATIENT, UserRole.SURVIVOR, UserRole.CAREGIVER, UserRole.DONOR] },
+    { title: t('symptom_log_header'), desc: t('symptom_log_sub'), icon: <Thermometer />, to: '/symptoms', color: 'rose', roles: [UserRole.PATIENT, UserRole.SURVIVOR, UserRole.CAREGIVER] },
+    { title: t('skills_hub_header'), desc: t('skills_hub_sub'), icon: <GraduationCap />, to: '/skills', color: 'pink', roles: [UserRole.PATIENT, UserRole.SURVIVOR, UserRole.CAREGIVER, UserRole.DONOR] },
+    { title: t('schemes_header'), desc: t('schemes_sub'), icon: <Landmark />, to: '/schemes', color: 'indigo', roles: [UserRole.PATIENT, UserRole.SURVIVOR, UserRole.CAREGIVER, UserRole.DONOR] },
+    { title: t('finder_header'), desc: t('finder_sub'), icon: <MapPin />, to: '/finder', color: 'yellow', roles: [UserRole.PATIENT, UserRole.SURVIVOR, UserRole.CAREGIVER] },
+    { title: t('impact_hub_header'), desc: t('impact_hub_sub'), icon: <HandHeart />, to: '/impact', color: 'emerald', roles: [UserRole.DONOR] },
+    { title: t('companion'), desc: t('buddy_desc'), icon: <MessageCircle />, to: '/companion', color: 'violet', roles: [UserRole.DONOR] },
+    { title: t('saved_sanctuary_header'), desc: t('saved_sanctuary_sub'), icon: <BookmarkIcon />, to: '/saved', color: 'rose', roles: [UserRole.DONOR] },
   ];
-  const filtered = searchQuery ? modules.filter(m => m.title.toLowerCase().includes(searchQuery.toLowerCase())) : modules;
+
+  // Filter modules based on role
+  const roleModules = allModules.filter(m => m.roles.includes(role));
+  
+  const filtered = searchQuery ? roleModules.filter(m => m.title.toLowerCase().includes(searchQuery.toLowerCase())) : roleModules;
+  
   return (
     <div className="space-y-12 max-w-7xl mx-auto">
-      <header className="space-y-4 text-left"><h1 className="text-6xl font-black text-blue-950 dark:text-white leading-tight">{t('unified_sanctuary')}</h1><p className="text-xl text-slate-500 max-w-2xl">{t('clinical_logic_desc')}</p></header>
+      <header className="space-y-4 text-left">
+        <h1 className="text-6xl font-black text-blue-950 dark:text-white leading-tight">
+          {role === UserRole.DONOR ? "Supporter Command" : t('unified_sanctuary')}
+        </h1>
+        <p className="text-xl text-slate-500 max-w-2xl">
+          {role === UserRole.DONOR ? "Witness social impact and support regional care navigation." : t('clinical_logic_desc')}
+        </p>
+      </header>
       <CareFocusCard t={t} />
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 relative z-30">{filtered.map((m, i) => <FeatureCard key={i} {...m} t={t} />)}</div>
     </div>

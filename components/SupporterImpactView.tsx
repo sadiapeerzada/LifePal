@@ -101,7 +101,7 @@ const SupporterImpactView: React.FC<Props> = ({ profile }) => {
                <p className="text-slate-300 font-medium leading-relaxed mb-6">
                   Many patients pause chemo due to lack of funds. Your donation buys specific vials of life-saving drugs directly from the hospital pharmacy.
                </p>
-               <a href="https://www.aligscare.org/donate" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 font-black text-emerald-400 uppercase text-xs tracking-widest hover:text-emerald-300 transition-colors">
+               <a href="https://aligscare.org/donate" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 font-black text-emerald-400 uppercase text-xs tracking-widest hover:text-emerald-300 transition-colors">
                   Donate Securely <ArrowRight className="w-4 h-4" />
                </a>
             </div>
@@ -194,7 +194,7 @@ const SupporterImpactView: React.FC<Props> = ({ profile }) => {
                 <div className="flex items-center gap-4 p-4 bg-white dark:bg-white/5 rounded-2xl border border-slate-200 dark:border-white/10">
                    <ShieldCheck className="w-8 h-8 text-emerald-500 dark:text-emerald-400" />
                    <div>
-                      <p className="font-black text-sm text-slate-800 dark:text-white">Trusted Contributor</p>
+                      <p className="font-black text-sm text-slate-800 dark:text-white">Trusted ALIG Contributor</p>
                       <p className="text-[10px] font-bold text-slate-500 dark:text-slate-500 uppercase">Verified Member</p>
                    </div>
                 </div>
