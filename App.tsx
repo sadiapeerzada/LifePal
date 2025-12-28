@@ -39,7 +39,7 @@ import {
   ArrowRight, BookMarked, PenTool, UsersRound, MessageSquare, Cloud, Flower, Ghost, Bookmark as BookmarkIcon, Apple, Shield as ShieldIcon,
   LayoutDashboard, Activity, Timer, Cpu, Award, Rocket, Ghost as GhostIcon, Music, Coffee, Gem, HandMetal, Gift, RefreshCw, BellRing, Pause, VolumeX, Maximize, Box, RefreshCcw, Crown, Microscope, Wand,
   Medal, Target, Diamond, Orbit, Map, Component, RefreshCcw as RefreshIcon,
-  Loader2, ShieldAlert, AlertTriangle
+  Loader2, ShieldAlert, AlertTriangle, Brush, Dumbbell, Compass, Music2, Shapes, CloudMoon
 } from 'lucide-react';
 import { CHILD_VIDEOS, TRANSLATIONS, SCHEMES } from './constants';
 import { getGeminiResponse, fetchHeroCinemaVideos } from './services/geminiService';
@@ -166,6 +166,8 @@ const QuestBadge: React.FC<{ icon: React.ReactElement; title: string; xp: number
     emerald: 'bg-emerald-50 dark:bg-emerald-900/10 border-emerald-100 text-emerald-600',
     violet: 'bg-violet-50 dark:bg-violet-900/10 border-violet-100 text-violet-100',
     pink: 'bg-pink-50 dark:bg-pink-900/10 border-pink-100 text-pink-600',
+    cyan: 'bg-cyan-50 dark:bg-cyan-900/10 border-cyan-100 text-cyan-600',
+    purple: 'bg-purple-50 dark:bg-purple-900/10 border-purple-100 text-purple-600',
   };
   return (
     <button 
@@ -324,7 +326,7 @@ const App: React.FC = () => {
       
       {showLevelUp && (
         <div className="fixed inset-0 z-[2200] flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-2xl animate-in fade-in">
-           <div className="relative w-full max-w-lg bg-white dark:bg-slate-900 rounded-[4rem] p-12 text-center border-8 border-yellow-400 shadow-2xl animate-in zoom-in">
+           <div className="relative w-full max-lg bg-white dark:bg-slate-900 rounded-[4rem] p-12 text-center border-8 border-yellow-400 shadow-2xl animate-in zoom-in">
               <div className="w-32 h-32 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-8 animate-bounce">
                 <Trophy className="w-16 h-16 text-yellow-500" />
               </div>
@@ -449,6 +451,7 @@ const App: React.FC = () => {
       <main className="flex-1 flex flex-col overflow-hidden relative isolate">
         <header className="h-20 border-b flex items-center justify-between px-12 bg-white dark:bg-slate-900 z-40 relative">
           <div className="relative group flex-1 max-w-xl">
+            {/* Fix: Using correctly imported Search component instead of non-existent SearchIcon */}
             <Search className={`absolute ${isRTL ? 'right-4' : 'left-4'} top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400`} />
             <input type="text" value={globalSearch} onChange={e => setGlobalSearch(e.target.value)} placeholder={t('search_placeholder')} className={`w-full bg-slate-50 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-full ${isRTL ? 'pr-12 pl-4' : 'pl-12 pr-4'} py-2 font-bold text-sm outline-none focus:border-blue-900 transition-all`} />
           </div>
@@ -536,7 +539,6 @@ const HeroKidDashboard = ({ profile: safeProfile, t, onOpenStudio, onQuestComple
   const [videos, setVideos] = useState<ChildVideo[]>([]);
   const [loadingVideos, setLoadingVideos] = useState(false);
   const isGirl = safeProfile?.gender === 'GIRL';
-  const progressPercent = Math.min((completedQuests.length / 5) * 100, 100);
   
   const currentXP = safeProfile?.xp || 0;
   const xpIntoCurrentLevel = currentXP % 1000;
@@ -547,8 +549,21 @@ const HeroKidDashboard = ({ profile: safeProfile, t, onOpenStudio, onQuestComple
     { id: 'q2', icon: <Droplets />, title: "Magic Potion", xp: 100, color: "blue" },
     { id: 'q3', icon: <ShieldIcon />, title: "Armor Check", xp: 125, color: "indigo" },
     { id: 'q4', icon: <Wind />, title: "Golden Breath", xp: 175, color: "emerald" },
-    { id: 'q5', icon: <Smile />, title: "Victory Smile", xp: 50, color: "pink" }
+    { id: 'q5', icon: <Smile />, title: "Victory Smile", xp: 50, color: "pink" },
+    { id: 'q6', icon: <Music2 />, title: "Hero Melody", xp: 120, color: "violet" },
+    { id: 'q7', icon: <Shapes />, title: "Lego Castle", xp: 200, color: "cyan" },
+    { id: 'q8', icon: <CloudMoon />, title: "Starlight Nap", xp: 150, color: "indigo" },
+    { id: 'q9', icon: <Palette />, title: "Dream Canvas", xp: 250, color: "purple" },
+    { id: 'q10', icon: <Apple />, title: "Energy Snack", xp: 80, color: "emerald" },
+    { id: 'q11', icon: <Compass />, title: "Adventure Map", xp: 180, color: "yellow" },
+    { id: 'q12', icon: <Wand />, title: "Wish Spell", xp: 300, color: "pink" },
+    { id: 'q13', icon: <Droplets />, title: "Cloud Watching", xp: 110, color: "blue" },
+    { id: 'q14', icon: <Star />, title: "Wishing Star", xp: 140, color: "yellow" },
+    { id: 'q15', icon: <Heart />, title: "Hero Hug", xp: 90, color: "rose" },
+    { id: 'q16', icon: <Wand2 />, title: "Magic Sparkle", xp: 220, color: "purple" },
   ];
+
+  const progressPercent = Math.min((completedQuests.length / quests.length) * 100, 100);
 
   const loadVideos = async () => {
     setLoadingVideos(true);
@@ -577,7 +592,10 @@ const HeroKidDashboard = ({ profile: safeProfile, t, onOpenStudio, onQuestComple
     onQuestComplete(xp);
   };
 
-  const stickerIcons = ['🌟', '🚀', '🎨', '💖', '🍭', '🦁', '🛸', '🌈', '🍦', '💎', '🔥', '🌊', '🍄', '🦖', '🦄', '🪐'];
+  const stickerIcons = [
+    '🌟', '🚀', '🎨', '💖', '🍭', '🦁', '🛸', '🌈', '🍦', '💎', '🔥', '🌊', '🍄', '🦖', '🦄', '🪐',
+    '🐯', '🦉', '🦋', '🎈', '🍪', '🥨', '🦸‍♂️', '🦸‍♀️'
+  ];
 
   return (
     <div className="space-y-12 pb-24 max-w-7xl mx-auto relative text-left isolate animate-in fade-in duration-500 child-font">
