@@ -5,40 +5,27 @@ import {
   UserProfile, ScannedDoc, MedicineScan, HarmonyMetric, 
   HarmonyInsight, ChildVideo, SymptomLog 
 } from "../types";
-import { GoogleGenAI, Type, Modality } from "@google/genai";
 
 interface ResourceResult {
   text: string;
   links: { title: string; url: string }[];
 }
 
-const decodeRawPCM = async (
-  base64Data: string,
-  ctx: AudioContext,
-  sampleRate: number = 24000,
-  numChannels: number = 1
-): Promise<AudioBuffer> => {
-  const binaryString = atob(base64Data);
-  const bytes = new Uint8Array(binaryString.length);
-  for (let i = 0; i < binaryString.length; i++) {
-    bytes[i] = binaryString.charCodeAt(i);
+const callGateway = async (feature: string, contents: any, config: any = {}) => {
+  const response = await fetch('/api/generate', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ feature, contents, config })
+  });
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.error || 'Gateway Error');
   }
-  const dataInt16 = new Int16Array(bytes.buffer);
-  const frameCount = dataInt16.length / numChannels;
-  const buffer = ctx.createBuffer(numChannels, frameCount, sampleRate);
-
-  for (let channel = 0; channel < numChannels; channel++) {
-    const channelData = buffer.getChannelData(channel);
-    for (let i = 0; i < frameCount; i++) {
-      channelData[i] = dataInt16[i * numChannels + channel] / 32768.0;
-    }
-  }
-  return buffer;
+  return response.json();
 };
 
-const LIFEPAL_SYSTEM = "You are the LifePal AI assistant, a compassionate and expert clinical companion in oncology. Use clear language. NEVER diagnose. ALWAYS direct to JNMCH for medical decisions.";
-
 export const ensureApiKey = async (): Promise<boolean> => {
+  // In Vercel deployment, the key is already in process.env
   return true;
 };
 
@@ -51,154 +38,137 @@ export const getGeminiResponse = async (
   mood?: EmotionalState,
   history: { role: 'user' | 'model', text: string }[] = []
 ): Promise<string> => {
-  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY as string });
-  const model = useThinking ? 'gemini-3-pro-preview' : 'gemini-3-flash-preview';
+  const personaContext = `[ROLE: ${role}] [MOOD: ${mood}] Language: ${lang}. Return plain text unless action requested.`;
   
-  const personaContext = `[ROLE: ${role}] [MOOD: ${mood}] Language: ${lang}. If advice involves app features, return JSON: { "text": "msg", "actions": [{"label": "Start", "type": "BUTTON", "action": "CODE"}] }. Codes: OPEN_BREATHING, OPEN_NAVIGATOR, OPEN_JOURNAL, OPEN_MOOD, OPEN_MAPS. Otherwise return plain text.`;
-
   try {
-    const response = await ai.models.generateContent({
-      model,
-      contents: [
+    const res = await callGateway('chat', 
+      [
         ...history.map(h => ({ role: h.role, parts: [{ text: h.text }] })),
         { role: 'user', parts: [{ text: personaContext + "\n\nUser: " + prompt }] }
       ],
-      config: {
-        systemInstruction: LIFEPAL_SYSTEM,
-        ...(useThinking ? { thinkingConfig: { thinkingBudget: 16000 } } : {})
+      {
+        model: useThinking ? 'gemini-3-pro-preview' : 'gemini-3-flash-preview',
+        thinkingConfig: useThinking ? { thinkingBudget: 16000 } : undefined
       }
-    });
-    return response.text || "I'm listening. Could you repeat that?";
-  } catch (e: any) {
-    if (e.status === 429 && useThinking) {
-      return getGeminiResponse(prompt, role, ageGroup, lang, false, mood, history);
-    }
-    return "The sanctuary engine is temporarily offline. Please try again in a moment.";
+    );
+    return res.output;
+  } catch (e) {
+    return "The sanctuary engine is temporarily offline.";
   }
 };
 
 export const analyzeMedicineImage = async (base64: string, lang: AppLanguage): Promise<Partial<MedicineScan>> => {
-  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY as string });
   const schema = {
-    type: Type.OBJECT,
+    type: "OBJECT",
     properties: {
-      name: { type: Type.STRING },
-      purpose: { type: Type.STRING },
-      dosageInstructions: { type: Type.STRING },
-      sideEffects: { type: Type.ARRAY, items: { type: Type.STRING } },
-      warnings: { type: Type.ARRAY, items: { type: Type.STRING } }
+      name: { type: "STRING" },
+      purpose: { type: "STRING" },
+      dosageInstructions: { type: "STRING" },
+      sideEffects: { type: "ARRAY", items: { type: "STRING" } },
+      warnings: { type: "ARRAY", items: { type: "STRING" } }
     },
     required: ["name", "purpose", "warnings"]
   };
 
   try {
-    const response = await ai.models.generateContent({
-      model: 'gemini-3-flash-preview',
-      contents: {
+    const res = await callGateway('med_scan', 
+      {
         parts: [
           { inlineData: { data: base64, mimeType: 'image/jpeg' } },
-          { text: `Identify this medicine packaging. Language: ${lang}. Return ONLY valid JSON.` }
+          { text: `Identify this medicine in ${lang}. Return JSON.` }
         ]
       },
-      config: { responseMimeType: "application/json", responseSchema: schema }
-    });
-    return JSON.parse(response.text || "{}");
+      { model: 'gemini-3-flash-preview', responseSchema: schema }
+    );
+    return JSON.parse(res.output);
   } catch (e) {
-    console.error("Med Scan Error:", e);
     return {};
   }
 };
 
 export const analyzeMedicalDocument = async (base64: string, lang: AppLanguage) => {
-  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY as string });
   const schema = {
-    type: Type.OBJECT,
+    type: "OBJECT",
     properties: {
-      type: { type: Type.STRING },
-      summary: { type: Type.STRING },
-      terms: { type: Type.ARRAY, items: { type: Type.OBJECT, properties: { term: { type: Type.STRING }, explanation: { type: Type.STRING } } } },
-      missingDocs: { type: Type.ARRAY, items: { type: Type.STRING } },
-      isVerified: { type: Type.BOOLEAN }
+      type: { type: "STRING" },
+      summary: { type: "STRING" },
+      terms: { type: "ARRAY", items: { type: "OBJECT", properties: { term: { type: "STRING" }, explanation: { type: "STRING" } } } },
+      missingDocs: { type: "ARRAY", items: { type: "STRING" } },
+      isVerified: { type: "BOOLEAN" }
     },
     required: ["type", "summary", "isVerified"]
   };
 
   try {
-    const response = await ai.models.generateContent({
-      model: 'gemini-3-flash-preview',
-      contents: {
+    const res = await callGateway('doc_intel', 
+      {
         parts: [
           { inlineData: { data: base64, mimeType: 'image/jpeg' } },
-          { text: `Analyze this medical document for a patient in ${lang}. Explain terms simply. Return ONLY JSON.` }
+          { text: `Analyze medical document in ${lang}. JSON output.` }
         ]
       },
-      config: { responseMimeType: "application/json", responseSchema: schema }
-    });
-    return JSON.parse(response.text || "{}");
+      { model: 'gemini-3-flash-preview', responseSchema: schema }
+    );
+    return JSON.parse(res.output);
   } catch (e) {
     return { type: 'ERROR', summary: 'Analysis failed.', isVerified: false };
   }
 };
 
 export const fetchOncoLinkNews = async (lang: AppLanguage) => {
-  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY as string });
   const schema = {
-    type: Type.ARRAY,
+    type: "ARRAY",
     items: {
-      type: Type.OBJECT,
+      type: "OBJECT",
       properties: {
-        title: { type: Type.STRING },
-        summary: { type: Type.STRING },
-        url: { type: Type.STRING },
-        source: { type: Type.STRING },
-        date: { type: Type.STRING },
-        category: { type: Type.STRING }
+        title: { type: "STRING" },
+        summary: { type: "STRING" },
+        url: { type: "STRING" },
+        source: { type: "STRING" },
+        date: { type: "STRING" },
+        category: { type: "STRING" }
       }
     }
   };
 
   try {
-    const response = await ai.models.generateContent({
-      model: 'gemini-3-flash-preview',
-      contents: `Find 8 highly relevant, verified oncology news articles, clinical breakthroughs, and patient support guides in ${lang}. Ensure results cover diagnosis management and recovery. Output JSON only.`,
-      config: { tools: [{ googleSearch: {} }], responseMimeType: "application/json", responseSchema: schema }
-    });
-    return JSON.parse(response.text || "[]");
+    const res = await callGateway('news', 
+      `Find oncology news in ${lang}. JSON only.`,
+      { model: 'gemini-3-flash-preview', tools: [{ googleSearch: {} }], responseSchema: schema }
+    );
+    return JSON.parse(res.output);
   } catch (e) {
     return [];
   }
 };
 
 export const fetchHeroCinemaVideos = async (lang: AppLanguage): Promise<ChildVideo[]> => {
-  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY as string });
   const schema = {
-    type: Type.ARRAY,
+    type: "ARRAY",
     items: {
-      type: Type.OBJECT,
+      type: "OBJECT",
       properties: {
-        id: { type: Type.STRING },
-        title: { type: Type.STRING },
-        description: { type: Type.STRING },
-        youtubeId: { type: Type.STRING },
-        category: { type: Type.STRING },
-        thumbnail: { type: Type.STRING }
+        id: { type: "STRING" },
+        title: { type: "STRING" },
+        description: { type: "STRING" },
+        youtubeId: { type: "STRING" },
+        category: { type: "STRING" }
       },
       required: ["id", "title", "youtubeId"]
     }
   };
 
   try {
-    const response = await ai.models.generateContent({
-      model: 'gemini-3-flash-preview',
-      contents: `Find 4 random, strictly kid-friendly YouTube video IDs from Pixar or National Geographic Kids. Language: ${lang}. Return ONLY JSON.`,
-      config: { tools: [{ googleSearch: {} }], responseMimeType: "application/json", responseSchema: schema }
-    });
-    const videos = JSON.parse(response.text || "[]");
+    const res = await callGateway('videos', 
+      `Find 4 kid-safe YouTube video IDs. Language: ${lang}. JSON only.`,
+      { model: 'gemini-3-flash-preview', tools: [{ googleSearch: {} }], responseSchema: schema }
+    );
+    const videos = JSON.parse(res.output);
     return videos.map((v: any) => ({
       ...v,
       videoUrl: '',
       externalUrl: `https://youtu.be/${v.youtubeId}`,
-      thumbnail: v.thumbnail || `https://img.youtube.com/vi/${v.youtubeId}/maxresdefault.jpg`
+      thumbnail: `https://img.youtube.com/vi/${v.youtubeId}/maxresdefault.jpg`
     }));
   } catch (e) {
     return [];
@@ -206,50 +176,53 @@ export const fetchHeroCinemaVideos = async (lang: AppLanguage): Promise<ChildVid
 };
 
 export const findNearbyResources = async (query: string, lat?: number, lng?: number): Promise<ResourceResult> => {
-  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY as string });
   try {
-    const response = await ai.models.generateContent({
-      model: 'gemini-2.5-flash-lite-latest',
-      contents: `Find ${query} near Aligarh, India.`,
-      config: {
+    const res = await callGateway('maps', 
+      `Find ${query} near Aligarh, India.`,
+      { 
+        model: 'gemini-2.5-flash', 
         tools: [{ googleMaps: {} }],
-        ...(lat && lng ? { toolConfig: { retrievalConfig: { latLng: { latitude: lat, longitude: lng } } } } : {})
+        toolConfig: lat && lng ? { retrievalConfig: { latLng: { latitude: lat, longitude: lng } } } : undefined
       }
-    });
-    const rawLinks = response.candidates?.[0]?.groundingMetadata?.groundingChunks
-      ?.map((chunk: any) => {
-        if (chunk.maps?.uri) return { title: chunk.maps.title as string, url: chunk.maps.uri as string };
-        return null;
-      }) || [];
+    );
     
-    const links = rawLinks.filter((item): item is { title: string; url: string } => item !== null);
+    const links = res.groundingMetadata?.groundingChunks
+      ?.filter((chunk: any) => chunk.maps?.uri)
+      .map((chunk: any) => ({ title: chunk.maps.title, url: chunk.maps.uri })) || [];
     
-    return { text: response.text || "No resources found.", links };
+    return { text: res.output, links };
   } catch (e) {
     return { text: "Location search unavailable.", links: [] };
   }
 };
 
 export const generateSpeech = async (text: string, lang: AppLanguage) => {
-  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY as string });
   try {
-    const response = await ai.models.generateContent({
+    const res = await callGateway('tts', text, {
       model: "gemini-2.5-flash-preview-tts",
-      contents: [{ parts: [{ text }] }],
-      config: {
-        responseModalities: [Modality.AUDIO],
-        speechConfig: { 
-          voiceConfig: { 
-            prebuiltVoiceConfig: { voiceName: lang === AppLanguage.HINDI ? 'Puck' : 'Zephyr' } 
-          } 
-        }
+      responseModalities: ["AUDIO"],
+      speechConfig: { 
+        voiceConfig: { 
+          prebuiltVoiceConfig: { voiceName: lang === AppLanguage.HINDI ? 'Puck' : 'Zephyr' } 
+        } 
       }
     });
-    return response.candidates?.[0]?.content?.parts?.find((p: any) => p.inlineData)?.inlineData?.data;
+    return res.output;
   } catch (e) { return undefined; }
 };
 
 export const playAudio = async (base64: string) => {
+  const decodeRawPCM = async (data: string, ctx: AudioContext) => {
+    const binary = atob(data);
+    const bytes = new Uint8Array(binary.length);
+    for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+    const int16 = new Int16Array(bytes.buffer);
+    const buffer = ctx.createBuffer(1, int16.length, 24000);
+    const channel = buffer.getChannelData(0);
+    for (let i = 0; i < int16.length; i++) channel[i] = int16[i] / 32768.0;
+    return buffer;
+  };
+
   const ctx = new (window.AudioContext || (window as any).webkitAudioContext)({ sampleRate: 24000 });
   const buffer = await decodeRawPCM(base64, ctx);
   const src = ctx.createBufferSource();
@@ -258,164 +231,108 @@ export const playAudio = async (base64: string) => {
   src.start();
 };
 
-export const getCareNavigationPlan = async (context: CareContext, modelOverride?: string): Promise<NavigationPlan> => {
-  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY as string });
-  const model = modelOverride || 'gemini-3-pro-preview';
-  
+export const getCareNavigationPlan = async (context: CareContext): Promise<NavigationPlan> => {
   const schema = {
-    type: Type.OBJECT,
+    type: "OBJECT",
     properties: {
-      roadmap: { type: Type.STRING },
-      schemes: { type: Type.ARRAY, items: { type: Type.OBJECT, properties: { name: { type: Type.STRING }, url: { type: Type.STRING }, reason: { type: Type.STRING }, description: { type: Type.STRING } } } },
-      hospitals: { type: Type.ARRAY, items: { type: Type.OBJECT, properties: { name: { type: Type.STRING }, type: { type: Type.STRING }, location: { type: Type.STRING } } } },
-      nextSteps: { type: Type.ARRAY, items: { type: Type.STRING } }
-    },
-    required: ["roadmap", "schemes", "hospitals", "nextSteps"]
+      roadmap: { type: "STRING" },
+      schemes: { type: "ARRAY", items: { type: "OBJECT", properties: { name: { type: "STRING" }, url: { type: "STRING" }, reason: { type: "STRING" }, description: { type: "STRING" } } } },
+      hospitals: { type: "ARRAY", items: { type: "OBJECT", properties: { name: { type: "STRING" }, type: { type: "STRING" }, location: { type: "STRING" } } } },
+      nextSteps: { type: "ARRAY", items: { type: "STRING" } }
+    }
   };
 
-  const prompt = `As a Senior Clinical Oncology Coordinator at JNMCH Aligarh, build a precision care roadmap for a ${context.role} managing ${context.cancerType} in ${context.location}. Primary hub focus: JNMCH Aligarh (AMU). Include Ayushman Bharat, Alig Care Foundation, PM Relief Fund, and State CM Relief Funds. Return JSON.`;
-
-  try {
-    const response = await ai.models.generateContent({
-      model,
-      contents: [{ role: 'user', parts: [{ text: prompt }] }],
-      config: { 
-        responseMimeType: "application/json", 
-        responseSchema: schema,
-        ...(model === 'gemini-3-pro-preview' ? { thinkingConfig: { thinkingBudget: 16000 } } : {})
-      }
-    });
-    return JSON.parse(response.text || "{}");
-  } catch (e: any) {
-    if (e.status === 429 && model === 'gemini-3-pro-preview') {
-      return getCareNavigationPlan(context, 'gemini-3-flash-preview');
-    }
-    throw e;
-  }
+  const prompt = `Build oncology roadmap for ${context.role} in ${context.location}. JSON output.`;
+  const res = await callGateway('nav', prompt, { model: 'gemini-3-pro-preview', responseSchema: schema, thinkingConfig: { thinkingBudget: 16000 } });
+  return JSON.parse(res.output);
 };
 
 export const generateImage = async (prompt: string, size: "1K" | "2K" | "4K" = "1K") => {
-  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY as string });
-  const model = (size === "2K" || size === "4K") ? 'gemini-3-pro-image-preview' : 'gemini-2.5-flash-image';
-  
   try {
-    const res = await ai.models.generateContent({
+    const model = (size === "2K" || size === "4K") ? 'gemini-3-pro-image-preview' : 'gemini-2.5-flash-image';
+    const res = await callGateway('image', prompt, {
       model,
-      contents: prompt,
-      config: { 
-        imageConfig: { 
-          aspectRatio: "1:1",
-          ...(model === 'gemini-3-pro-image-preview' ? { imageSize: size } : {})
-        } 
-      }
+      imageConfig: { aspectRatio: "1:1", imageSize: size === "1K" ? undefined : size }
     });
-    const data = res.candidates?.[0]?.content?.parts?.find((p: any) => p.inlineData)?.inlineData?.data;
-    return data ? `data:image/png;base64,${data}` : undefined;
-  } catch (e) {
-    return undefined;
-  }
+    return `data:image/png;base64,${res.output}`;
+  } catch (e) { return undefined; }
 };
 
 export const animateImage = async (base64: string, prompt: string): Promise<string | null> => {
-  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY as string });
   try {
-    let operation = await ai.models.generateVideos({
-      model: 'veo-3.1-fast-generate-preview',
-      prompt: prompt || 'Gently animate this image.',
-      image: { imageBytes: base64, mimeType: 'image/jpeg' },
-      config: { numberOfVideos: 1, resolution: '720p', aspectRatio: '16:9' }
+    const response = await fetch('/api/video', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        action: 'start',
+        payload: {
+          model: 'veo-3.1-fast-generate-preview',
+          prompt: prompt || 'Gently animate this.',
+          image: { imageBytes: base64, mimeType: 'image/jpeg' },
+          config: { numberOfVideos: 1, resolution: '720p', aspectRatio: '16:9' }
+        }
+      })
     });
-
-    while (!operation.done) {
-      await new Promise(resolve => setTimeout(resolve, 10000));
-      operation = await ai.operations.getVideosOperation({ operation: operation });
+    let op = await response.json();
+    while (!op.done) {
+      await new Promise(r => setTimeout(r, 10000));
+      const check = await fetch('/api/video', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'check', payload: op })
+      });
+      op = await check.json();
     }
-
-    const downloadLink = operation.response?.generatedVideos?.[0]?.video?.uri;
-    if (!downloadLink) return null;
-
-    const response = await fetch(`${downloadLink}&key=${process.env.API_KEY}`);
-    const blob = await response.blob();
+    const uri = op.response?.generatedVideos?.[0]?.video?.uri;
+    const vidRes = await fetch(`/api/video?action=download&payload=${encodeURIComponent(uri)}`);
+    const blob = await vidRes.blob();
     return URL.createObjectURL(blob);
-  } catch (e) {
-    return null;
-  }
+  } catch (e) { return null; }
 };
 
 export const analyzeVideo = async (base64: string, prompt: string): Promise<string> => {
-  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY as string });
-  try {
-    const response = await ai.models.generateContent({
-      model: 'gemini-3-flash-preview',
-      contents: {
-        parts: [
-          { inlineData: { data: base64, mimeType: 'video/mp4' } },
-          { text: prompt }
-        ]
-      }
-    });
-    return response.text || "No insights.";
-  } catch (e) { return "Error."; }
+  const res = await callGateway('video_intel', {
+    parts: [{ inlineData: { data: base64, mimeType: 'video/mp4' } }, { text: prompt }]
+  }, { model: 'gemini-3-flash-preview' });
+  return res.output;
 };
 
 export const analyzeHarmonyData = async (data: HarmonyMetric, profile: UserProfile): Promise<HarmonyInsight> => {
-  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY as string });
   const schema = {
-    type: Type.OBJECT,
+    type: "OBJECT",
     properties: {
-      health_summary: { type: Type.STRING },
-      sleep_insight: { type: Type.STRING },
-      activity_insight: { type: Type.STRING },
-      recovery_insight: { type: Type.STRING },
-      daily_motivation: { type: Type.STRING }
-    },
-    required: ["health_summary", "sleep_insight", "activity_insight", "recovery_insight", "daily_motivation"]
+      health_summary: { type: "STRING" },
+      sleep_insight: { type: "STRING" },
+      activity_insight: { type: "STRING" },
+      recovery_insight: { type: "STRING" },
+      daily_motivation: { type: "STRING" }
+    }
   };
-
-  try {
-    const response = await ai.models.generateContent({
-      model: 'gemini-3-flash-preview',
-      contents: `Analyze health metrics for a ${profile.role} with ${profile.cancerType || 'oncology journey'}. Data: ${data.steps} steps, ${data.sleepHours}h sleep. JSON only.`,
-      config: { responseMimeType: "application/json", responseSchema: schema }
-    });
-    return JSON.parse(response.text || "{}");
-  } catch (e) {
-    return { health_summary: "Keep moving forward.", sleep_insight: "Rest is vital.", activity_insight: "Walk daily.", recovery_insight: "Hydrate.", daily_motivation: "Stay brave." };
-  }
+  const res = await callGateway('harmony', `Analyze health metrics for ${profile.role}. JSON only.`, { model: 'gemini-3-flash-preview', responseSchema: schema });
+  return JSON.parse(res.output);
 };
 
 export const analyzeSymptomPatterns = async (logs: SymptomLog[], profile: UserProfile, lang: AppLanguage): Promise<string> => {
-  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY as string });
-  const logCtx = logs.map(l => `[${new Date(l.date).toLocaleDateString()}] ${l.type}, Severity: ${l.severity}/10`).join('\n');
-  try {
-    const response = await ai.models.generateContent({
-      model: 'gemini-3-flash-preview',
-      contents: `Analyze these logs for ${profile.role} in ${lang}:\n${logCtx}`,
-      config: { thinkingConfig: { thinkingBudget: 0 } }
-    });
-    return response.text || "Continue tracking for deeper patterns.";
-  } catch (e) { return "Pattern engine offline."; }
+  const logCtx = logs.map(l => `${l.type}: ${l.severity}`).join('\n');
+  const res = await callGateway('symptoms', `Analyze logs for ${profile.role} in ${lang}:\n${logCtx}`, { model: 'gemini-3-flash-preview' });
+  return res.output;
 };
 
 export const uploadToAzureVault = async (_b: string, _m: any) => { return; };
 export const getClinicalTutorial = async (title: string, lang: AppLanguage) => {
-  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY as string });
-  const res = await ai.models.generateContent({ model: 'gemini-3-flash-preview', contents: `Detailed tutorial for ${title} in ${lang}. Step by step guide for home care.` });
-  return res.text || "";
+  const res = await callGateway('tutorial', `Tutorial for ${title} in ${lang}.`, { model: 'gemini-3-flash-preview' });
+  return res.output;
 };
 export const getSimplifiedExplanation = async (ctx: string, role: UserRole, lang: AppLanguage) => {
-  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY as string });
-  const res = await ai.models.generateContent({ model: 'gemini-3-flash-preview', contents: `Explain this to a ${role} in simple ${lang}: ${ctx}` });
-  return res.text || "";
+  const res = await callGateway('explain', `Explain for ${role} in ${lang}: ${ctx}`, { model: 'gemini-3-flash-preview' });
+  return res.output;
 };
 export const getFollowupQuestions = async (status: string, lang: AppLanguage) => {
-  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY as string });
-  const res = await ai.models.generateContent({ model: 'gemini-3-flash-preview', contents: `Based on status: ${status}, suggest 5 follow-up questions for oncology team in ${lang}. JSON array of strings only.` });
-  try { return JSON.parse(res.text || "[]"); } catch { return []; }
+  const res = await callGateway('questions', `Questions for ${status} in ${lang}. JSON array of strings.`, { model: 'gemini-3-flash-preview' });
+  try { return JSON.parse(res.output); } catch { return []; }
 };
 export const generateVaultSummary = async (docs: ScannedDoc[], lang: AppLanguage) => {
-  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY as string });
-  const summaryCtx = docs.map(d => `${d.name}: ${d.summary}`).join('\n');
-  const res = await ai.models.generateContent({ model: 'gemini-3-flash-preview', contents: `Summarize these medical documents for an oncology visit brief in ${lang}:\n${summaryCtx}` });
-  return res.text || "";
+  const ctx = docs.map(d => d.summary).join('\n');
+  const res = await callGateway('vault_sum', `Summarize for visit in ${lang}:\n${ctx}`, { model: 'gemini-3-flash-preview' });
+  return res.output;
 };
