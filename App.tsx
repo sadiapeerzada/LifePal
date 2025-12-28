@@ -334,11 +334,11 @@ const App: React.FC = () => {
         </div>
       )}
 
-      {/* Global Video Modal - Forced re-render key and centering */}
+      {/* Global Video Modal - Smoothed Transitions & Backdrop */}
       {isVideoModalOpen && currentVideo && (
         <div className="fixed inset-0 z-[2000] flex items-center justify-center p-4 md:p-10 bg-slate-950/98 backdrop-blur-3xl animate-in fade-in duration-500">
-           <div className="relative w-full max-w-6xl aspect-video bg-black rounded-[4rem] overflow-hidden shadow-[0_0_120px_rgba(0,0,0,0.9)] border-4 border-slate-800 animate-in zoom-in-95 duration-500">
-              <button onClick={() => setIsVideoModalOpen(false)} className="absolute top-6 right-6 z-[2010] p-4 bg-black/50 hover:bg-rose-600 rounded-full text-white backdrop-blur-md transition-all shadow-2xl border border-white/10"><X className="w-8 h-8" /></button>
+           <div className="relative w-full max-w-6xl aspect-video bg-black rounded-[4rem] overflow-hidden shadow-[0_0_120px_rgba(0,0,0,0.9)] border-4 border-slate-800 animate-in zoom-in-95 duration-500 ring-4 ring-white/5">
+              <button onClick={() => setIsVideoModalOpen(false)} className="absolute top-6 right-6 z-[2010] p-4 bg-black/50 hover:bg-rose-600 rounded-full text-white backdrop-blur-md transition-all shadow-2xl border border-white/10 active:scale-90"><X className="w-8 h-8" /></button>
               <div className="absolute inset-0 bg-slate-900 flex items-center justify-center">
                  <iframe 
                     key={currentVideo.youtubeId}
@@ -349,12 +349,12 @@ const App: React.FC = () => {
                     allowFullScreen 
                  />
               </div>
-              <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-slate-950/90 to-transparent p-12 pt-24 pointer-events-none">
+              <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-slate-950/95 via-slate-950/40 to-transparent p-12 pt-32 pointer-events-none transition-opacity duration-700">
                  <div className="flex items-center gap-8 text-left">
-                    <div className="p-6 bg-rose-500/20 rounded-[2rem] border border-rose-500/30 backdrop-blur-md shrink-0"><Tv className="w-10 h-10 text-rose-500" /></div>
+                    <div className="p-6 bg-rose-500/20 rounded-[2.5rem] border border-rose-500/30 backdrop-blur-md shrink-0"><Tv className="w-12 h-12 text-rose-500" /></div>
                     <div className="space-y-2">
-                       <h3 className="text-4xl font-black text-white tracking-tighter leading-none">{currentVideo.title}</h3>
-                       <p className="text-slate-300 text-lg font-medium leading-relaxed max-w-3xl opacity-80">{currentVideo.description}</p>
+                       <h3 className="text-4xl md:text-5xl font-black text-white tracking-tighter leading-none drop-shadow-lg">{currentVideo.title}</h3>
+                       <p className="text-slate-300 text-lg md:text-xl font-medium leading-relaxed max-w-3xl opacity-90 line-clamp-2">{currentVideo.description}</p>
                     </div>
                  </div>
               </div>
@@ -516,6 +516,11 @@ const HeroKidDashboard = ({ safeProfile, t, onOpenStudio, onQuestComplete, _sear
   const [loadingVideos, setLoadingVideos] = useState(false);
   const isGirl = safeProfile?.gender === 'GIRL';
   const progressPercent = Math.min((completedQuests.length / 24) * 100, 100);
+  
+  // XP Level Bar Logic
+  const currentXP = safeProfile?.xp || 0;
+  const xpIntoCurrentLevel = currentXP % 1000;
+  const levelProgress = (xpIntoCurrentLevel / 1000) * 100;
 
   const quests = [
     { id: 'q1', icon: <Sun />, title: "Gaze at the Sky", xp: 150, color: "amber" },
@@ -609,16 +614,35 @@ const HeroKidDashboard = ({ safeProfile, t, onOpenStudio, onQuestComplete, _sear
           <div className="space-y-2">
             <span className="px-4 py-1.5 bg-white/20 backdrop-blur-md rounded-full font-black uppercase text-[10px] tracking-[0.2em] border border-white/20">{t('hero_quest_banner')}</span>
             <h1 className="text-6xl md:text-8xl font-black leading-none drop-shadow-[0_4px_10px_rgba(0,0,0,0.2)] tracking-tighter">
-              {t('hero_welcome').replace('HQ!', '')}<span className="text-yellow-300">HQ</span>
+              {t('hero_welcome').replace('HQ!', '').replace('HQ', '')}<span className="text-yellow-300">HQ</span>!
             </h1>
           </div>
-          <div className="flex flex-wrap items-center justify-center md:justify-start gap-4">
-            <div className="flex items-center gap-3 bg-black/20 backdrop-blur-lg px-6 py-3 rounded-2xl border border-white/10">
-               <Trophy className="w-6 h-6 text-yellow-300" />
-               <span className="font-black text-2xl">{t('hero_level')} {safeProfile?.level || 1}</span>
+          
+          <div className="flex flex-col gap-4">
+            <div className="flex flex-wrap items-center justify-center md:justify-start gap-4">
+              <div className="flex items-center gap-3 bg-black/20 backdrop-blur-lg px-6 py-3 rounded-2xl border border-white/10">
+                 <Trophy className="w-6 h-6 text-yellow-300" />
+                 <span className="font-black text-2xl">{t('hero_level')} {safeProfile?.level || 1}</span>
+              </div>
+              <div className="bg-white/10 backdrop-blur-md px-6 py-3 rounded-2xl border border-white/5">
+                <p className="text-white/90 font-bold text-lg">{1000 - ((safeProfile?.xp || 0) % 1000)} {t('magic_energy_needed')}</p>
+              </div>
             </div>
-            <div className="bg-white/10 backdrop-blur-md px-6 py-3 rounded-2xl border border-white/5">
-              <p className="text-white/90 font-bold text-lg">{1000 - ((safeProfile?.xp || 0) % 1000)} {t('magic_energy_needed')}</p>
+            
+            {/* New XP Progress Bar for Tasks */}
+            <div className="w-full max-w-md space-y-2">
+              <div className="flex justify-between items-center text-[10px] font-black uppercase tracking-widest text-white/70">
+                <span>Power Level Status</span>
+                <span>{Math.round(levelProgress)}% to Next Level</span>
+              </div>
+              <div className="w-full h-6 bg-black/20 backdrop-blur-md rounded-full border-2 border-white/10 overflow-hidden shadow-inner p-0.5">
+                <div 
+                  className="h-full bg-gradient-to-r from-cyan-400 to-blue-400 rounded-full transition-all duration-1000 relative"
+                  style={{ width: `${levelProgress}%` }}
+                >
+                  <div className="absolute inset-0 bg-white/20 animate-pulse" />
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -679,50 +703,55 @@ const HeroKidDashboard = ({ safeProfile, t, onOpenStudio, onQuestComplete, _sear
          </section>
       </div>
 
-      <section className={`bg-gradient-to-br ${isGirl ? 'from-fuchsia-600 to-pink-500' : 'from-blue-600 to-indigo-700'} rounded-[4rem] p-12 shadow-2xl relative overflow-hidden border-8 border-white/20 transition-all group text-left`}>
+      <section className={`bg-gradient-to-br ${isGirl ? 'from-fuchsia-600 to-pink-500 shadow-fuchsia-200' : 'from-blue-600 to-indigo-700 shadow-blue-200'} rounded-[4rem] p-12 shadow-2xl relative overflow-hidden border-8 border-white/20 transition-all group text-left`}>
         <div className="absolute top-0 right-0 p-10 opacity-10 group-hover:scale-110 transition-transform duration-[5s]"><Tv className="w-80 h-80 text-white" /></div>
         <div className="relative z-10 flex flex-col gap-12">
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
                 <div className="space-y-4">
-                    <h2 className="text-6xl font-black text-white flex items-center gap-6 uppercase tracking-tighter"><Clapperboard className="w-14 h-14 text-yellow-300 animate-pulse" /> {t('hero_cinema')}</h2>
+                    <h2 className="text-6xl md:text-7xl font-black text-white flex items-center gap-6 uppercase tracking-tighter"><Clapperboard className="w-16 h-16 text-yellow-300 animate-pulse" /> {t('hero_cinema')}</h2>
                     <p className="text-white/80 text-2xl font-bold max-w-2xl">{t('cinema_banner')}</p>
                 </div>
-                <button onClick={loadVideos} disabled={loadingVideos} className="px-10 py-5 bg-white/10 backdrop-blur-xl border-2 border-white/20 text-white rounded-3xl font-black uppercase text-xs tracking-widest flex items-center gap-3 hover:bg-white/20 transition-all shadow-xl group/btn">
+                <button onClick={loadVideos} disabled={loadingVideos} className="px-10 py-5 bg-white/10 backdrop-blur-xl border-2 border-white/20 text-white rounded-[2rem] font-black uppercase text-xs tracking-widest flex items-center gap-3 hover:bg-white/20 transition-all shadow-xl group/btn active:scale-95">
                     {loadingVideos ? <Loader2 className="w-6 h-6 animate-spin" /> : <RefreshCcw className="w-6 h-6 group-hover/btn:rotate-180 transition-transform duration-700" />} {t('sync')} Magic
                 </button>
             </div>
 
             {loadingVideos ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-10 max-w-4xl">
-                 {[1, 2, 3, 4].map(i => (
-                    <div key={i} className="aspect-video bg-white/5 rounded-[3rem] animate-pulse border-2 border-white/5" />
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 max-w-full">
+                 {[1, 2, 3, 4, 5, 6].map(i => (
+                    <div key={i} className="aspect-video bg-white/5 rounded-[3rem] animate-pulse border-2 border-white/5 shadow-inner" />
                  ))}
               </div>
             ) : videos.length > 0 ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-10 max-w-4xl">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 max-w-full">
                 {videos.map((video) => (
-                    <button key={video.id} onClick={() => onOpenVideo(video)} className="group relative flex flex-col bg-white/10 backdrop-blur-xl rounded-[3rem] p-4 shadow-2xl hover:shadow-black/20 transition-all hover:-translate-y-2 isolate text-left border border-white/20 overflow-hidden">
-                    <div className="relative aspect-video rounded-[2rem] overflow-hidden bg-slate-900 shadow-inner">
-                        <img src={video.thumbnail} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="" />
-                        <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/40 transition-colors">
-                            <div className="w-20 h-20 bg-white/90 backdrop-blur-md rounded-full flex items-center justify-center shadow-2xl transition-transform group-hover:scale-110">
-                                <PlayCircle className="w-12 h-12 text-rose-500 fill-rose-500" />
+                    <button key={video.id} onClick={() => onOpenVideo(video)} className="group relative flex flex-col bg-white/10 backdrop-blur-xl rounded-[3.5rem] p-4 shadow-2xl hover:shadow-black/30 transition-all hover:-translate-y-3 isolate text-left border border-white/20 overflow-hidden outline-none focus:ring-4 ring-yellow-300/50">
+                    <div className="relative aspect-video rounded-[2.5rem] overflow-hidden bg-slate-900 shadow-inner">
+                        <img src={video.thumbnail} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="" />
+                        <div className="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/50 transition-colors duration-500">
+                            <div className="w-24 h-24 bg-white/90 backdrop-blur-md rounded-full flex items-center justify-center shadow-2xl transition-all duration-500 scale-90 group-hover:scale-110 group-active:scale-95">
+                                <PlayCircle className={`w-14 h-14 ${isGirl ? 'text-pink-500 fill-pink-500' : 'text-blue-500 fill-blue-500'} shadow-sm`} />
                             </div>
                         </div>
                     </div>
-                    <div className="p-6 space-y-3">
-                        <h3 className="font-black text-white text-3xl tracking-tight leading-none group-hover:text-yellow-300 transition-colors truncate">{video.title}</h3>
+                    <div className="p-8 space-y-4">
+                        <h3 className="font-black text-white text-3xl md:text-4xl tracking-tight leading-none group-hover:text-yellow-300 transition-colors truncate">{video.title}</h3>
                         <div className="flex items-center gap-2">
-                            <span className="text-[10px] font-black uppercase text-white bg-black/20 px-4 py-2 rounded-xl tracking-widest border border-white/10">{video.category || 'Discovery'}</span>
+                            <span className="text-[11px] font-black uppercase text-white bg-black/20 px-5 py-2.5 rounded-2xl tracking-widest border border-white/10 backdrop-blur-md">{video.category || 'Discovery'}</span>
                         </div>
                     </div>
                     </button>
                 ))}
               </div>
             ) : (
-              <div className="py-20 text-center bg-white/5 rounded-[3rem] border-2 border-white/5 border-dashed max-w-4xl">
-                 <Video className="w-16 h-16 text-white/20 mx-auto mb-4" />
-                 <p className="text-white/40 font-black uppercase tracking-widest">Searching for brave stories...</p>
+              <div className="py-32 text-center bg-white/5 rounded-[4rem] border-4 border-white/10 border-dashed max-w-full flex flex-col items-center justify-center gap-6 group">
+                 <div className="w-24 h-24 bg-white/10 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-700">
+                    <Video className="w-12 h-12 text-white/40" />
+                 </div>
+                 <div className="space-y-2">
+                    <p className="text-white text-3xl font-black uppercase tracking-tighter">Seeking Brave Stories</p>
+                    <p className="text-white/40 font-bold uppercase tracking-widest text-sm">Searching the galaxy for hero movies...</p>
+                 </div>
               </div>
             )}
         </div>
