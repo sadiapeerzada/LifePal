@@ -38,13 +38,9 @@ const decodeRawPCM = async (
 
 const LIFEPAL_SYSTEM = "You are the LifePal AI assistant, a compassionate and expert clinical companion in oncology. Use clear language. NEVER diagnose. ALWAYS direct to JNMCH for medical decisions.";
 
+// Fixed: Removed AIStudio logic that caused build errors. 
+// Assuming API_KEY is provided via environment variables as per guidelines.
 export const ensureApiKey = async (): Promise<boolean> => {
-  if (typeof window === 'undefined' || !window.aistudio) return true;
-  const hasKey = await window.aistudio.hasSelectedApiKey();
-  if (!hasKey) {
-    await window.aistudio.openSelectKey();
-    return true; 
-  }
   return true;
 };
 
@@ -57,7 +53,6 @@ export const getGeminiResponse = async (
   mood?: EmotionalState,
   history: { role: 'user' | 'model', text: string }[] = []
 ): Promise<string> => {
-  // Named parameter initialization per guidelines
   const ai = new GoogleGenAI({ apiKey: process.env.API_KEY as string });
   const model = useThinking ? 'gemini-3-pro-preview' : 'gemini-3-flash-preview';
   

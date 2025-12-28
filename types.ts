@@ -35,19 +35,6 @@ export enum AppTheme {
   DARK = 'dark'
 }
 
-export interface AIStudio {
-  hasSelectedApiKey: () => Promise<boolean>;
-  openSelectKey: () => Promise<void>;
-}
-
-// Global augmentation for the window object
-declare global {
-  interface Window {
-    // Fix: Changed 'aistudio' to optional to match standard environment declarations and resolve modifier mismatch errors.
-    aistudio?: AIStudio;
-  }
-}
-
 export interface ChatAction {
   label: string;
   type: 'BUTTON' | 'LINK';
