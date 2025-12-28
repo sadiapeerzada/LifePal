@@ -189,7 +189,7 @@ The app is configured for deployment via **Azure Static Web Apps** with the foll
 
 LifePal is not just an application; it is a clinical intervention. By unifying the reasoning power of **Google Gemini**, the secure infrastructure of **Microsoft Azure**, and the regional heart of the **Alig Care Foundation**, we have created a digital sanctuary that ensures no one fights cancer alone.
 
-## 10 Remarks
+## 10. Remarks
 
 ### Current Status:
 
