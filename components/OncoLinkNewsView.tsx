@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { fetchOncoLinkNews } from '../services/geminiService';
 import { AppLanguage, UserProfile, SavedResource } from '../types';
@@ -156,24 +157,21 @@ const OncoLinkNewsView: React.FC<Props> = ({ profile, onToggleSave, searchQuery 
         {activeTab === 'PORTALS' && (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {filteredPortals.length > 0 ? filteredPortals.map(portal => (
-              <a key={portal.id} href={portal.url} target="_blank" rel="noopener noreferrer" className="bg-white dark:bg-slate-900 p-10 rounded-[3.5rem] border-2 border-slate-100 dark:border-slate-800 shadow-xl hover:shadow-2xl hover:border-emerald-200 dark:hover:border-emerald-900 transition-all group flex flex-col sm:flex-row items-start gap-8">
-                <div className={`p-6 rounded-[2rem] shadow-sm shrink-0 ${portal.category === 'Clinical' ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-600' : portal.category === 'Research' ? 'bg-purple-50 dark:bg-purple-900/30 text-purple-600' : 'bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600'}`}>
-                    {portal.category === 'Clinical' && <HeartPulse className="w-10 h-10" />}
-                    {portal.category === 'Research' && <Microscope className="w-10 h-10" />}
-                    {portal.category === 'Policy' && <Globe className="w-10 h-10" />}
-                    {portal.category === 'Regional' && <Landmark className="w-10 h-10" />}
-                    {portal.category === 'Patient Care' && <Landmark className="w-10 h-10" />}
-                    {portal.category === 'Global' && <Globe className="w-10 h-10" />}
-                    {portal.category === 'Hospital' && <HeartPulse className="w-10 h-10" />}
+              <a key={portal.id} href={portal.url} target="_blank" rel="noopener noreferrer" className="bg-white dark:bg-slate-900 rounded-[3.5rem] border-2 border-slate-100 dark:border-slate-800 shadow-xl hover:shadow-2xl hover:border-emerald-200 dark:hover:border-emerald-900 transition-all group flex flex-col sm:flex-row items-start overflow-hidden">
+                <div className="w-full sm:w-48 h-48 sm:h-full shrink-0 grayscale group-hover:grayscale-0 transition-all duration-700">
+                    <img src={portal.thumbnail} className="w-full h-full object-cover" alt="" />
                 </div>
-                <div className="flex-1 space-y-3">
+                <div className="flex-1 p-8 space-y-4">
                     <div className="flex justify-between items-start">
-                      <h3 className="text-2xl font-black text-slate-900 dark:text-white group-hover:text-emerald-600 transition-colors leading-tight">{portal.title}</h3>
+                      <div className="space-y-1">
+                        <h3 className="text-2xl font-black text-slate-900 dark:text-white group-hover:text-emerald-600 transition-colors leading-tight">{portal.title}</h3>
+                        <span className="text-[9px] font-black uppercase tracking-[0.2em] px-3 py-1 bg-slate-50 dark:bg-slate-800 text-slate-500 rounded-lg border border-slate-100 dark:border-slate-700">{portal.tag}</span>
+                      </div>
                       <ExternalLink className="w-5 h-5 text-slate-300 group-hover:text-emerald-500 transition-colors shrink-0 ml-2" />
                     </div>
                     <p className="text-slate-500 dark:text-slate-400 font-medium leading-relaxed line-clamp-2 text-sm">{portal.description}</p>
-                    <div className="pt-2 flex gap-2">
-                      <span className="text-[9px] font-black uppercase tracking-[0.2em] px-3 py-1.5 bg-slate-50 dark:bg-slate-800 text-slate-500 rounded-lg border border-slate-100 dark:border-slate-700">{portal.tag}</span>
+                    <div className="flex items-center gap-2 text-emerald-600 dark:text-emerald-400 font-black text-[8px] uppercase tracking-widest">
+                       <ShieldCheck className="w-3 h-3" /> Institutional Authority
                     </div>
                 </div>
               </a>
@@ -233,7 +231,7 @@ const OncoLinkNewsView: React.FC<Props> = ({ profile, onToggleSave, searchQuery 
          </div>
          <h2 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight">Institutional Grounding</h2>
          <p className="text-slate-500 dark:text-slate-400 text-lg font-medium leading-relaxed max-w-2xl mx-auto">
-           All insights are sourced exclusively from authorized oncology institutions (WHO, NCI, NHS) and grounded in real-time by Google Gemini.
+           All insights are sourced exclusively from authorized oncology institutions (WHO, NCI, Macmillan, NHS) and grounded in real-time by Google Gemini.
          </p>
       </section>
     </div>
