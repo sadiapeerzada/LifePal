@@ -190,7 +190,7 @@ export const CareFocusCard = ({ t }: { t: (key: string) => string }) => {
     { title: 'Moment of Presence', desc: 'Close your eyes for 60 seconds of calm', icon: <Wind /> },
     { title: 'Natural Light', desc: 'Step toward a window for fresh perspective', icon: <Sun /> },
   ];
-  const [focus, setFocus] = useState(focuses[new Date().getDate() % focuses.length]);
+  const [focus, _setFocus] = useState(focuses[new Date().getDate() % focuses.length]);
   const [isCompleted, setIsCompleted] = useState(false);
   return (
     <div className={`bg-blue-50 dark:bg-gradient-to-br dark:from-blue-900 dark:to-blue-950 p-10 rounded-[3.5rem] shadow-xl flex flex-col md:flex-row items-center gap-8 group relative overflow-hidden border-2 border-white dark:border-blue-800/30 isolate animate-in slide-in-from-bottom-4`}>
@@ -250,7 +250,7 @@ const App: React.FC = () => {
     const exists = profile.savedResources?.some(r => r.id === res.id);
     updateProfile({ savedResources: exists ? (profile.savedResources || []).filter(r => r.id !== res.id) : [...(profile.savedResources || []), { ...res, timestamp: Date.now() }] });
   };
-  const handleLogin = (email: string) => { setIsAuthenticated(true); if (!profile) navigate('/role'); else navigate('/'); };
+  const handleLogin = (_email: string) => { setIsAuthenticated(true); if (!profile) navigate('/role'); else navigate('/'); };
   const handleLogout = () => { localStorage.removeItem('lifepal_profile'); setIsAuthenticated(false); setProfile(null); navigate('/'); };
 
   const addXP = (amount: number, sticker?: string) => {
@@ -288,8 +288,9 @@ const App: React.FC = () => {
   };
 
   const t = (key: string) => {
-    const currentLanguage = profile?.language || AppLanguage.ENGLISH;
-    return (TRANSLATIONS as any)[currentLanguage]?.[key] || (TRANSLATIONS as any)[AppLanguage.ENGLISH]?.[key] || key;
+    const currentLanguage = (profile as UserProfile | null)?.language || AppLanguage.ENGLISH;
+    const dict = (TRANSLATIONS as any)[currentLanguage] || (TRANSLATIONS as any)[AppLanguage.ENGLISH];
+    return dict?.[key] || key;
   };
   const isRTL = profile?.language === AppLanguage.URDU;
 
@@ -506,7 +507,7 @@ const DashboardHub = ({ t, searchQuery }: any) => {
   );
 };
 
-const HeroKidDashboard = ({ safeProfile, t, onOpenStudio, onQuestComplete, searchQuery, onOpenVideo, onOpenMystery, mysteryUnlocked, onOpenGame }: any) => {
+const HeroKidDashboard = ({ safeProfile, t, onOpenStudio, onQuestComplete, _searchQuery, onOpenVideo, onOpenMystery, mysteryUnlocked, onOpenGame }: any) => {
   const [completedQuests, setCompletedQuests] = useState<string[]>([]);
   const [magicFact, setMagicFact] = useState('Tap the button to discover a hero secret!');
   const [loadingFact, setLoadingFact] = useState(false);
@@ -647,7 +648,7 @@ const HeroKidDashboard = ({ safeProfile, t, onOpenStudio, onQuestComplete, searc
                             <div className={`text-2xl sm:text-3xl filter drop-shadow-sm ${isRare ? 'animate-pulse' : ''}`}>
                             {typeof sticker === 'string' ? sticker : sticker.icon}
                             </div>
-                            {isRare && <div className={`absolute -top-1 -right-1 ${typeof sticker !== 'string' && sticker.type === 'LEGENDARY' ? 'bg-amber-500' : 'bg-indigo-500'} text-[6px] font-black text-white px-1.5 py-0.5 rounded-full shadow-lg`}>{typeof sticker === 'string' ? 'RARE' : sticker.type}</div>}
+                            {isRare && <div className={`absolute -top-1 -right-1 ${typeof sticker !== 'string' && (sticker as any).type === 'LEGENDARY' ? 'bg-amber-500' : 'bg-indigo-500'} text-[6px] font-black text-white px-1.5 py-0.5 rounded-full shadow-lg`}>{typeof sticker === 'string' ? 'RARE' : (sticker as any).type}</div>}
                         </>
                         ) : <Lock className="text-slate-300 dark:text-slate-700 w-4 h-4" />}
                     </div>

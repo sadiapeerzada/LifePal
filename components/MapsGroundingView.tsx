@@ -27,15 +27,21 @@ const MapsGroundingView: React.FC<Props> = ({ onToggleSave, savedResources = [],
 
   const handleSearch = async () => {
     setLoading(true);
-    navigator.geolocation.getCurrentPosition(async (pos) => {
-      const res = await findNearbyResources(query, pos.coords.latitude, pos.coords.longitude);
-      setResults(res as ResourceResult);
-      setLoading(false);
-    }, async () => {
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(async (pos) => {
+        const res = await findNearbyResources(query, pos.coords.latitude, pos.coords.longitude);
+        setResults(res);
+        setLoading(false);
+      }, async () => {
+        const res = await findNearbyResources(query);
+        setResults(res);
+        setLoading(false);
+      });
+    } else {
       const res = await findNearbyResources(query);
-      setResults(res as ResourceResult);
+      setResults(res);
       setLoading(false);
-    });
+    }
   };
 
   return (
