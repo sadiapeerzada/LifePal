@@ -422,7 +422,7 @@ const TE_STRINGS = {
   role_patient_desc: 'క్లినికల్ నావిగేషన్, నర్సింగ్ సహాయం, సులభమైన గైడ్‌లు మరియు AI తోడు',
   role_caregiver_desc: 'సంరక్షకులు మరియు కుటుంబ మద్దతు కోసం పూర్తి వనరుల కేంద్రం',
   role_hero_desc: 'బడ్డీ హీరో తోడుతో ఒక గేమిఫైడ్ మ్యాజిక్ క్వెస్ట్',
-  role_donor_desc: 'సామాజిక ప్రభావాన్ని చూడండి మరియు సంరక్షణ నావిగేషన్‌కు మద్దతు ఇవ్వండి. ఫీజులు లేవు, స్వచ్ఛమైన ప్రభావం.',
+  role_donor_desc: 'సామాజిక ప్రభావాన్ని చూడండిและ సంరక్షణ నావిగేషన్‌కు మద్దతు ఇవ్వండి. ఫీజులు లేవు, స్వచ్ఛమైన ప్రభావం.',
   role_survivor_desc: 'ఫాలో-అప్ మానిటరింగ్, స్కాన్ ఆందోళన మద్దతు మరియు క్యాన్సర్ తర్వాత జీవితం గైడ్‌లు',
   news_tab: 'వార్తలు',
   guides_tab: 'గైడ్లు',
@@ -505,44 +505,44 @@ export const TRANSLATIONS: Record<AppLanguage, Record<string, string>> = {
 
 export const CHILD_VIDEOS: ChildVideo[] = [
   {
-    id: 'vid-io2',
-    title: 'Inside Out 2 - Stay Brave',
-    description: 'A magical journey into understanding new emotions and staying brave through difficult changes.',
-    youtubeId: 'L4DrolmDxmw',
+    id: 'vid-bluey',
+    title: 'Bluey: Bumpy and the Wise Old Wolfhound',
+    description: 'Bluey learns about staying in the hospital through a funny and heartwarming home movie.',
+    youtubeId: 'pS-Wz9zDqH0',
     videoUrl: '',
-    externalUrl: 'https://youtu.be/L4DrolmDxmw',
-    thumbnail: 'https://img.youtube.com/vi/L4DrolmDxmw/maxresdefault.jpg',
-    category: 'Bravery'
+    externalUrl: 'https://youtu.be/pS-Wz9zDqH0',
+    thumbnail: 'https://img.youtube.com/vi/pS-Wz9zDqH0/maxresdefault.jpg',
+    category: 'Magic Story'
   },
   {
-    id: 'vid-dino',
-    title: 'The Good Dinosaur',
-    description: 'Arlo learns that bravery is taking steps even when you are scared of the unknown.',
-    youtubeId: '76X-fTf0pEw',
+    id: 'vid-coco',
+    title: 'Coco: Remember Me',
+    description: 'A beautiful musical story about family love and the strength of memories.',
+    youtubeId: '3iDxU6hSps0',
     videoUrl: '',
-    externalUrl: 'https://youtu.be/76X-fTf0pEw',
-    thumbnail: 'https://img.youtube.com/vi/76X-fTf0pEw/maxresdefault.jpg',
-    category: 'Hero'
+    externalUrl: 'https://youtu.be/3iDxU6hSps0',
+    thumbnail: 'https://img.youtube.com/vi/3iDxU6hSps0/maxresdefault.jpg',
+    category: 'Heart Songs'
   },
   {
-    id: 'vid-scarlett',
-    title: 'Scarlett',
-    description: 'A beautiful story about a brave girl finding her magic again through courage and dance.',
-    youtubeId: 'XfXf_A_C8_c',
+    id: 'vid-hero',
+    title: 'Big Hero 6: Healing Power',
+    description: 'Baymax shows that care and kindness are the greatest superpowers of all.',
+    youtubeId: 'T8XmH4F7A6A',
     videoUrl: '',
-    externalUrl: 'https://youtu.be/XfXf_A_C8_c',
-    thumbnail: 'https://img.youtube.com/vi/XfXf_A_C8_c/maxresdefault.jpg',
-    category: 'Magic'
+    externalUrl: 'https://youtu.be/T8XmH4F7A6A',
+    thumbnail: 'https://img.youtube.com/vi/T8XmH4F7A6A/maxresdefault.jpg',
+    category: 'Hero Quest'
   },
   {
-    id: 'vid-piper',
-    title: 'Piper',
-    description: 'A tiny hero overcomes the big waves to find something wonderful in the smallest of things.',
-    youtubeId: 'vPCEY7XMT7M',
+    id: 'vid-calm',
+    title: 'Calm Breathing for Little Heroes',
+    description: 'Follow the glowing light to find your calm inner strength.',
+    youtubeId: 'aNXKjGF_0tE',
     videoUrl: '',
-    externalUrl: 'https://youtu.be/vPCEY7XMT7M',
-    thumbnail: 'https://img.youtube.com/vi/vPCEY7XMT7M/maxresdefault.jpg',
-    category: 'Discovery'
+    externalUrl: 'https://youtu.be/aNXKjGF_0tE',
+    thumbnail: 'https://img.youtube.com/vi/aNXKjGF_0tE/maxresdefault.jpg',
+    category: 'Calm Power'
   }
 ];
 
@@ -550,7 +550,7 @@ export const SCHEMES: Scheme[] = [
   {
     id: 'ayushman_bharat',
     name: 'Ayushman Bharat (PM-JAY)',
-    description: 'The world\'s largest health insurance scheme fully financed by the government.',
+    description: 'The world\'s largest health insurance scheme fully financed by the government, providing ₹5 Lakh cover per family.',
     eligibility: ['Socio-economic Caste Census (SECC) families', 'Low-income households', 'BPL card holders'],
     documents: ['Aadhaar Card', 'Ration Card', 'Mobile Number', 'BPL Card'],
     steps: ['Check eligibility on PM-JAY portal', 'Visit empaneled hospital (JNMCH)', 'Verify identity at Ayushman kiosk'],
@@ -561,7 +561,7 @@ export const SCHEMES: Scheme[] = [
   {
     id: 'cm_relief_fund',
     name: 'CM Relief Fund (UP)',
-    description: 'Financial assistance provided by the Chief Minister\'s office for critical treatments.',
+    description: 'Financial assistance provided by the Chief Minister\'s office for critical treatments for residents of Uttar Pradesh.',
     eligibility: ['Permanent residents of Uttar Pradesh', 'BPL families', 'Income less than threshold'],
     documents: ['Income Certificate', 'Treatment Estimate', 'Domicile Proof'],
     steps: ['Obtain medical estimate from JNMCH', 'Apply at DM office', 'Verification by state health dept'],
@@ -587,7 +587,7 @@ export const SCHEMES: Scheme[] = [
     eligibility: ['BPL households only', 'Treatment must be at Government hospitals/institutes'],
     documents: ['BPL Ration Card', 'Medical Estimate', 'Identity Proof'],
     steps: ['Obtain certificate from hospital Medical Superintendent', 'Fill RAN application form', 'Submit to MoHFW'],
-    officialUrl: 'https://main.mohfw.gov.in/major-programmes/poor-patients-financial-assistance/rashtriya-arogya-nidhi',
+    officialUrl: 'https://mohfw.gov.in/?q=en/major-programmes/poor-patients-financial-assistance/rashtriya-arogya-nidhi',
     type: 'GOVERNMENT',
     fundType: 'PM_CARE'
   },
@@ -598,13 +598,13 @@ export const SCHEMES: Scheme[] = [
     eligibility: ['Income below ₹1,25,000 per annum', 'Treatment in Govt hospitals only'],
     documents: ['Income certificate', 'Original medical bills/estimates', 'Hospital certificate'],
     steps: ['Hospital verifies indigence', 'Forward application to MoHFW', 'Grant sanctioned based on funds availability'],
-    officialUrl: 'https://main.mohfw.gov.in/major-programmes/poor-patients-financial-assistance/health-ministers-discretionary-grant',
+    officialUrl: 'https://www.mohfw.gov.in/?q=en/major-programmes/poor-patients-financial-assistance/health-ministers-discretionary-grant-hmdg',
     type: 'GOVERNMENT',
     fundType: 'PM_CARE'
   },
   {
     id: 'alig_care_fund',
-    name: 'Alig Care Foundation (ACF)',
+    name: 'Ali Care Support (ACF)',
     description: 'Regional fund supporting oncology patients at JNMCH and surrounding AMU clinics.',
     eligibility: ['Students and local Aligarh residents', 'Verified financial distress'],
     documents: ['Student ID (if applicable)', 'JNMCH OPD card', 'Verified income docs'],
