@@ -326,7 +326,7 @@ const App: React.FC = () => {
       
       {showLevelUp && (
         <div className="fixed inset-0 z-[2200] flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-2xl animate-in fade-in">
-           <div className="relative w-full max-lg bg-white dark:bg-slate-900 rounded-[4rem] p-12 text-center border-8 border-yellow-400 shadow-2xl animate-in zoom-in">
+           <div className="relative w-full max-w-lg bg-white dark:bg-slate-900 rounded-[4rem] p-12 text-center border-8 border-yellow-400 shadow-2xl animate-in zoom-in">
               <div className="w-32 h-32 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-8 animate-bounce">
                 <Trophy className="w-16 h-16 text-yellow-500" />
               </div>
@@ -451,7 +451,6 @@ const App: React.FC = () => {
       <main className="flex-1 flex flex-col overflow-hidden relative isolate">
         <header className="h-20 border-b flex items-center justify-between px-12 bg-white dark:bg-slate-900 z-40 relative">
           <div className="relative group flex-1 max-w-xl">
-            {/* Fix: Using correctly imported Search component instead of non-existent SearchIcon */}
             <Search className={`absolute ${isRTL ? 'right-4' : 'left-4'} top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400`} />
             <input type="text" value={globalSearch} onChange={e => setGlobalSearch(e.target.value)} placeholder={t('search_placeholder')} className={`w-full bg-slate-50 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-full ${isRTL ? 'pr-12 pl-4' : 'pl-12 pr-4'} py-2 font-bold text-sm outline-none focus:border-blue-900 transition-all`} />
           </div>
@@ -557,10 +556,18 @@ const HeroKidDashboard = ({ profile: safeProfile, t, onOpenStudio, onQuestComple
     { id: 'q10', icon: <Apple />, title: "Energy Snack", xp: 80, color: "emerald" },
     { id: 'q11', icon: <Compass />, title: "Adventure Map", xp: 180, color: "yellow" },
     { id: 'q12', icon: <Wand />, title: "Wish Spell", xp: 300, color: "pink" },
-    { id: 'q13', icon: <Droplets />, title: "Cloud Watching", xp: 110, color: "blue" },
-    { id: 'q14', icon: <Star />, title: "Wishing Star", xp: 140, color: "yellow" },
-    { id: 'q15', icon: <Heart />, title: "Hero Hug", xp: 90, color: "rose" },
-    { id: 'q16', icon: <Wand2 />, title: "Magic Sparkle", xp: 220, color: "purple" },
+    { id: 'q13', icon: <Activity />, title: "Brave Stretch", xp: 110, color: "blue" },
+    { id: 'q14', icon: <Heart />, title: "Hero Hug", xp: 140, color: "rose" },
+    { id: 'q15', icon: <Users />, title: "Friendship Quest", xp: 160, color: "emerald" },
+    { id: 'q16', icon: <Zap />, title: "Thunder Step", xp: 90, color: "amber" },
+    { id: 'q17', icon: <Star />, title: "Wishing Star", xp: 210, color: "yellow" },
+    { id: 'q18', icon: <Dumbbell />, title: "Super Strength", xp: 130, color: "cyan" },
+    { id: 'q19', icon: <Palette />, title: "Color Splash", xp: 170, color: "purple" },
+    { id: 'q20', icon: <Music />, title: "Song of Joy", xp: 145, color: "pink" },
+    { id: 'q21', icon: <Coffee />, title: "Calm Sip", xp: 85, color: "indigo" },
+    { id: 'q22', icon: <Flower />, title: "Garden Gaze", xp: 125, color: "emerald" },
+    { id: 'q23', icon: <Wind />, title: "Feather Breath", xp: 190, color: "blue" },
+    { id: 'q24', icon: <Shield />, title: "Peace Shield", xp: 250, color: "rose" },
   ];
 
   const progressPercent = Math.min((completedQuests.length / quests.length) * 100, 100);
@@ -594,7 +601,7 @@ const HeroKidDashboard = ({ profile: safeProfile, t, onOpenStudio, onQuestComple
 
   const stickerIcons = [
     '🌟', '🚀', '🎨', '💖', '🍭', '🦁', '🛸', '🌈', '🍦', '💎', '🔥', '🌊', '🍄', '🦖', '🦄', '🪐',
-    '🐯', '🦉', '🦋', '🎈', '🍪', '🥨', '🦸‍♂️', '🦸‍♀️'
+    '🐯', '🦉', '🦋', '🎈', '🍪', '🥨', '🦸‍♂️', '🦸‍♀️', '🐼', '🦊', '🐢', '🍀', '🍎', '🪁', '🧸', '🎮'
   ];
 
   return (

@@ -9,7 +9,7 @@ const EN_STRINGS = {
   navigator_sub: 'Precision-mapped clinical roadmaps integrated with institutional protocols.',
   med_scanner: 'Meds Scanner',
   meds_scanner_header: 'Vision-AI Med Scanner',
-  meds_scanner_sub: 'Grounded pharmaceutical analysis of chemical compounds and safety warnings.',
+  med_scanner_sub: 'Grounded pharmaceutical analysis of chemical compounds and safety warnings.',
   doc_intel: 'Doc Intel',
   doc_intel_header: 'Doc Intel Vault',
   doc_intel_sub: 'Securely store reports in Azure Vault and let AI explain context.',
@@ -266,7 +266,7 @@ const UR_STRINGS = {
   emergency_sos: 'ہنگامی SOS',
   emergency_prep: 'کرائسس گارڈ',
   emergency_header: 'کرائسس گارڈ',
-  emergency_sub: 'کینسر کی ہنگامی صورتحال کے لیے پروٹوکول۔',
+  emergency_sub: 'کینسر کی ہنگامی صورتحال کے لیے پروٹوکول।',
   impact_hub: 'اثر مرکز',
   impact_hub_header: 'اثر مرکز',
   impact_hub_sub: 'سماجی اثر دیکھیں اور مدد کریں۔',
@@ -286,7 +286,7 @@ const UR_STRINGS = {
   survivors_hub_sub: 'صحت یابی کے بعد کا سفر।',
   skills_hub: 'ہنر مرکز',
   skills_hub_header: 'کلینیکل ہنر مرکز',
-  skills_hub_sub: 'گھر پر دیکھ بھال के طریقے سیکھیں۔',
+  skills_hub_sub: 'گھر پر دیکھ بھال کے طریقے سیکھیں۔',
   saved_sanctuary: 'محفوظ پناہ گاہ',
   saved_sanctuary_header: 'محفوظ پناہ گاہ',
   saved_sanctuary_sub: 'آپ کے محفوظ کردہ وسائل।',
@@ -325,7 +325,7 @@ const UR_STRINGS = {
   hero_welcome: 'ہیرو ہیڈ کوارٹر میں خوش آمدید!',
   hero_level: 'ہیرو کی سطح',
   magic_energy_needed: 'ایکس پی درکار ہے',
-  memory_quest: 'یادداشت کا مشن',
+  memory_quest: 'میشن کی یادداشت',
   train_brain: 'دماغ کو تربیت دیں',
   magic_studio: 'جادو اسٹوڈیو',
   open_studio: 'اسٹوڈیو کھولیں',
@@ -342,26 +342,26 @@ const UR_STRINGS = {
   stay_brave: 'بہادر رہیں',
   magic_energy: 'جادوئی توانائی',
   symptom_log: 'علامات کا لاگ',
-  symptom_log_header: 'علامات का لاگ',
+  symptom_log_header: 'علامات کا لاگ',
   symptom_log_sub: 'جسمانی تبدیلیوں کو ٹریک کریں۔',
   scan_history: 'اسکین کی تاریخ',
   add_reminder: 'یاد دہانی شامل کریں',
   analyzing: 'تجزیہ ہو رہا ہے...',
-  analyze_symptoms: 'پیٹرن کا تجزیह کریں',
-  generating_insights: 'بصیرتیں تلاش کی जा रही ہیں...',
+  analyze_symptoms: 'پیٹرن کا تجزیہ کریں',
+  generating_insights: 'بصیرतیں تلاش کی जा रही हैं...',
   symptom_patterns_header: 'علامات کی ذہانت',
   symptom_patterns_sub: 'اپنے لاگ میں طبی پیٹرن دریافت کریں۔',
   daily_sanctuary_focus: 'روزانہ کی توجہ',
   completed: 'مکمل ہو گیا',
   mark_complete: 'مکمل نشان زد کریں',
-  open_now: 'अभी खोलें',
-  later: 'بعد में',
-  new_sticker: 'नया स्टिकर!',
-  bravery_sparkle: 'आपकी बहादुरी में एक नई चमक आ गई है!',
-  xp_awarded: 'XP मिला',
-  level_up: 'लेवल अप!',
-  reached_level: 'स्तर पर पहुँच गए',
-  continue_quest: 'क्वेस्ट जारी रखें'
+  open_now: 'ابھی کھولیں',
+  later: 'بعد میں',
+  new_sticker: 'نیا اسٹیکر!',
+  bravery_sparkle: 'آپ کی بہادری میں ایک نئی چمک آگئی ہے!',
+  xp_awarded: 'XP مل گیا',
+  level_up: 'لیول اپ!',
+  reached_level: 'سطح پر پہنچ گئے',
+  continue_quest: 'مشن جاری رکھیں'
 };
 
 const TE_STRINGS = {
@@ -444,7 +444,7 @@ const TE_STRINGS = {
   hero_quests: 'సూపర్ క్వెస్ట్‌లు',
   hero_quest_banner: 'హీరో క్వెస్ట్',
   hero_welcome: 'హీరో హెడ్ క్వార్టర్స్‌కు స్వాగతం!',
-  hero_level: 'లేవల్ అప్!',
+  hero_level: 'హీరో స్థాయి',
   magic_energy_needed: 'తదుపరి పవర్-అప్ కోసం ఎక్స్‌పీ',
   memory_quest: 'మెమరీ క్వెస్ట్',
   train_brain: 'మెదడుకు శిక్షణ ఇవ్వండి',
@@ -510,7 +510,7 @@ export const TRUSTED_RESOURCES: TrustedPortal[] = [
     url: 'https://www.macmillan.org.uk/',
     category: 'Support',
     tag: 'PATIENT_WELLNESS',
-    thumbnail: 'https://images.unsplash.com/photo-1469571483333-2a447814b745?auto=format&fit=crop&q=80&w=800'
+    thumbnail: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=800'
   },
   {
     id: 'national-cancer-institute',
@@ -519,7 +519,7 @@ export const TRUSTED_RESOURCES: TrustedPortal[] = [
     url: 'https://www.cancer.gov/',
     category: 'Research',
     tag: 'RESEARCH_LEADER',
-    thumbnail: 'https://images.unsplash.com/photo-1532187875605-2fe35f74bc95?auto=format&fit=crop&q=80&w=800'
+    thumbnail: 'https://images.unsplash.com/photo-1581056771107-24ca5f033842?auto=format&fit=crop&q=80&w=800'
   },
   {
     id: 'who-cancer',
@@ -735,5 +735,25 @@ export const VERIFIED_GUIDES: Article[] = [
     imageUrl: 'https://images.unsplash.com/photo-1469571483333-2a447814b745?auto=format&fit=crop&q=80&w=800',
     tags: ['Palliative', 'Comfort'],
     link: 'https://www.who.int/news-room/fact-sheets/detail/palliative-care'
+  },
+  {
+    id: 'guide-mental-calm',
+    title: 'Mental Health: Finding Calm',
+    summary: 'Cognitive strategies and gentle meditation practices for patients and caregivers facing diagnosis anxiety.',
+    content: '',
+    category: 'EMOTIONAL',
+    imageUrl: 'https://images.unsplash.com/photo-1516585427167-9f4af9627e6c?auto=format&fit=crop&q=80&w=800',
+    tags: ['Mindfulness', 'Stress'],
+    link: 'https://www.cancer.org/cancer/survivorship/coping/emotional-well-being.html'
+  },
+  {
+    id: 'guide-financial-planning',
+    title: 'Financial Planning for Care',
+    summary: 'Practical steps to organize medical documents for faster scheme approval and managing long-term costs.',
+    content: '',
+    category: 'SCHEMES',
+    imageUrl: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&q=80&w=800',
+    tags: ['Planning', 'Aid'],
+    link: 'https://www.macmillan.org.uk/cancer-information-and-support/impacts-of-cancer/financial-impact-of-cancer'
   }
 ];
