@@ -508,7 +508,7 @@ const DashboardHub = ({ t, searchQuery }: any) => {
   );
 };
 
-const HeroKidDashboard = ({ safeProfile, t, onOpenStudio, onQuestComplete, _searchQuery, onOpenVideo, onOpenMystery, mysteryUnlocked, onOpenGame }: any) => {
+const HeroKidDashboard = ({ profile: safeProfile, t, onOpenStudio, onQuestComplete, _searchQuery, onOpenVideo, onOpenMystery, mysteryUnlocked, onOpenGame }: any) => {
   const [completedQuests, setCompletedQuests] = useState<string[]>([]);
   const [magicFact, setMagicFact] = useState('Tap the button to discover a hero secret!');
   const [loadingFact, setLoadingFact] = useState(false);
