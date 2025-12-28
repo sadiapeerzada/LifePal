@@ -118,7 +118,7 @@ const MedicineScannerView: React.FC<Props> = ({ onAddReminder, language }) => {
 
   return (
     <div className="max-w-4xl mx-auto space-y-12 pb-32 text-left animate-in fade-in duration-700">
-      <header className="space-y-10 relative">
+      <header className="space-y-6 relative">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-8">
           <div className="space-y-4">
             <div className="flex items-center gap-6">
@@ -129,10 +129,10 @@ const MedicineScannerView: React.FC<Props> = ({ onAddReminder, language }) => {
                 </div>
               </div>
               <div className="space-y-1">
-                <h1 className="text-6xl md:text-8xl font-black tracking-tighter text-blue-950 dark:text-white leading-none uppercase">
+                <h1 className="text-6xl md:text-8xl font-black tracking-tighter text-blue-950 dark:text-white leading-none">
                   {t('meds_scanner_header')}
                 </h1>
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3 pt-2">
                   <div className="flex items-center gap-2 px-3 py-1 bg-emerald-50 dark:bg-emerald-900/30 rounded-full border border-emerald-100 dark:border-emerald-800">
                     <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
                     <span className="text-[10px] font-black uppercase text-emerald-600 dark:text-emerald-400 tracking-widest">Advanced Vision Loop Active</span>
@@ -140,9 +140,6 @@ const MedicineScannerView: React.FC<Props> = ({ onAddReminder, language }) => {
                 </div>
               </div>
             </div>
-            <p className="text-xl text-slate-500 dark:text-slate-400 font-medium max-w-3xl leading-relaxed italic border-l-4 border-blue-50 dark:border-blue-900/40 pl-6">
-              {t('meds_scanner_sub')}
-            </p>
           </div>
         </div>
       </header>

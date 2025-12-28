@@ -1,3 +1,4 @@
+
 import { Scheme, Campaign, Article, SupportGroup, ChildVideo, AppEvent, AppLanguage } from './types';
 
 const EN_STRINGS = {
@@ -7,8 +8,8 @@ const EN_STRINGS = {
   navigator_header: 'Visionary Care Navigator',
   navigator_sub: 'Precision-mapped clinical roadmaps integrated with institutional protocols.',
   med_scanner: 'Meds Scanner',
-  meds_scanner_header: 'Vision AI Med Scanner',
-  med_scanner_sub: 'Grounded pharmaceutical analysis of chemical compounds and safety warnings.',
+  meds_scanner_header: 'Vision Ai Med Scanner',
+  med_scanner_sub: '',
   doc_intel: 'Doc Intel',
   doc_intel_header: 'Doc Intel Vault',
   doc_intel_sub: 'Securely store reports in Azure Vault and let AI explain context.',
@@ -128,8 +129,8 @@ const HI_STRINGS = {
   navigator_header: 'केयर नेविगेटर',
   navigator_sub: 'संस्थागत प्रोटोकॉल के साथ सटीक क्लीनिकल रोडमैप।',
   med_scanner: 'दवा स्कैनर',
-  meds_scanner_header: 'Vision AI Med Scanner',
-  meds_scanner_sub: 'दवाओं के रासायनिक घटकों और सुरक्षा चेतावनियों का एआई विश्लेषण।',
+  meds_scanner_header: 'Vision Ai Med Scanner',
+  med_scanner_sub: '',
   doc_intel: 'डॉक इंटेल',
   doc_intel_header: 'डॉक इंटेल वॉल्ट',
   doc_intel_sub: 'रिपोर्ट सुरक्षित रूप से एज़्योर वॉल्ट में स्टोर करें।',
@@ -249,8 +250,8 @@ const UR_STRINGS = {
   navigator_header: 'کیئر نیویگیٹر',
   navigator_sub: 'طبی روڈ میپ اور وسائل کی معلومات۔',
   med_scanner: 'میڈ اسکینر',
-  meds_scanner_header: 'Vision AI Med Scanner',
-  meds_scanner_sub: 'دواؤں کا اے آئی تجزیہ۔',
+  meds_scanner_header: 'Vision Ai Med Scanner',
+  meds_scanner_sub: '',
   doc_intel: 'دستاویز انٹیل',
   doc_intel_header: 'دستاویز انٹیل والٹ',
   doc_intel_sub: 'رپورٹس کو ایزیور والٹ میں محفوظ کریں۔',
@@ -321,10 +322,10 @@ const UR_STRINGS = {
   buddy_desc: 'آپ کا جادوئی اے آئی دوست',
   hero_quests: 'سپر کوئسٹس',
   hero_quest_banner: 'ہیرو مشن',
-  hero_welcome: 'ہیرو ہیڈ کوارٹر میں خوش آمدید!',
+  hero_welcome: 'ہیرو ہیڈ کوارٹر में خوش آمدید!',
   hero_level: 'ہیرو کی سطح',
   magic_energy_needed: 'ایکس پی درکار ہے',
-  memory_quest: 'ایکس پی درکار ہے',
+  memory_quest: 'یادداشت کا مشن',
   train_brain: 'دماغ کو تربیت دیں',
   magic_studio: 'جادو اسٹوڈیو',
   open_studio: 'اسٹوڈیو کھولیں',
@@ -345,16 +346,16 @@ const UR_STRINGS = {
   symptom_log_sub: 'جسمانی تبدیلیوں کو ٹریک کریں۔',
   scan_history: 'اسکین کی تاریخ',
   add_reminder: 'یاد دہانی شامل کریں',
-  analyzing: 'تجزیہ ہو رہا है...',
+  analyzing: 'تجزیہ ہو رہا ہے...',
   analyze_symptoms: 'پیٹرن کا تجزیہ کریں',
-  generating_insights: 'بصیرتیں تلاش کی जा रही ہیں...',
-  symptom_patterns_header: 'علامات की ذہانت',
-  symptom_patterns_sub: 'اپنے لاگ میں طبی پیٹر دریافت کریں۔',
+  generating_insights: 'بصیرتیں تلاش کی जा رہی ہیں...',
+  symptom_patterns_header: 'علامات کی ذہانت',
+  symptom_patterns_sub: 'اپنے لاگ میں طبی پیٹرن دریافت کریں۔',
   daily_sanctuary_focus: 'روزانہ کی توجہ',
   completed: 'مکمل ہو گیا',
   mark_complete: 'مکمل نشان زد کریں',
   open_now: 'अभी खोलें',
-  later: 'بعد में',
+  later: 'بعد میں',
   new_sticker: 'نیا اسٹیکر!',
   bravery_sparkle: 'آپ کی بہادری میں ایک نئی چمک آگئی ہے!',
   xp_awarded: 'XP مل گیا',
@@ -370,8 +371,8 @@ const TE_STRINGS = {
   navigator_header: 'కేర్ నేవిగేటర్',
   navigator_sub: 'క్లినికల్ రోడ్‌మ్యాప్ మరియు వనరుల సమాచారం.',
   med_scanner: 'మెడిసిన్ స్కానర్',
-  meds_scanner_header: 'Vision AI Med Scanner',
-  meds_scanner_sub: 'ఔషధాల యొక్క ఏఐ విశ్లేషణ.',
+  meds_scanner_header: 'Vision Ai Med Scanner',
+  med_scanner_sub: '',
   doc_intel: 'డాక్ ఇంటెల్',
   doc_intel_header: 'డాక్ ఇంటెల్ వాల్ట్',
   doc_intel_sub: 'రిపోర్టులను అజూర్ వాల్ట్‌లో భద్రపరచండి.',
@@ -696,23 +697,43 @@ export const MOCK_CAMPAIGNS: Campaign[] = [
 export const CHILD_VIDEOS: ChildVideo[] = [
   {
     id: 'vid-1',
-    title: 'The Brave Knight Felix',
-    description: 'Join Felix on a magical quest to find the Golden Juice of Strength.',
-    youtubeId: 'dQw4w9WgXcQ',
+    title: 'The Brave Knight Story',
+    description: 'A beautiful story about courage and inner strength.',
+    youtubeId: 'wY-kAnvOY80',
     videoUrl: '',
     externalUrl: '',
     thumbnail: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=800',
-    category: 'Magic Story'
+    category: 'Hero Story'
   },
   {
     id: 'vid-2',
-    title: 'Buddy the Robot Explains Cells',
-    description: 'Learn how your body is a factory of tiny heroes.',
-    youtubeId: 'Z9K-Fsc0Eno',
+    title: 'Calm Kids Meditation',
+    description: 'Gently find your magic center and peaceful breath.',
+    youtubeId: '0I647Gu70S8',
     videoUrl: '',
     externalUrl: '',
     thumbnail: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&q=80&w=800',
-    category: 'Science Quest'
+    category: 'Peace Quest'
+  },
+  {
+    id: 'vid-3',
+    title: 'Cosmic Kids Yoga',
+    description: 'Join the adventure and build your hero power.',
+    youtubeId: 'Z0A_e4F92Sg',
+    videoUrl: '',
+    externalUrl: '',
+    thumbnail: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=800',
+    category: 'Hero Power'
+  },
+  {
+    id: 'vid-4',
+    title: 'The Hungry Caterpillar',
+    description: 'A classic tale of growth and transformation.',
+    youtubeId: 'vYpSIs07W20',
+    videoUrl: '',
+    externalUrl: '',
+    thumbnail: 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&q=80&w=800',
+    category: 'Magic Nature'
   }
 ];
 
@@ -783,7 +804,7 @@ export const VERIFIED_GUIDES: Article[] = [
     summary: 'Optimizing the sleep environment for repair after chemotherapy.',
     content: '',
     category: 'LIFESTYLE',
-    imageUrl: 'https://images.unsplash.com/photo-1511295742364-917e7033a594?auto=format&fit=crop&q=80&w=800',
+    imageUrl: 'https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&q=80&w=800',
     tags: ['Sleep', 'Recovery'],
     link: 'https://www.cancer.org/cancer/survivorship/coping/sleep-problems.html'
   },
@@ -793,7 +814,7 @@ export const VERIFIED_GUIDES: Article[] = [
     summary: 'Mastering the art of describing symptoms accurately to ensure your team has data.',
     content: '',
     category: 'SYMPTOMS',
-    imageUrl: 'https://images.unsplash.com/photo-1505751172107-573225a943d0?auto=format&fit=crop&q=80&w=800',
+    imageUrl: 'https://images.unsplash.com/photo-1527613426441-4da17471b66d?auto=format&fit=crop&q=80&w=800',
     tags: ['Communication', 'Advocacy'],
     link: 'https://www.cancer.gov/about-cancer/coping/adjusting-to-cancer/communication'
   }
