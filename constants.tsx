@@ -9,7 +9,7 @@ const EN_STRINGS = {
   navigator_sub: 'Precision-mapped clinical roadmaps integrated with institutional protocols.',
   med_scanner: 'Meds Scanner',
   meds_scanner_header: 'Vision-AI Med Scanner',
-  meds_scanner_sub: 'Grounded pharmaceutical analysis of chemical compounds and safety warnings.',
+  med_scanner_sub: 'Grounded pharmaceutical analysis of chemical compounds and safety warnings.',
   doc_intel: 'Doc Intel',
   doc_intel_header: 'Doc Intel Vault',
   doc_intel_sub: 'Securely store reports in Azure Vault and let AI explain context.',
@@ -266,7 +266,7 @@ const UR_STRINGS = {
   emergency_sos: 'ہنگامی SOS',
   emergency_prep: 'کرائسس گارڈ',
   emergency_header: 'کرائسس گارڈ',
-  emergency_sub: 'کینسر کی ہنگامی صورتحال کے لیے پروٹوکول।',
+  emergency_sub: 'کینسر کی ہنگامی صورتحال کے لیے پروٹوکول۔',
   impact_hub: 'اثر مرکز',
   impact_hub_header: 'اثر مرکز',
   impact_hub_sub: 'سماجی اثر دیکھیں اور مدد کریں۔',
@@ -325,7 +325,7 @@ const UR_STRINGS = {
   hero_welcome: 'ہیرو ہیڈ کوارٹر میں خوش آمدید!',
   hero_level: 'ہیرو کی سطح',
   magic_energy_needed: 'ایکس پی درکار ہے',
-  memory_quest: 'یادداشت کا مشن',
+  memory_quest: 'میشن کی یادداشت',
   train_brain: 'دماغ کو تربیت دیں',
   magic_studio: 'جادو اسٹوڈیو',
   open_studio: 'اسٹوڈیو کھولیں',
@@ -356,12 +356,12 @@ const UR_STRINGS = {
   mark_complete: 'مکمل نشان زد کریں',
   open_now: 'अभी खोलें',
   later: 'बाद में',
-  new_sticker: 'नया स्टिकर!',
-  bravery_sparkle: 'आपकी बहादुरी में एक नई चमक आ गई है!',
-  xp_awarded: 'XP मिला',
-  level_up: 'लेवल अप!',
-  reached_level: 'स्तर पर पहुँच गए',
-  continue_quest: 'क्वेस्ट जारी रखें'
+  new_sticker: 'نیا اسٹیکر!',
+  bravery_sparkle: 'آپ کی بہادری میں ایک نئی چمک آگئی ہے!',
+  xp_awarded: 'XP مل گیا',
+  level_up: 'لیول اپ!',
+  reached_level: 'سطح پر پہنچ گئے',
+  continue_quest: 'مشن جاری رکھیں'
 };
 
 const TE_STRINGS = {
@@ -444,7 +444,7 @@ const TE_STRINGS = {
   hero_quests: 'సూపర్ క్వెస్టలు',
   hero_quest_banner: 'హీరో క్వెస్ట్',
   hero_welcome: 'హీరో హెడ్ క్వార్టర్స్‌కు స్వాగతం!',
-  hero_level: 'లేవల్ అప్!',
+  hero_level: 'హీరో స్థాయి',
   magic_energy_needed: 'తదుపరి పవర్-అప్ కోసం ఎక్స్‌పీ',
   memory_quest: 'మెమరీ క్వెస్ట్',
   train_brain: 'మెదడుకు శిక్షణ ఇవ్వండి',
@@ -732,7 +732,7 @@ export const VERIFIED_GUIDES: Article[] = [
     summary: 'How palliative services improve the quality of life for patients and families.',
     content: '',
     category: 'EMOTIONAL',
-    imageUrl: 'https://images.unsplash.com/photo-1516585427167-9f4af9627e6c?auto=format&fit=crop&q=80&w=800',
+    imageUrl: 'https://images.unsplash.com/photo-1469571483333-2a447814b745?auto=format&fit=crop&q=80&w=800',
     tags: ['Palliative', 'Comfort'],
     link: 'https://www.who.int/news-room/fact-sheets/detail/palliative-care'
   },
@@ -755,5 +755,25 @@ export const VERIFIED_GUIDES: Article[] = [
     imageUrl: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&q=80&w=800',
     tags: ['Planning', 'Aid'],
     link: 'https://www.macmillan.org.uk/cancer-information-and-support/impacts-of-cancer/financial-impact-of-cancer'
+  },
+  {
+    id: 'guide-sleep-recovery',
+    title: 'Sleep Hygiene Post-Infusion',
+    summary: 'Optimizing the sleep environment for cellular repair and hormonal balance after chemotherapy.',
+    content: '',
+    category: 'LIFESTYLE',
+    imageUrl: 'https://images.unsplash.com/photo-1511295742364-917e7033a594?auto=format&fit=crop&q=80&w=800',
+    tags: ['Sleep', 'Recovery'],
+    link: 'https://www.cancer.org/cancer/survivorship/coping/sleep-problems.html'
+  },
+  {
+    id: 'guide-communication-tips',
+    title: 'Talking to Your Clinical Team',
+    summary: 'Mastering the art of describing symptoms accurately to ensure your oncologist has the best data for decision making.',
+    content: '',
+    category: 'SYMPTOMS',
+    imageUrl: 'https://images.unsplash.com/photo-1505751172107-573225a943d0?auto=format&fit=crop&q=80&w=800',
+    tags: ['Communication', 'Advocacy'],
+    link: 'https://www.cancer.gov/about-cancer/coping/adjusting-to-cancer/communication'
   }
 ];

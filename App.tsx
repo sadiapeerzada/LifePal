@@ -39,7 +39,7 @@ import {
   ArrowRight, BookMarked, PenTool, UsersRound, MessageSquare, Cloud, Flower, Ghost, Bookmark as BookmarkIcon, Apple, Shield as ShieldIcon,
   LayoutDashboard, Activity, Timer, Cpu, Award, Rocket, Ghost as GhostIcon, Music, Coffee, Gem, HandMetal, Gift, RefreshCw, BellRing, Pause, VolumeX, Maximize, Box, RefreshCcw, Crown, Microscope, Wand,
   Medal, Target, Diamond, Orbit, Map, Component, RefreshCcw as RefreshIcon,
-  Loader2, ShieldAlert, AlertTriangle, Brush, Dumbbell, Compass, Music2, Shapes, CloudMoon
+  Loader2, ShieldAlert, AlertTriangle, Brush, Dumbbell, Compass, Music2, Shapes, CloudMoon, Gem as DiamondIcon, Flame as FireIcon, Ghost as GhostIcon2
 } from 'lucide-react';
 import { CHILD_VIDEOS, TRANSLATIONS, SCHEMES } from './constants';
 import { getGeminiResponse, fetchHeroCinemaVideos } from './services/geminiService';
@@ -279,7 +279,10 @@ const App: React.FC = () => {
       { type: 'FACT', content: "Honey never spoils. Archaeologists found edible honey in 3000-year-old tombs!" },
       { type: 'STICKER', content: '🌈' },
       { type: 'MESSAGE', content: "You're a legendary hero!" },
-      { type: 'STICKER', content: '🍦' }
+      { type: 'STICKER', content: '🍦' },
+      { type: 'STICKER', content: '👑' },
+      { type: 'STICKER', content: '🏆' },
+      { type: 'FACT', content: "The world's oldest tree is over 5,000 years old!" }
     ];
     const pick = treasures[Math.floor(Math.random() * treasures.length)];
     setRevealedTreasure(pick);
@@ -568,6 +571,12 @@ const HeroKidDashboard = ({ profile: safeProfile, t, onOpenStudio, onQuestComple
     { id: 'q22', icon: <Flower />, title: "Garden Gaze", xp: 125, color: "emerald" },
     { id: 'q23', icon: <Wind />, title: "Feather Breath", xp: 190, color: "blue" },
     { id: 'q24', icon: <Shield />, title: "Peace Shield", xp: 250, color: "rose" },
+    { id: 'q25', icon: <Component />, title: "Pattern Puzzle", xp: 180, color: "cyan" },
+    { id: 'q26', icon: <Target />, title: "Focus Arrow", xp: 220, color: "amber" },
+    { id: 'q27', icon: <Rocket />, title: "Launch Dream", xp: 350, color: "blue" },
+    { id: 'q28', icon: <Crown />, title: "Kindness Crown", xp: 150, color: "yellow" },
+    { id: 'q29', icon: <Moon />, title: "Sleep Guardian", xp: 130, color: "indigo" },
+    { id: 'q30', icon: <Flame />, title: "Courage Spark", xp: 400, color: "rose" },
   ];
 
   const progressPercent = Math.min((completedQuests.length / quests.length) * 100, 100);
@@ -599,9 +608,13 @@ const HeroKidDashboard = ({ profile: safeProfile, t, onOpenStudio, onQuestComple
     onQuestComplete(xp);
   };
 
-  const stickerIcons = [
+  const commonStickers = [
     '🌟', '🚀', '🎨', '💖', '🍭', '🦁', '🛸', '🌈', '🍦', '💎', '🔥', '🌊', '🍄', '🦖', '🦄', '🪐',
     '🐯', '🦉', '🦋', '🎈', '🍪', '🥨', '🦸‍♂️', '🦸‍♀️', '🐼', '🦊', '🐢', '🍀', '🍎', '🪁', '🧸', '🎮'
+  ];
+
+  const rareStickers = [
+    '👑', '🐉', '🌋', '🌌', '🧬', '⚔️', '🛡️', '🏆', '💎', '🛸'
   ];
 
   return (
@@ -651,15 +664,45 @@ const HeroKidDashboard = ({ profile: safeProfile, t, onOpenStudio, onQuestComple
                     <h2 className="text-3xl font-black text-amber-500 flex items-center gap-3 uppercase"><Award className="w-8 h-8" /> {t('sticker_vault')}</h2>
                     <div className="px-4 py-2 bg-slate-50 dark:bg-slate-800 rounded-2xl text-[10px] font-black uppercase text-slate-400 tracking-widest">{safeProfile?.stickers?.length || 0} {t('collected')}</div>
                 </div>
-                <div className="grid grid-cols-4 sm:grid-cols-8 gap-3">
-                   {stickerIcons.map((s, i) => {
-                     const isEarned = (safeProfile?.stickers || []).includes(s);
-                     return (
-                       <div key={i} className={`aspect-square rounded-2xl flex items-center justify-center text-3xl border-2 transition-all ${isEarned ? 'bg-amber-50 border-amber-200 shadow-sm scale-110' : 'bg-slate-50 dark:bg-slate-800 opacity-20 border-transparent grayscale'}`}>
-                         {isEarned ? s : <Lock className="w-4 h-4 text-slate-300" />}
-                       </div>
-                     );
-                   })}
+                
+                <div className="space-y-8">
+                  <div className="space-y-4">
+                    <h4 className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">Common Rewards</h4>
+                    <div className="grid grid-cols-4 sm:grid-cols-8 gap-3">
+                      {commonStickers.map((s, i) => {
+                        const isEarned = (safeProfile?.stickers || []).includes(s);
+                        return (
+                          <div key={i} className={`aspect-square rounded-2xl flex items-center justify-center text-3xl border-2 transition-all ${isEarned ? 'bg-amber-50 border-amber-200 shadow-sm scale-110' : 'bg-slate-50 dark:bg-slate-800 opacity-20 border-transparent grayscale'}`}>
+                            {isEarned ? s : <Lock className="w-4 h-4 text-slate-300" />}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  <div className="space-y-4 pt-4 border-t border-slate-100 dark:border-slate-800">
+                    <div className="flex items-center gap-2">
+                       <h4 className="text-[10px] font-black uppercase tracking-widest text-purple-500">Legendary Rares</h4>
+                       <Sparkles className="w-3 h-3 text-purple-400 animate-pulse" />
+                    </div>
+                    <div className="grid grid-cols-5 gap-4">
+                      {rareStickers.map((s, i) => {
+                        const isEarned = (safeProfile?.stickers || []).includes(s);
+                        return (
+                          <div key={i} className={`aspect-square rounded-[1.5rem] flex items-center justify-center text-4xl border-4 transition-all relative overflow-hidden ${isEarned ? 'bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 border-white shadow-2xl scale-110 animate-pulse' : 'bg-slate-100 dark:bg-slate-800 opacity-10 border-transparent grayscale'}`}>
+                            {isEarned ? (
+                              <>
+                                <div className="absolute inset-0 bg-white/20 animate-shine pointer-events-none" />
+                                <span className="relative z-10 drop-shadow-lg">{s}</span>
+                              </>
+                            ) : (
+                              <Crown className="w-6 h-6 text-slate-300" />
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
                 </div>
             </div>
             <div className="bg-gradient-to-br from-indigo-600 to-blue-700 rounded-[3rem] p-10 text-white shadow-2xl relative overflow-hidden text-left">
@@ -677,7 +720,9 @@ const HeroKidDashboard = ({ profile: safeProfile, t, onOpenStudio, onQuestComple
          <section className="lg:col-span-5 bg-white dark:bg-slate-900 rounded-[3.5rem] p-10 border-4 border-slate-200 dark:border-slate-800 shadow-xl flex flex-col text-left">
             <div className="flex justify-between items-center mb-6"><h2 className="text-3xl font-black uppercase text-slate-900 dark:text-white"><Zap className="text-amber-500 inline mr-2 w-8 h-8" /> {t('hero_tasks')}</h2><p className="text-3xl font-black text-emerald-500">{Math.round(progressPercent)}%</p></div>
             <div className="w-full h-12 bg-slate-100 dark:bg-slate-800 rounded-full mb-8 overflow-hidden border-4 border-white dark:border-slate-700 shadow-inner"><div className="h-full bg-gradient-to-r from-emerald-400 to-emerald-600 transition-all duration-1000 shadow-lg" style={{ width: `${progressPercent}%` }} /></div>
-            <div className="space-y-4 flex-1 overflow-y-auto pr-2 max-h-[500px] custom-scrollbar">{quests.map(q => <QuestBadge key={q.id} {...q} isCompleted={completedQuests.includes(q.id)} onComplete={() => handleQuestAction(q.id, q.xp)} />)}</div>
+            <div className="space-y-4 flex-1 overflow-y-auto pr-2 max-h-[650px] custom-scrollbar">
+              {quests.map(q => <QuestBadge key={q.id} {...q} isCompleted={completedQuests.includes(q.id)} onComplete={() => handleQuestAction(q.id, q.xp)} />)}
+            </div>
          </section>
       </div>
 
