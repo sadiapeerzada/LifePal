@@ -1,6 +1,5 @@
-
 import React, { useState, useRef } from 'react';
-import { generateImage, animateImage, analyzeVideo } from '../services/geminiService';
+import { generateImage, animateImage, analyzeVideo, ensureApiKey } from '../services/geminiService';
 import { 
   Sparkles, Image as ImageIcon, Film, Video, Upload, 
   Loader2, Download, Zap, Wand2, PlayCircle, Eye, 
@@ -31,6 +30,7 @@ const AdvancedToolsView: React.FC = () => {
   const handleGenerateImage = async () => {
     if (!imagePrompt) return;
     setLoading(true);
+    if (imageSize === "2K" || imageSize === "4K") await ensureApiKey();
     const url = await generateImage(imagePrompt, imageSize);
     setGeneratedImageUrl(url || null);
     setLoading(false);
@@ -47,6 +47,7 @@ const AdvancedToolsView: React.FC = () => {
   const handleGenerateVideo = async () => {
     if (!veoBase64) return;
     setLoading(true);
+    await ensureApiKey();
     const url = await animateImage(veoBase64, veoPrompt);
     setVeoVideoUrl(url);
     setLoading(false);

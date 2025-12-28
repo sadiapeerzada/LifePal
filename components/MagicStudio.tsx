@@ -1,6 +1,5 @@
-
 import React, { useState, useEffect } from 'react';
-import { generateImage } from '../services/geminiService';
+import { generateImage, ensureApiKey } from '../services/geminiService';
 import { Sparkles, X, Wand2, Download, Loader2, Heart, Star, Rocket, Palette, Key, ExternalLink } from 'lucide-react';
 
 interface Props {
@@ -21,6 +20,7 @@ const MagicStudio: React.FC<Props> = ({ isOpen, onClose, onEarnSticker }) => {
     if (!finalPrompt.trim()) return;
     
     setLoading(true);
+    await ensureApiKey();
     // Optimized prompt for better quality Magic Art
     const url = await generateImage(`Ultra high quality Pixar style digital art for children: ${finalPrompt}. Vibrant colors, glowing magical atmosphere, friendly and uplifting.`, "1K");
     if (url) {
