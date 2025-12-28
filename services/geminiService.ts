@@ -57,17 +57,20 @@ export const getGeminiResponse = async (
   }
 };
 
-export const analyzeMedicineImage = async (base64: string, lang: AppLanguage): Promise<Partial<MedicineScan>> => {
+export const analyzeMedicineImage = async (base64: string, lang: AppLanguage): Promise<any> => {
   const schema = {
     type: "OBJECT",
     properties: {
       name: { type: "STRING" },
       purpose: { type: "STRING" },
+      composition: { type: "STRING" },
       dosageInstructions: { type: "STRING" },
+      interactions: { type: "ARRAY", items: { type: "STRING" } },
       sideEffects: { type: "ARRAY", items: { type: "STRING" } },
-      warnings: { type: "ARRAY", items: { type: "STRING" } }
+      warnings: { type: "ARRAY", items: { type: "STRING" } },
+      storage: { type: "STRING" }
     },
-    required: ["name", "purpose", "warnings"]
+    required: ["name", "purpose", "warnings", "composition"]
   };
 
   try {
@@ -75,7 +78,7 @@ export const analyzeMedicineImage = async (base64: string, lang: AppLanguage): P
       {
         parts: [
           { inlineData: { data: base64, mimeType: 'image/jpeg' } },
-          { text: `Identify this medicine in ${lang}. Return JSON.` }
+          { text: `Identify this medicine in ${lang}. Provide a professional clinical analysis including composition and interactions. Return JSON.` }
         ]
       },
       { model: 'gemini-3-flash-preview', responseSchema: schema }

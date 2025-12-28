@@ -1,10 +1,11 @@
+
 import React, { useState, useEffect } from 'react';
 import { UserProfile, AppLanguage } from '../types';
 import { 
   Users, ShieldCheck, Heart, MapPin, MessageSquare, 
   Sparkles, CheckCircle2, ChevronRight, Globe, Info, 
   ExternalLink, ArrowRight, Activity, Award, Shield, 
-  UsersRound, Landmark, Navigation2, Droplets, Gift, Wallet, Phone
+  UsersRound, Landmark, Navigation2, Droplets, Gift, Wallet, Phone, Sparkle
 } from 'lucide-react';
 import { TRANSLATIONS } from '../constants';
 
@@ -42,12 +43,6 @@ const SupporterImpactView: React.FC<Props> = ({ profile }) => {
     { label: "Navigation Sessions", value: `${impactStats.sessions.toLocaleString()}+`, icon: <Globe />, color: "text-amber-600", bg: "bg-amber-50 dark:bg-amber-900/30" },
   ];
 
-  const stories = [
-    { title: "Empowered Navigation", text: "A family successfully navigated complex hospital registration within hours using our AI guide, saving precious treatment time.", category: "Navigation" },
-    { title: "Emotional Resilience", text: "A young patient found solace in daily Buddy conversations, improving their coping scores during challenging clinical weeks.", category: "Emotional" },
-    { title: "Care Continuity", text: "A survivor used the Hub to coordinate critical follow-up scans, ensuring complete post-treatment surveillance.", category: "Coordination" },
-  ];
-
   return (
     <div className="max-w-6xl mx-auto space-y-12 animate-in fade-in duration-700 text-left pb-24 px-4 md:px-0">
       <header className="space-y-6 text-center py-12 relative overflow-hidden">
@@ -60,7 +55,19 @@ const SupporterImpactView: React.FC<Props> = ({ profile }) => {
         </p>
       </header>
 
-      {/* Real-time Metrics Dashboard */}
+      {/* Impact Statement Paragraph */}
+      <section className="bg-indigo-50 dark:bg-blue-950/40 p-12 rounded-[4rem] border-2 border-indigo-100 dark:border-blue-900 relative group overflow-hidden">
+         <div className="absolute top-0 right-0 p-10 opacity-5 group-hover:scale-110 transition-transform duration-[5s]"><Sparkles className="w-64 h-64 text-blue-600" /></div>
+         <div className="relative z-10 space-y-6">
+            <h2 className="text-3xl font-black text-indigo-950 dark:text-white flex items-center gap-4">
+               <Heart className="w-8 h-8 text-rose-500 fill-rose-500" /> The Power of Your Kindness
+            </h2>
+            <p className="text-2xl text-indigo-900 dark:text-indigo-200 font-medium leading-relaxed italic border-l-8 border-indigo-300 dark:border-indigo-600 pl-8">
+               For thousands of families across Aligarh and Western Uttar Pradesh, cancer is as much a financial crisis as it is a medical one. Lower-income patients often face the heartbreaking choice between continuing life-saving chemotherapy or putting food on the table. Your donations act as a clinical lifeline—directly settling pharmacy bills and surgical costs that would otherwise go unpaid. Every unit of blood, every warm blanket, and every rupee gifted is a profound act of defiance against despair, ensuring that dignity and world-class care are never a luxury, but a human right for every brave hero fighting this battle.
+            </p>
+         </div>
+      </section>
+
       <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         {stats.map((s, i) => (
           <div key={i} className="bg-white dark:bg-slate-900 p-10 rounded-[3.5rem] border-4 border-slate-50 dark:border-slate-800 shadow-xl space-y-6 hover:border-indigo-100 dark:hover:border-indigo-800 transition-all group">

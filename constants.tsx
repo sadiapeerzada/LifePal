@@ -347,7 +347,7 @@ const UR_STRINGS = {
   new_sticker: 'نیا اسٹیکر!',
   level_up: 'level up!',
   continue_quest: 'مشن جاری رکھیں',
-  memory_quest: 'یادداشت کا مشن',
+  memory_quest: 'یادداشت का مشن',
   xp_awarded: 'ایکس پی مل گیا',
   hero_quest_banner: 'ہیرو مشن',
   scan_history: 'اسکین کی تاریخ',
@@ -355,7 +355,7 @@ const UR_STRINGS = {
   add_reminder: 'یاد دہانی شامل کریں',
   dismiss: 'خارج کریں',
   analyzing: 'تجزیہ ہو رہا ہے...',
-  analyze_symptoms: 'نمونوں کا تجزیہ کریں',
+  analyze_symptoms: 'نمونوں का تجزیہ کریں',
   generating_insights: 'بصیرتیں تلاش کی جا رہی ہیں...'
 };
 
@@ -396,7 +396,7 @@ const TE_STRINGS = {
   finder_sub: 'క్యాన్సర్ వనరులు మరియు సమీపంలోని ఫార్మసీలను కనుగొండి',
   schemes: 'సహాయ పథకాలు',
   schemes_header: 'సహాయ పథకాలు',
-  schemes_sub: 'ప్రభుత్వ వ్రాతపనిని సులభంగా నావిగేట్ చేయండి. ధృవీకరించబడిన ఆర్థిక సహాయం.',
+  schemes_sub: 'ప్రభుత్వ వ్రాతపనిని సుభంగా నావిగేట్ చేయండి. ధృవీకరించబడిన ఆర్థిక సహాయం.',
   survivors_hub: 'సర్వైవర్స్ హబ్',
   survivors_hub_header: 'సర్వైవర్స్ హబ్',
   survivors_hub_sub: 'క్యాన్సర్ తర్వాత జీవితం కోసం మీ ధైర్య నిలయం.',
@@ -503,7 +503,6 @@ export const TRANSLATIONS: Record<AppLanguage, Record<string, string>> = {
   [AppLanguage.TELUGU]: TE_STRINGS
 };
 
-// Fix for missing constants: Adding CHILD_VIDEOS
 export const CHILD_VIDEOS: ChildVideo[] = [
   {
     id: 'vid-io2',
@@ -547,7 +546,6 @@ export const CHILD_VIDEOS: ChildVideo[] = [
   }
 ];
 
-// Fix for missing constants: Adding SCHEMES
 export const SCHEMES: Scheme[] = [
   {
     id: 'ayushman_bharat',
@@ -570,10 +568,75 @@ export const SCHEMES: Scheme[] = [
     officialUrl: 'http://up.gov.in/',
     type: 'GOVERNMENT',
     fundType: 'CM_CARE'
+  },
+  {
+    id: 'pm_nrf',
+    name: 'PM National Relief Fund (PMNRF)',
+    description: 'Immediate relief for victims of natural calamities and critical medical treatments like cancer.',
+    eligibility: ['Patients with severe financial distress', 'Cases vetted by regional DM/Collector'],
+    documents: ['Medical estimate from govt hospital', 'Income certificate', 'ID proof'],
+    steps: ['Prepare application to PMO', 'Submit through Member of Parliament or DM', 'Direct transfer to hospital account'],
+    officialUrl: 'https://pmnrf.gov.in/',
+    type: 'GOVERNMENT',
+    fundType: 'PM_CARE'
+  },
+  {
+    id: 'ran_scheme',
+    name: 'Rashtriya Arogya Nidhi (RAN)',
+    description: 'Financial assistance to patients living below poverty line (BPL) who are suffering from life-threatening diseases.',
+    eligibility: ['BPL households only', 'Treatment must be at Government hospitals/institutes'],
+    documents: ['BPL Ration Card', 'Medical Estimate', 'Identity Proof'],
+    steps: ['Obtain certificate from hospital Medical Superintendent', 'Fill RAN application form', 'Submit to MoHFW'],
+    officialUrl: 'https://main.mohfw.gov.in/major-programmes/poor-patients-financial-assistance/rashtriya-arogya-nidhi',
+    type: 'GOVERNMENT',
+    fundType: 'PM_CARE'
+  },
+  {
+    id: 'hmdg_grant',
+    name: 'HM Discretionary Grant (HMDG)',
+    description: 'Grant provided by the Health Minister to poor patients for treatment in government hospitals.',
+    eligibility: ['Income below ₹1,25,000 per annum', 'Treatment in Govt hospitals only'],
+    documents: ['Income certificate', 'Original medical bills/estimates', 'Hospital certificate'],
+    steps: ['Hospital verifies indigence', 'Forward application to MoHFW', 'Grant sanctioned based on funds availability'],
+    officialUrl: 'https://main.mohfw.gov.in/major-programmes/poor-patients-financial-assistance/health-ministers-discretionary-grant',
+    type: 'GOVERNMENT',
+    fundType: 'PM_CARE'
+  },
+  {
+    id: 'alig_care_fund',
+    name: 'Alig Care Foundation (ACF)',
+    description: 'Regional fund supporting oncology patients at JNMCH and surrounding AMU clinics.',
+    eligibility: ['Students and local Aligarh residents', 'Verified financial distress'],
+    documents: ['Student ID (if applicable)', 'JNMCH OPD card', 'Verified income docs'],
+    steps: ['Meet ACF social worker at JNMCH', 'Documentation review', 'Direct pharmacy credit'],
+    officialUrl: 'https://aligscare.org/',
+    type: 'INSTITUTIONAL',
+    fundType: 'ALIG_CARE'
+  },
+  {
+    id: 'esic_benefit',
+    name: 'ESIC Medical Benefit',
+    description: 'Full medical care for insured persons and their families in case of sickness.',
+    eligibility: ['Employees in organized sector with salary < threshold', 'Contribution to ESIC'],
+    documents: ['ESIC Pehchan card', 'Employment proof', 'Diagnostic reports'],
+    steps: ['Visit ESIC Dispensary', 'Referral to empanelled oncology centers', 'Cashless treatment'],
+    officialUrl: 'https://www.esic.gov.in/',
+    type: 'GOVERNMENT',
+    fundType: 'AYUSHMAN'
+  },
+  {
+    id: 'nhm_cancer_care',
+    name: 'NHM Tertiary Care Support',
+    description: 'National Health Mission support for strengthening cancer care facilities and patient support.',
+    eligibility: ['General public with priority to low income', 'Rural residents'],
+    documents: ['Ration card', 'Aadhaar', 'Hospital IPD records'],
+    steps: ['Contact NCD cell in JNMCH', 'Apply for transportation/drug support', 'Verify through NHM portal'],
+    officialUrl: 'https://nhm.gov.in/',
+    type: 'GOVERNMENT',
+    fundType: 'CM_CARE'
   }
 ];
 
-// Fix for missing constants: Adding MOCK_CAMPAIGNS
 export const MOCK_CAMPAIGNS: Campaign[] = [
   {
     id: 'camp_1',
@@ -601,15 +664,19 @@ export const MOCK_CAMPAIGNS: Campaign[] = [
   }
 ];
 
-// Fix for missing constants: Adding TRUSTED_RESOURCES
 export const TRUSTED_RESOURCES = [
   { id: 'nci', title: 'National Cancer Institute', url: 'https://www.cancer.gov', category: 'Clinical', description: 'Comprehensive cancer information from the NIH.', tag: 'Global' },
   { id: 'who', title: 'WHO Cancer Portal', url: 'https://www.who.int/health-topics/cancer', category: 'Research', description: 'Global health statistics and prevention protocols.', tag: 'Global' },
   { id: 'nhs', title: 'NHS Cancer Guide', url: 'https://www.nhs.uk/conditions/cancer/', category: 'Clinical', description: 'Standardized patient information.', tag: 'Global' },
-  { id: 'jnmch', title: 'JNMCH AMU Aligarh', url: 'https://www.amu.ac.in/faculties/faculty-of-medicine/j-n-medical-college', category: 'Hospital', description: 'Regional oncology hub.', tag: 'Regional' }
+  { id: 'jnmch', title: 'JNMCH AMU Aligarh', url: 'https://www.amu.ac.in/faculties/faculty-of-medicine/j-n-medical-college', category: 'Hospital', description: 'Regional oncology hub.', tag: 'Regional' },
+  { id: 'mayo', title: 'Mayo Clinic Oncology', url: 'https://www.mayoclinic.org/tests-procedures/cancer-treatment/about/pac-20385127', category: 'Clinical', description: 'World-renowned medical research and care guidelines.', tag: 'Global' },
+  { id: 'hopkins', title: 'Johns Hopkins Kimmel Center', url: 'https://www.hopkinsmedicine.org/kimmel_cancer_center/', category: 'Research', description: 'Leading insights into cancer immunotherapy and genetics.', tag: 'Global' },
+  { id: 'tmc', title: 'Tata Memorial Centre', url: 'https://tmc.gov.in/', category: 'Hospital', description: 'India\'s premier cancer research and treatment center.', tag: 'India' },
+  { id: 'acs', title: 'American Cancer Society', url: 'https://www.cancer.org/', category: 'Support', description: 'Patient support, advocacy, and research updates.', tag: 'Global' },
+  { id: 'cru', title: 'Cancer Research UK', url: 'https://www.cancerresearchuk.org/', category: 'Research', description: 'Breakthrough research and patient-friendly trial data.', tag: 'Global' },
+  { id: 'mskcc', title: 'MSK Cancer Center', url: 'https://www.mskcc.org/', category: 'Clinical', description: 'Specialized cancer care and innovation protocols.', tag: 'Global' }
 ];
 
-// Fix for missing constants: Adding VERIFIED_GUIDES
 export const VERIFIED_GUIDES: Article[] = [
   {
     id: 'guide-1',
@@ -629,6 +696,76 @@ export const VERIFIED_GUIDES: Article[] = [
     category: 'SYMPTOMS',
     imageUrl: 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&q=80&w=800',
     tags: ['Fatigue', 'Healing'],
+    link: '#'
+  },
+  {
+    id: 'guide-3',
+    title: 'Skin Care During Radiation',
+    summary: 'Protecting your skin from radiation-induced irritation and sensitivity.',
+    content: '',
+    category: 'LIFESTYLE',
+    imageUrl: 'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?auto=format&fit=crop&q=80&w=800',
+    tags: ['Radiation', 'Skincare'],
+    link: '#'
+  },
+  {
+    id: 'guide-4',
+    title: 'Nutritional Boosters for Chemo',
+    summary: 'High-protein, easy-to-digest recipes for when your appetite is low.',
+    content: '',
+    category: 'LIFESTYLE',
+    imageUrl: 'https://images.unsplash.com/photo-1494390248081-4e521a5940db?auto=format&fit=crop&q=80&w=800',
+    tags: ['Nutrition', 'Diet'],
+    link: '#'
+  },
+  {
+    id: 'guide-5',
+    title: 'Dental Hygiene in Oncology',
+    summary: 'Preventing mouth sores and maintaining oral health during treatment.',
+    content: '',
+    category: 'SYMPTOMS',
+    imageUrl: 'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&q=80&w=800',
+    tags: ['Oral Care', 'Hygiene'],
+    link: '#'
+  },
+  {
+    id: 'guide-6',
+    title: 'Managing Peripheral Neuropathy',
+    summary: 'Coping with tingling and numbness in hands and feet after chemo.',
+    content: '',
+    category: 'SYMPTOMS',
+    imageUrl: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=800',
+    tags: ['Neuropathy', 'Senses'],
+    link: '#'
+  },
+  {
+    id: 'guide-7',
+    title: 'Cognitive Health (Chemo-brain)',
+    summary: 'Brain exercises and memory aids for treatment-related fog.',
+    content: '',
+    category: 'EMOTIONAL',
+    imageUrl: 'https://images.unsplash.com/photo-1507413245164-6160d8298b31?auto=format&fit=crop&q=80&w=800',
+    tags: ['Cognitive', 'Memory'],
+    link: '#'
+  },
+  {
+    id: 'guide-8',
+    title: 'Caregiver Resilience Handbook',
+    summary: 'Preventing burnout while supporting your loved one through treatment.',
+    content: '',
+    category: 'EMOTIONAL',
+    imageUrl: 'https://images.unsplash.com/photo-1516585427167-9f4af9627e6c?auto=format&fit=crop&q=80&w=800',
+    tags: ['Caregiver', 'Support'],
+    link: '#'
+  },
+  {
+    id: 'guide-9',
+    title: 'Post-Surgery Mobility Guide',
+    summary: 'Safe exercises to regain range of motion after oncological surgery.',
+    content: '',
+    category: 'LIFESTYLE',
+    imageUrl: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&q=80&w=800',
+    tags: ['Surgery', 'Mobility'],
     link: '#'
   }
 ];
