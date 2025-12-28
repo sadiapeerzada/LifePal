@@ -8,7 +8,7 @@ const EN_STRINGS = {
   navigator_sub: 'Precision-mapped clinical roadmaps integrated with institutional protocols.',
   med_scanner: 'Meds Scanner',
   meds_scanner_header: 'Vision AI-MedScanner',
-  med_scanner_sub: 'Medicine recognition, dosage insights, and safety guidance.',
+  meds_scanner_sub: 'Medicine Recognition, Drug Details, Dosage Insights, and Safety Guidance.',
   doc_intel: 'Doc Intel',
   doc_intel_header: 'Doc Intel Vault',
   doc_intel_sub: 'Securely store reports in Azure Vault and let AI explain context.',
@@ -129,7 +129,7 @@ const HI_STRINGS = {
   navigator_sub: 'संस्थागत प्रोटोकॉल के साथ सटीक क्लीनिकल रोडमैप।',
   med_scanner: 'दवा स्कैनर',
   meds_scanner_header: 'Vision AI-MedScanner',
-  med_scanner_sub: 'दवा की पहचान, खुराक अंतर्दृष्टि और सुरक्षा मार्गदर्शन।',
+  meds_scanner_sub: 'दवा की पहचान, खुराक अंतर्दृष्टि और सुरक्षा मार्गदर्शन।',
   doc_intel: 'डॉक इंटेल',
   doc_intel_header: 'डॉक इंटेल वॉल्ट',
   doc_intel_sub: 'रिपोर्ट सुरक्षित रूप से एज़्योर वॉल्ट में स्टोर करें।',
@@ -250,7 +250,7 @@ const UR_STRINGS = {
   navigator_sub: 'طبی روڈ میپ اور وسائل کی معلومات।',
   med_scanner: 'میڈ اسکینر',
   meds_scanner_header: 'Vision AI-MedScanner',
-  med_scanner_sub: 'دوا کی پہچان، خوراک کی بصیرت، اور حفاظتی رہنمائی।',
+  meds_scanner_sub: 'دوا کی پہچان، خوراک کی بصیرت، اور حفاظتی رہنمائی।',
   doc_intel: 'دستاویز انٹیل',
   doc_intel_header: 'دستاویز انٹیل والٹ',
   doc_intel_sub: 'رپورٹس کو ایزیور والٹ میں محفوظ کریں۔',
@@ -356,11 +356,11 @@ const UR_STRINGS = {
   open_now: 'अभी खोलیں',
   later: 'بعد میں',
   new_sticker: 'نیا اسٹیکر!',
-  bravery_sparkle: 'آپ کی بہادری میں ایک نئی چمک آگئی ہے!',
-  xp_awarded: 'XP مل گیا',
-  level_up: 'لیول اپ!',
-  reached_level: 'سطح पर پہنچ گئے',
-  continue_quest: 'مشن جاری رکھیں'
+  bravery_sparkle: 'آپ کی بہادری में एक नई चमक आ गई है!',
+  xp_awarded: 'XP मिल गया',
+  level_up: 'लेवल अप!',
+  reached_level: 'स्तर पर पहुंच गए',
+  continue_quest: 'मशन जारी रखें'
 };
 
 const TE_STRINGS = {
@@ -371,7 +371,7 @@ const TE_STRINGS = {
   navigator_sub: 'క్లినికల్ రోడ్‌మ్యాప్ మరియు వనరుల సమాచారం.',
   med_scanner: 'మెడిసిన్ స్కానర్',
   meds_scanner_header: 'Vision AI-MedScanner',
-  med_scanner_sub: 'మందుల గుర్తింపు, మోతాదు అంతర్దృష్టులు మరియు భద్రతా మార్గదర్శకత్వం.',
+  meds_scanner_sub: 'మందుల గుర్తింపు, మోతాదు అంతర్దృష్టులు మరియు భద్రతా మార్గదర్శకత్వం.',
   doc_intel: 'డాక్ ఇంటెల్',
   doc_intel_header: 'డాక్ ఇంటెల్ వాల్ట్',
   doc_intel_sub: 'రిపోర్టులను అజూర్ వాల్ట్‌లో భద్రపరచండి.',

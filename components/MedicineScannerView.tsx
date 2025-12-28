@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { AppLanguage, MedicineScan, Reminder } from '../types';
 import { analyzeMedicineImage, generateSpeech, playAudio } from '../services/geminiService';
@@ -132,9 +131,6 @@ const MedicineScannerView: React.FC<Props> = ({ onAddReminder, language }) => {
                 <h1 className="text-6xl md:text-8xl font-black tracking-tighter text-blue-950 dark:text-white leading-none">
                   {t('meds_scanner_header')}
                 </h1>
-                <p className="text-slate-500 dark:text-slate-400 text-sm font-bold tracking-tight px-1">
-                   {t('med_scanner_sub')}
-                </p>
                 <div className="flex items-center gap-3 pt-2">
                   <div className="flex items-center gap-2 px-3 py-1 bg-emerald-50 dark:bg-emerald-900/30 rounded-full border border-emerald-100 dark:border-emerald-800">
                     <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
@@ -143,6 +139,9 @@ const MedicineScannerView: React.FC<Props> = ({ onAddReminder, language }) => {
                 </div>
               </div>
             </div>
+            <p className="text-xl text-slate-500 dark:text-slate-400 font-medium max-w-3xl leading-relaxed italic border-l-4 border-emerald-50 dark:border-emerald-900/40 pl-6">
+              {t('meds_scanner_sub')}
+            </p>
           </div>
         </div>
       </header>
