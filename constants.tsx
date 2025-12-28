@@ -322,7 +322,7 @@ const UR_STRINGS = {
   buddy_desc: 'آپ کا جادوئی اے آئی دوست',
   hero_quests: 'سپر کوئسٹس',
   hero_quest_banner: 'ہیرو مشن',
-  hero_welcome: 'ہیرو ہیڈ کوارٹر में خوش آمدید!',
+  hero_welcome: 'ہیرو ہیڈ کوارٹر میں خوش آمدید!',
   hero_level: 'ہیرو کی سطح',
   magic_energy_needed: 'ایکس پی درکار ہے',
   memory_quest: 'یادداشت کا مشن',
@@ -348,7 +348,7 @@ const UR_STRINGS = {
   add_reminder: 'یاد دہانی شامل کریں',
   analyzing: 'تجزیہ ہو رہا ہے...',
   analyze_symptoms: 'پیٹرن کا تجزیہ کریں',
-  generating_insights: 'بصیرتیں تلاش کی जा रही हैं...',
+  generating_insights: 'بصیرتیں تلاش کی جا رہی ہیں...',
   symptom_patterns_header: 'علامات کی ذہانت',
   symptom_patterns_sub: 'اپنے لاگ میں طبی پیٹرن دریافت کریں۔',
   daily_sanctuary_focus: 'روزانہ کی توجہ',
@@ -492,34 +492,14 @@ export const TRANSLATIONS: Record<AppLanguage, Record<string, string>> = {
   [AppLanguage.TELUGU]: TE_STRINGS
 };
 
-export interface TrustedPortal {
-  id: string;
-  title: string;
-  description: string;
-  url: string;
-  category: string;
-  tag: string;
-  thumbnail: string;
-}
-
-export const TRUSTED_RESOURCES: TrustedPortal[] = [
-  {
-    id: 'macmillan-uk',
-    title: 'Macmillan Cancer Support',
-    description: 'Expert information on physical, emotional and financial support for cancer patients.',
-    url: 'https://www.macmillan.org.uk/',
-    category: 'Support',
-    tag: 'PATIENT_WELLNESS',
-    thumbnail: 'https://images.unsplash.com/photo-1469571483333-2a447814b745?auto=format&fit=crop&q=80&w=800'
-  },
+export const TRUSTED_RESOURCES = [
   {
     id: 'who-cancer',
     title: 'WHO Cancer Portal',
     description: 'Global authority on cancer prevention, control and international health protocols.',
     url: 'https://www.who.int/health-topics/cancer',
     category: 'Global',
-    tag: 'GLOBAL_STANDARD',
-    thumbnail: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=800'
+    tag: 'GLOBAL_STANDARD'
   },
   {
     id: 'nci-usa',
@@ -527,8 +507,7 @@ export const TRUSTED_RESOURCES: TrustedPortal[] = [
     description: 'Comprehensive research and treatment information from the US National Institutes of Health.',
     url: 'https://www.cancer.gov/',
     category: 'Research',
-    tag: 'RESEARCH_LEADER',
-    thumbnail: 'https://images.unsplash.com/photo-1532187875605-2fe35f74bc95?auto=format&fit=crop&q=80&w=800'
+    tag: 'RESEARCH_LEADER'
   },
   {
     id: 'tata-memorial',
@@ -536,8 +515,7 @@ export const TRUSTED_RESOURCES: TrustedPortal[] = [
     description: 'India\'s premier cancer research and treatment institution based in Mumbai.',
     url: 'https://tmc.gov.in/',
     category: 'Hospital',
-    tag: 'INDIA_EXCELLENCE',
-    thumbnail: 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&q=80&w=800'
+    tag: 'INDIA_EXCELLENCE'
   },
   {
     id: 'alig-care-main',
@@ -545,8 +523,31 @@ export const TRUSTED_RESOURCES: TrustedPortal[] = [
     description: 'Regional coordination hub for oncology patients at JNMCH AMU Aligarh.',
     url: 'https://aligscare.org/',
     category: 'Regional',
-    tag: 'ALIGARH_LOCAL',
-    thumbnail: 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&q=80&w=800'
+    tag: 'ALIGARH_LOCAL'
+  },
+  {
+    id: 'mayo-clinic',
+    title: 'Mayo Clinic',
+    description: 'World-renowned medical research and care guidelines for complex oncology cases.',
+    url: 'https://www.mayoclinic.org/tests-procedures/cancer-treatment/about/pac-20385127',
+    category: 'Clinical',
+    tag: 'CLINICAL_LEADER'
+  },
+  {
+    id: 'asco-cancer-net',
+    title: 'ASCO - Cancer.Net',
+    description: 'Patient-centric information from the American Society of Clinical Oncology.',
+    url: 'https://www.cancer.net/',
+    category: 'Clinical',
+    tag: 'ONCOLOGY_PROFESSIONAL'
+  },
+  {
+    id: 'macmillan-uk',
+    title: 'Macmillan Cancer Support',
+    description: 'Expert information on physical, emotional and financial support for cancer patients.',
+    url: 'https://www.macmillan.org.uk/',
+    category: 'Support',
+    tag: 'PATIENT_WELLNESS'
   },
   {
     id: 'st-jude',
@@ -554,8 +555,7 @@ export const TRUSTED_RESOURCES: TrustedPortal[] = [
     description: 'Leading global resource for pediatric oncology research and specialized child care.',
     url: 'https://www.stjude.org/',
     category: 'Research',
-    tag: 'PEDIATRIC_EXCELLENCE',
-    thumbnail: 'https://images.unsplash.com/photo-1516627145497-ae6968895b74?auto=format&fit=crop&q=80&w=800'
+    tag: 'PEDIATRIC_EXCELLENCE'
   },
   {
     id: 'mskcc-ny',
@@ -563,8 +563,7 @@ export const TRUSTED_RESOURCES: TrustedPortal[] = [
     description: 'Specialized protocols and breakthrough treatment news from New York.',
     url: 'https://www.mskcc.org/',
     category: 'Clinical',
-    tag: 'TREATMENT_INNOVATION',
-    thumbnail: 'https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&q=80&w=800'
+    tag: 'TREATMENT_INNOVATION'
   },
   {
     id: 'acs-org',
@@ -572,8 +571,7 @@ export const TRUSTED_RESOURCES: TrustedPortal[] = [
     description: 'Patient advocacy, screening guidelines, and community support resources.',
     url: 'https://www.cancer.org/',
     category: 'Policy',
-    tag: 'ADVOCACY_LEADER',
-    thumbnail: 'https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&q=80&w=800'
+    tag: 'ADVOCACY_LEADER'
   }
 ];
 
