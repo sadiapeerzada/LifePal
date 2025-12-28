@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Heart, ArrowRight, ShieldCheck, Sparkles, Activity, Scan, Navigation2, CheckCircle2, Zap, ShieldAlert, Users, Globe, MessageSquareHeart, ShieldPlus, PlayCircle } from 'lucide-react';
 import { AppLanguage } from '../types';
@@ -84,7 +83,7 @@ const LandingPage: React.FC<Props> = ({ onStart, currentLang, onSelectLang }) =>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
             <FeatureItem icon={<Navigation2 />} title={t('navigator_header')} desc={t('navigator_sub')} />
             <FeatureItem icon={<Scan />} title={t('doc_intel')} desc={t('doc_intel_sub')} />
-            <FeatureItem icon={<Activity />} title={t('symptom_log')} desc={t('track_physical')} />
+            <FeatureItem icon={<Activity />} title={t('symptom_log')} desc={t('symptom_log_sub')} />
             <FeatureItem icon={<MessageSquareHeart />} title={t('companion')} desc={t('buddy_desc')} />
             <FeatureItem icon={<ShieldPlus />} title={t('skills_hub')} desc="Master survival and caregiving skills from experts." />
             <FeatureItem icon={<Globe />} title={t('trust')} desc="100% transparent fundraising with direct hospital credit." />
