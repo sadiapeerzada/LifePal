@@ -239,7 +239,7 @@ export const generateSpeech = async (text: string, lang: AppLanguage) => {
       model: "gemini-2.5-flash-preview-tts",
       contents: [{ parts: [{ text }] }],
       config: {
-        responseModalalities: [Modality.AUDIO],
+        responseModalities: [Modality.AUDIO], // Corrected spelling from 'responseModalalities'
         speechConfig: { 
           voiceConfig: { 
             prebuiltVoiceConfig: { voiceName: lang === AppLanguage.HINDI ? 'Puck' : 'Zephyr' } 
