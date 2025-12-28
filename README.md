@@ -189,6 +189,36 @@ The app is configured for deployment via **Azure Static Web Apps** with the foll
 
 LifePal is not just an application; it is a clinical intervention. By unifying the reasoning power of **Google Gemini**, the secure infrastructure of **Microsoft Azure**, and the regional heart of the **Alig Care Foundation**, we have created a digital sanctuary that ensures no one fights cancer alone.
 
+## 10 Remarks
+
+### Current Status:
+
++ LifePal is fully developed and deployed, with all core features functioning as intended.
++ Some advanced AI features (e.g., medical grounding, cancer resource discovery) require Google Gemini Grounding API keys tied to a paid Google Cloud project.
++ These keys are not embedded in the public deployment for security reasons.
+
+## Free Alternatives:
+
++ Features can be enabled using free APIs, such as:
+
++ Public medical datasets
+
++ Open cancer research APIs
+
++ YouTube Data API (free quota for kid-friendly content)
+
+## Future Scope – AI Harmony:
+
++ Users will be able to connect mobile devices or wearables for real-time health monitoring.
+
++ The AI agent will provide personalized insights and recommendations based on the collected data.
+
++ This feature will further enhance patient care and support decision-making for caregivers and healthcare professionals.
+
++ Try It Out:
+
+### Explore the live LifePal app: https://life-pal.vercel.app/
+
 ***
 
 **Maintained by:** Senior Frontend Engineering Team  
