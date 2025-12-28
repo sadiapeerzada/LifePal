@@ -247,10 +247,10 @@ const UR_STRINGS = {
   mood_board: 'موڈ بورڈ',
   navigator: 'نیویگیٹر',
   navigator_header: 'کیئر نیویگیٹر',
-  navigator_sub: 'طبی روڈ میپ اور وسائل کی معلومات۔',
+  navigator_sub: 'طبی روڈ میپ اور وسائل کی معلومات।',
   med_scanner: 'میڈ اسکینر',
   meds_scanner_header: 'Vision AI-MedScanner',
-  med_scanner_sub: 'دوا کی پہچان، خوراک کی بصیرت، اور حفاظتی رہنمائی۔',
+  med_scanner_sub: 'دوا کی پہچان، خوراک کی بصیرت، اور حفاظتی رہنمائی।',
   doc_intel: 'دستاویز انٹیل',
   doc_intel_header: 'دستاویز انٹیل والٹ',
   doc_intel_sub: 'رپورٹس کو ایزیور والٹ میں محفوظ کریں۔',
@@ -321,7 +321,7 @@ const UR_STRINGS = {
   buddy_desc: 'آپ کا جادوئی اے آئی دوست',
   hero_quests: 'سپر کوئسٹس',
   hero_quest_banner: 'ہیرو مشن',
-  hero_welcome: 'ہیرو ہیڈ کوارٹر میں خوش آمدید!',
+  hero_welcome: 'ہیرو ہیڈ کوارٹر में خوش آمدید!',
   hero_level: 'ہیرو کی سطح',
   magic_energy_needed: 'ایکس پی درکار ہے',
   memory_quest: 'یادداشت کا مشن',
@@ -347,7 +347,7 @@ const UR_STRINGS = {
   add_reminder: 'یاد دہانی شامل کریں',
   analyzing: 'تجزیہ ہو رہا ہے...',
   analyze_symptoms: 'پیٹرن کا تجزیہ کریں',
-  generating_insights: 'بصیرتیں تلاش کی जा رہی ہیں...',
+  generating_insights: 'بصیرتیں تلاش کی जा रही ہیں...',
   symptom_patterns_header: 'علامات کی ذہانت',
   symptom_patterns_sub: 'اپنے لاگ میں طبی پیٹرن دریافت کریں۔',
   daily_sanctuary_focus: 'روزانہ کی توجہ',
@@ -359,7 +359,7 @@ const UR_STRINGS = {
   bravery_sparkle: 'آپ کی بہادری میں ایک نئی چمک آگئی ہے!',
   xp_awarded: 'XP مل گیا',
   level_up: 'لیول اپ!',
-  reached_level: 'سطح پر پہنچ گئے',
+  reached_level: 'سطح पर پہنچ گئے',
   continue_quest: 'مشن جاری رکھیں'
 };
 
@@ -648,7 +648,7 @@ export const SCHEMES: Scheme[] = [
     eligibility: ['Low-income patients not covered under PM-JAY', 'Treatment at major Govt hospitals'],
     documents: ['Identity Proof', 'Income Certificate', 'Clinical justification from treating doctor'],
     steps: ['Collect grant application from Hospital Superintendent', 'Get HOD oncology signature', 'Submit to MoHFW'],
-    officialUrl: 'https://main.mohfw.gov.in/Major-Programmes/poor-patients-financial-assistance/health-ministers-discretionary-grant',
+    officialUrl: 'https://www.mohfw.gov.in/?q=en/major-programmes/poor-patients-financial-assistance/health-ministers-discretionary-grant-hmdg',
     type: 'GOVERNMENT',
     fundType: 'PM_CARE'
   },
