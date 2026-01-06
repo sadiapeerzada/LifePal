@@ -1,4 +1,3 @@
-
 import { GoogleGenAI } from "@google/genai";
 
 export const config = {
@@ -20,7 +19,7 @@ export default async function handler(req: any, res: any) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
   const apiKey = process.env.API_KEY;
-  if (!apiKey) return res.status(500).json({ error: 'API_KEY missing' });
+  if (!apiKey) return res.status(500).json({ error: 'API_KEY missing in environment variables. Please check your Vercel project settings.' });
 
   const { feature, contents, config: modelConfig } = req.body;
 
@@ -28,7 +27,18 @@ export default async function handler(req: any, res: any) {
     const ai = new GoogleGenAI({ apiKey });
     const modelName = modelConfig?.model || 'gemini-3-flash-preview';
 
-    // The user context is prepended in the frontend's getGeminiResponse
+    // Standardize contents format: SDK expects text, parts, or array of content objects
+    let formattedContents: any;
+    if (typeof contents === 'string') {
+      formattedContents = contents;
+    } else if (Array.isArray(contents)) {
+      formattedContents = contents;
+    } else if (contents.parts) {
+      formattedContents = contents;
+    } else {
+      formattedContents = JSON.stringify(contents);
+    }
+
     const finalConfig: any = {
       ...modelConfig,
       systemInstruction: LIFEPAL_SYSTEM_INSTRUCTION,
@@ -40,18 +50,17 @@ export default async function handler(req: any, res: any) {
 
     const response = await ai.models.generateContent({
       model: modelName,
-      contents: contents, 
+      contents: formattedContents, 
       config: finalConfig,
     });
 
-    // Extract image if present (important for nano banana series models)
+    // Handle Image Feature (Extract from inlineData)
     const imagePart = response.candidates?.[0]?.content?.parts?.find((p: any) => p.inlineData && p.inlineData.mimeType.startsWith('image/'));
     if (feature === 'image' && imagePart) {
-      // Fix: Added optional chaining to inlineData to satisfy TypeScript compiler
       return res.status(200).json({ feature, output: imagePart.inlineData?.data });
     }
 
-    // Extract audio if present
+    // Handle Audio Feature
     const isAudio = modelConfig?.responseModalities?.[0] === 'AUDIO';
     if (isAudio) {
       const audioPart = response.candidates?.[0]?.content?.parts?.find((p: any) => p.inlineData && p.inlineData.mimeType.startsWith('audio/'));
@@ -60,6 +69,7 @@ export default async function handler(req: any, res: any) {
 
     const outputText = response.text || "";
     
+    // Return main text + grounding metadata for Search/Maps
     return res.status(200).json({
       feature,
       output: outputText,
@@ -67,7 +77,7 @@ export default async function handler(req: any, res: any) {
     });
     
   } catch (error: any) {
-    console.error("AI Error:", error);
-    return res.status(500).json({ error: error.message });
+    console.error("[LifePal API Error]:", error);
+    return res.status(500).json({ error: error.message || 'An internal error occurred with the AI engine.' });
   }
 }

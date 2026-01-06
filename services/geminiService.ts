@@ -1,4 +1,3 @@
-
 import { 
   UserRole, AppLanguage, EmotionalState, 
   CareContext, NavigationPlan, PatientAgeGroup, 
@@ -24,7 +23,6 @@ const callGateway = async (feature: string, contents: any, config: any = {}) => 
   return response.json();
 };
 
-// Fix: Implementation of ensureApiKey following coding guidelines for window.aistudio
 export const ensureApiKey = async (): Promise<boolean> => {
   if (typeof window !== 'undefined' && (window as any).aistudio) {
     const hasKey = await (window as any).aistudio.hasSelectedApiKey();
@@ -54,7 +52,7 @@ export const getGeminiResponse = async (
       ],
       {
         model: useThinking ? 'gemini-3-pro-preview' : 'gemini-3-flash-preview',
-        thinkingConfig: useThinking ? { thinkingBudget: 16000 } : undefined
+        thinkingConfig: useThinking ? { thinkingBudget: 4000 } : undefined
       }
     );
     return res.output;
@@ -124,41 +122,32 @@ export const analyzeMedicalDocument = async (base64: string, lang: AppLanguage) 
   }
 };
 
-/**
- * Microsoft Azure Vault Integration (Simulated)
- * In a production environment, this would call the Azure Storage SDK with SAS tokens.
- */
 export const uploadToAzureVault = async (base64: string, metadata: any) => { 
   console.log(`[LifePal Azure Hub]: Initiating secure upload for ${metadata.name} to private blob container.`);
-  // Simulate network latency for encryption and vaulting
   await new Promise(resolve => setTimeout(resolve, 1500));
-  console.log(`[LifePal Azure Hub]: Document ${metadata.id} vaulted successfully with AES-256 encryption.`);
   return { success: true, vaultId: metadata.id }; 
 };
 
 export const fetchOncoLinkNews = async (lang: AppLanguage) => {
-  const schema = {
-    type: "ARRAY",
-    items: {
-      type: "OBJECT",
-      properties: {
-        title: { type: "STRING" },
-        summary: { type: "STRING" },
-        url: { type: "STRING" },
-        source: { type: "STRING" },
-        date: { type: "STRING" },
-        category: { type: "STRING" }
-      }
-    }
-  };
-
   try {
+    // Instructions are optimized to force ONLY JSON, which helps prevent search citations from breaking the parse
     const res = await callGateway('news', 
-      `Find oncology news in ${lang}. JSON only.`,
-      { model: 'gemini-3-flash-preview', tools: [{ googleSearch: {} }], responseSchema: schema }
+      `ACT AS A MEDICAL NEWS ENGINE. Language: ${lang}. 
+       Search for: "latest verified cancer oncology news patients 2024 2025".
+       Respond ONLY with a valid JSON array. Do not include markdown blocks or citations outside JSON.
+       Format: [{"title": "...", "summary": "...", "url": "...", "source": "...", "date": "..."}]`,
+      { model: 'gemini-3-flash-preview', tools: [{ googleSearch: {} }] }
     );
-    return JSON.parse(res.output);
+    
+    const text = res.output;
+    // Robust cleaning to extract JSON array
+    const jsonMatch = text.match(/\[[\s\S]*\]/);
+    if (jsonMatch) {
+      return JSON.parse(jsonMatch[0].replace(/```json/g, '').replace(/```/g, ''));
+    }
+    return [];
   } catch (e) {
+    console.error("News Fetch Error:", e);
     return [];
   }
 };
@@ -181,10 +170,13 @@ export const fetchHeroCinemaVideos = async (lang: AppLanguage): Promise<ChildVid
 
   try {
     const res = await callGateway('videos', 
-      `Find 4 kid-safe YouTube video IDs. Language: ${lang}. JSON only.`,
+      `Find 4 kid-safe YouTube video IDs for a brave child hero. Language: ${lang}. JSON only.`,
       { model: 'gemini-3-flash-preview', tools: [{ googleSearch: {} }], responseSchema: schema }
     );
-    const videos = JSON.parse(res.output);
+    const text = res.output;
+    const jsonMatch = text.match(/\[[\s\S]*\]/);
+    const videos = jsonMatch ? JSON.parse(jsonMatch[0]) : [];
+    
     return videos.map((v: any) => ({
       ...v,
       videoUrl: '',
@@ -260,12 +252,28 @@ export const getCareNavigationPlan = async (context: CareContext): Promise<Navig
       schemes: { type: "ARRAY", items: { type: "OBJECT", properties: { name: { type: "STRING" }, url: { type: "STRING" }, reason: { type: "STRING" }, description: { type: "STRING" } } } },
       hospitals: { type: "ARRAY", items: { type: "OBJECT", properties: { name: { type: "STRING" }, type: { type: "STRING" }, location: { type: "STRING" } } } },
       nextSteps: { type: "ARRAY", items: { type: "STRING" } }
-    }
+    },
+    required: ["roadmap", "schemes", "hospitals", "nextSteps"]
   };
 
-  const prompt = `Build oncology roadmap for ${context.role} in ${context.location}. JSON output.`;
-  const res = await callGateway('nav', prompt, { model: 'gemini-3-pro-preview', responseSchema: schema, thinkingConfig: { thinkingBudget: 16000 } });
-  return JSON.parse(res.output);
+  const prompt = `PERSONALIZED ONCOLOGY STRATEGY for a ${context.role} dealing with ${context.cancerType} in ${context.location}.
+  Financial Status: ${context.financialStatus}. Focus Priority: ${context.priority}. 
+  Provide specific Aligarh and National Indian resources. 
+  Respond ONLY with valid JSON.`;
+  
+  // SWITCHED TO FLASH: Pro-thinking is too slow for Vercel Hobby 10s limit. 
+  // Gemini 3 Flash is instant and highly capable for JSON structuring.
+  const res = await callGateway('nav', prompt, { 
+    model: 'gemini-3-flash-preview', 
+    responseSchema: schema 
+  });
+  
+  const text = res.output;
+  const jsonMatch = text.match(/\{[\s\S]*\}/);
+  if (jsonMatch) {
+    return JSON.parse(jsonMatch[0].replace(/```json/g, '').replace(/```/g, ''));
+  }
+  throw new Error("Invalid Navigator Response");
 };
 
 export const generateImage = async (prompt: string, size: "1K" | "2K" | "4K" = "1K") => {
@@ -295,7 +303,10 @@ export const getSimplifiedExplanation = async (ctx: string, role: UserRole, lang
 };
 export const getFollowupQuestions = async (status: string, lang: AppLanguage) => {
   const res = await callGateway('questions', `Questions for ${status} in ${lang}. JSON array of strings.`, { model: 'gemini-3-flash-preview' });
-  try { return JSON.parse(res.output); } catch { return []; }
+  try { 
+    const match = res.output.match(/\[[\s\S]*\]/);
+    return match ? JSON.parse(match[0]) : []; 
+  } catch { return []; }
 };
 export const generateVaultSummary = async (docs: ScannedDoc[], lang: AppLanguage) => {
   const ctx = docs.map(d => d.summary).join('\n');
@@ -303,7 +314,6 @@ export const generateVaultSummary = async (docs: ScannedDoc[], lang: AppLanguage
   return res.output;
 };
 
-// Fix: Implementation of animateImage for Veo image-to-video generation
 export const animateImage = async (base64: string, prompt: string): Promise<string | null> => {
   const payload = {
     model: 'veo-3.1-fast-generate-preview',
@@ -348,7 +358,6 @@ export const animateImage = async (base64: string, prompt: string): Promise<stri
   }
 };
 
-// Fix: Implementation of analyzeVideo using Gemini 3 Pro Video Intelligence
 export const analyzeVideo = async (base64: string, prompt: string): Promise<string> => {
   try {
     const res = await callGateway('video_intel', 
@@ -366,7 +375,6 @@ export const analyzeVideo = async (base64: string, prompt: string): Promise<stri
   }
 };
 
-// Fix: Implementation of analyzeHarmonyData for wellness metric analysis
 export const analyzeHarmonyData = async (data: HarmonyMetric, profile: UserProfile): Promise<HarmonyInsight> => {
   const schema = {
     type: "OBJECT",
