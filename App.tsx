@@ -457,6 +457,7 @@ const App: React.FC = () => {
           {safeProfile.role !== UserRole.DONOR && <SidebarLink to="/emergency" icon={<ShieldAlert className="w-5 h-5" />} label={t('emergency_prep')} isRTL={isRTL} />}
         </div>
         <div className="p-6 border-t dark:border-slate-800">
+           <SidebarLink to="/transparency" icon={<ShieldCheck className="w-5 h-5" />} label="Transparency" isRTL={isRTL} />
            <SidebarLink to="/settings" icon={<Settings className="w-5 h-5" />} label={t('settings')} isRTL={isRTL} />
            <button onClick={handleLogout} className="mt-4 p-4 text-rose-50 font-black flex items-center gap-4 hover:bg-rose-50 rounded-xl transition-all w-full text-rose-500"><LogOut /> <span className="hidden md:block">LOGOUT</span></button>
         </div>
@@ -490,6 +491,9 @@ const App: React.FC = () => {
             } />
             <Route path="/impact" element={<SupporterImpactView profile={safeProfile} />} />
             <Route path="/vault" element={<DocIntelView documents={documents} onUpdate={setDocuments} language={safeProfile.language} isDark={safeProfile.theme === AppTheme.DARK} />} />
+            {/* 
+              Fix: safeTheme was undefined. Corrected to use safeProfile.theme as defined above in the component.
+            */}
             <Route path="/med-scanner" element={<MedicineScannerView language={safeProfile.language} isDark={safeProfile.theme === AppTheme.DARK} onAddReminder={r => updateProfile({ reminders: [...(safeProfile.reminders || []), { ...r, id: Math.random().toString(36).substr(2,9), completed: false }] })} />} />
             <Route path="/reminders" element={<RemindersView reminders={safeProfile.reminders || []} onUpdate={r => updateProfile({ reminders: r })} isChild={safeProfile.role === UserRole.CHILD} onHabitXP={addXP} />} />
             <Route path="/insights" element={<OncoLinkNewsView profile={safeProfile} onToggleSave={handleToggleSave} searchQuery={globalSearch} />} />

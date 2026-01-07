@@ -18,13 +18,15 @@ Maintain a gentle, sanctuary-like persona.
 export default async function handler(req: any, res: any) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
+  // Fix: Obtained API Key from environment variable process.env.API_KEY as per guidelines.
   const apiKey = process.env.API_KEY;
   if (!apiKey) return res.status(500).json({ error: 'API_KEY missing in environment variables. Please check your Vercel project settings.' });
 
   const { feature, contents, config: modelConfig } = req.body;
 
   try {
-    const ai = new GoogleGenAI({ apiKey });
+    // Fix: Using process.env.API_KEY directly in initialization as required by coding guidelines.
+    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
     const modelName = modelConfig?.model || 'gemini-3-flash-preview';
 
     // Standardize contents format: SDK expects text, parts, or array of content objects

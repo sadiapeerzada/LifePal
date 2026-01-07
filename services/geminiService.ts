@@ -130,16 +130,18 @@ export const uploadToAzureVault = async (base64: string, metadata: any) => {
 
 export const fetchOncoLinkNews = async (lang: AppLanguage) => {
   try {
+    // googleSearch + responseSchema can be unstable together on serverless due to token overhead.
+    // Using a clear text instruction for a clean JSON array result.
     const res = await callGateway('news', 
       `ACT AS A MEDICAL NEWS ENGINE. Language: ${lang}. 
-       Search for: "latest verified cancer oncology news patients 2024 2025".
-       Respond ONLY with a valid JSON array.
+       Search for: "latest verified cancer oncology news for patients 2024 2025".
+       Respond ONLY with a valid JSON array. Do not include markdown code blocks or conversational text.
        Format: [{"title": "...", "summary": "...", "url": "...", "source": "...", "date": "..."}]`,
       { model: 'gemini-3-flash-preview', tools: [{ googleSearch: {} }] }
     );
     
     const text = res.output;
-    // Aggressive extraction of JSON array from possible Markdown wrapper or citation text
+    // Aggressively extract only the JSON array part to handle citation text or markdown wrappers
     const startIdx = text.indexOf('[');
     const endIdx = text.lastIndexOf(']');
     if (startIdx !== -1 && endIdx !== -1 && endIdx > startIdx) {
@@ -257,11 +259,13 @@ export const getCareNavigationPlan = async (context: CareContext): Promise<Navig
     required: ["roadmap", "schemes", "hospitals", "nextSteps"]
   };
 
-  const prompt = `STRATEGY for ${context.role} dealing with ${context.cancerType} in ${context.location}. 
+  const prompt = `PRECISION ONCOLOGY STRATEGY for ${context.role} dealing with ${context.cancerType} in ${context.location}. 
   Status: ${context.financialStatus}. Priority: ${context.priority}. 
-  JSON Output Mandatory.`;
+  Grounded in Aligarh and Indian National schemes. 
+  Respond ONLY with valid JSON matching the schema.`;
   
-  // Flash is critical for speed on Vercel to prevent 10s timeouts.
+  // Note: Switched to gemini-3-flash-preview for the Navigator to avoid Vercel 10s timeout.
+  // Flash is extremely fast and generates structured JSON reliably within 1-3 seconds.
   const res = await callGateway('nav', prompt, { 
     model: 'gemini-3-flash-preview', 
     responseSchema: schema 

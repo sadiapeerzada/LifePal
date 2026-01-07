@@ -38,13 +38,14 @@ const NavigatorView: React.FC<{ role: UserRole, language: AppLanguage, savedReso
 
   const handleGenerate = async () => {
     if (!context.cancerType) {
-        alert("Please enter a cancer type.");
+        alert("Please enter a clinical identifier (cancer type).");
         return;
     }
     setLoading(true);
     setQuotaError(false);
     
     try {
+      // Switched to Flash in geminiService to prevent Vercel 10s timeouts
       const result = await getCareNavigationPlan(context);
       setPlan(result);
       setStep(4);
@@ -143,7 +144,7 @@ const NavigatorView: React.FC<{ role: UserRole, language: AppLanguage, savedReso
                        </>
                      )}
                    </button>
-                   <p className="text-center text-[10px] font-black text-slate-300 dark:text-slate-600 uppercase tracking-[0.5em] mt-8">Grounded in Gemini Flash v3.1 Logic</p>
+                   <p className="text-center text-[10px] font-black text-slate-300 dark:text-slate-600 uppercase tracking-[0.5em] mt-8">Grounded in Gemini Flash v3.1 Logic (Rapid Response Mode)</p>
                 </div>
               </div>
             )}
@@ -238,7 +239,7 @@ const NavigatorView: React.FC<{ role: UserRole, language: AppLanguage, savedReso
                  <div className="space-y-6 relative z-10">
                     {plan?.nextSteps.map((step, i) => (
                        <div key={i} className="flex items-center gap-10 p-10 bg-white/5 rounded-[3.5rem] border border-white/10 group hover:bg-white/10 transition-all">
-                          <div className="w-16 h-16 rounded-[1.8rem] bg-blue-600 text-white flex items-center justify-center font-black text-3xl shadow-[0_10px_30px_rgba(37,99,235,0.5)] shrink-0 group-hover:scale-110 transition-transform">{i+1}</div>
+                          <div className="w-16 h-16 rounded-[1.8rem] bg-blue-600 text-white flex items-center justify-center font-black text-sm shrink-0 shadow-lg group-hover:scale-110 transition-transform">{i+1}</div>
                           <p className="text-2xl md:text-3xl font-bold text-blue-50 leading-tight tracking-tight">{step}</p>
                        </div>
                     ))}
