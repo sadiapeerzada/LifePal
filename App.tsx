@@ -316,7 +316,7 @@ const App: React.FC = () => {
     <Routes>
       <Route path="/" element={<LandingPage onStart={() => navigate('/login')} currentLang={profile?.language || AppLanguage.ENGLISH} onSelectLang={l => updateProfile({ language: l })} />} />
       <Route path="/login" element={<LoginPage onLogin={handleLogin} />} />
-      <Route path="/transparency" element={<TransparencyPage />} />
+      <Route path="/transparency" element={<TransparencyPage language={profile?.language || AppLanguage.ENGLISH} />} />
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   );
@@ -457,7 +457,7 @@ const App: React.FC = () => {
           {safeProfile.role !== UserRole.DONOR && <SidebarLink to="/emergency" icon={<ShieldAlert className="w-5 h-5" />} label={t('emergency_prep')} isRTL={isRTL} />}
         </div>
         <div className="p-6 border-t dark:border-slate-800">
-           <SidebarLink to="/transparency" icon={<ShieldCheck className="w-5 h-5" />} label="Transparency" isRTL={isRTL} />
+           <SidebarLink to="/transparency" icon={<ShieldCheck className="w-5 h-5" />} label={t('transparency')} isRTL={isRTL} />
            <SidebarLink to="/settings" icon={<Settings className="w-5 h-5" />} label={t('settings')} isRTL={isRTL} />
            <button onClick={handleLogout} className="mt-4 p-4 text-rose-50 font-black flex items-center gap-4 hover:bg-rose-50 rounded-xl transition-all w-full text-rose-500"><LogOut /> <span className="hidden md:block">LOGOUT</span></button>
         </div>
@@ -491,9 +491,6 @@ const App: React.FC = () => {
             } />
             <Route path="/impact" element={<SupporterImpactView profile={safeProfile} />} />
             <Route path="/vault" element={<DocIntelView documents={documents} onUpdate={setDocuments} language={safeProfile.language} isDark={safeProfile.theme === AppTheme.DARK} />} />
-            {/* 
-              Fix: safeTheme was undefined. Corrected to use safeProfile.theme as defined above in the component.
-            */}
             <Route path="/med-scanner" element={<MedicineScannerView language={safeProfile.language} isDark={safeProfile.theme === AppTheme.DARK} onAddReminder={r => updateProfile({ reminders: [...(safeProfile.reminders || []), { ...r, id: Math.random().toString(36).substr(2,9), completed: false }] })} />} />
             <Route path="/reminders" element={<RemindersView reminders={safeProfile.reminders || []} onUpdate={r => updateProfile({ reminders: r })} isChild={safeProfile.role === UserRole.CHILD} onHabitXP={addXP} />} />
             <Route path="/insights" element={<OncoLinkNewsView profile={safeProfile} onToggleSave={handleToggleSave} searchQuery={globalSearch} />} />
@@ -507,7 +504,7 @@ const App: React.FC = () => {
             <Route path="/settings" element={<SettingsView profile={safeProfile} onUpdate={updateProfile} onLogout={handleLogout} />} />
             <Route path="/companion" element={<ChatBot role={safeProfile.role} language={safeProfile.language} gender={safeProfile.gender} isChild={safeProfile.role === UserRole.CHILD} />} />
             <Route path="/emergency" element={<EmergencyProtocolView language={safeProfile.language} />} />
-            <Route path="/transparency" element={<TransparencyPage />} />
+            <Route path="/transparency" element={<TransparencyPage language={safeProfile.language} />} />
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
         </div>

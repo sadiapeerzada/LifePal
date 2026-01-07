@@ -104,14 +104,14 @@ const NavigatorView: React.FC<{ role: UserRole, language: AppLanguage, savedReso
             {step === 1 && (
               <div className="space-y-12">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-                  <SelectField label="Clinical Identifier (Cancer Type)" value={context.cancerType} onChange={(v: string) => setContext({...context, cancerType: v})} placeholder="e.g. Metastatic Lymphoma" />
-                  <SelectField label="Regional Context (Location)" value={context.location} onChange={(v: string) => setContext({...context, location: v})} placeholder="Aligarh, India" />
+                  <SelectField label={t('nav_clinical_id')} value={context.cancerType} onChange={(v: string) => setContext({...context, cancerType: v})} placeholder="e.g. Metastatic Lymphoma" />
+                  <SelectField label={t('nav_location')} value={context.location} onChange={(v: string) => setContext({...context, location: v})} placeholder="Aligarh, India" />
                 </div>
                 
                 <div className="space-y-6">
                     <div className="flex items-center gap-3 px-2">
                        <Zap className="w-5 h-5 text-amber-500" />
-                       <label className="text-[11px] font-black text-slate-400 uppercase tracking-[0.3em]">Select Intelligence Priority</label>
+                       <label className="text-[11px] font-black text-slate-400 uppercase tracking-[0.3em]">{t('nav_priority')}</label>
                     </div>
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                         {(['FUNDING', 'INFORMATION', 'EMOTIONAL', 'LOGISTICS'] as const).map(p => (
@@ -140,7 +140,7 @@ const NavigatorView: React.FC<{ role: UserRole, language: AppLanguage, savedReso
                      ) : (
                        <>
                          <MapIcon className="w-10 h-10 text-blue-400" /> 
-                         <span>Launch Precision Navigator</span>
+                         <span>{t('nav_launch')}</span>
                        </>
                      )}
                    </button>
@@ -155,7 +155,7 @@ const NavigatorView: React.FC<{ role: UserRole, language: AppLanguage, savedReso
               <div className="absolute top-0 right-0 p-12 opacity-5 group-hover:rotate-12 transition-transform duration-1000"><Activity className="w-64 h-64" /></div>
               <div className="flex items-center gap-6 text-blue-950 dark:text-blue-400 relative z-10">
                 <div className="p-4 bg-blue-50 dark:bg-blue-900/30 rounded-3xl"><Activity className="w-12 h-12" /></div>
-                <h2 className="text-5xl font-black tracking-tighter dark:text-white">Generated Strategy</h2>
+                <h2 className="text-5xl font-black tracking-tighter dark:text-white">{t('nav_strategy')}</h2>
               </div>
               <p className="text-3xl font-black text-slate-800 dark:text-blue-100 leading-[1.1] bg-slate-50 dark:bg-blue-950/40 p-12 rounded-[4rem] border-4 border-white dark:border-blue-900 shadow-inner italic relative z-10">
                 "{plan?.roadmap}"
@@ -167,7 +167,7 @@ const NavigatorView: React.FC<{ role: UserRole, language: AppLanguage, savedReso
                  <section className="space-y-10">
                     <div className="flex items-center gap-5 px-8">
                        <div className="p-3 bg-emerald-100 dark:bg-emerald-950 rounded-2xl"><Landmark className="w-8 h-8 text-emerald-600" /></div>
-                       <h3 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight uppercase">Institutional Relief</h3>
+                       <h3 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight uppercase">{t('nav_institutional')}</h3>
                     </div>
                     <div className="space-y-6">
                        {plan?.schemes.map((s, i) => {
@@ -188,7 +188,7 @@ const NavigatorView: React.FC<{ role: UserRole, language: AppLanguage, savedReso
                              </div>
                              <p className="text-slate-500 dark:text-slate-400 font-medium text-lg leading-relaxed line-clamp-4">"{s.description}"</p>
                              <a href={s.url} target="_blank" rel="noopener noreferrer" className="mt-auto py-6 bg-slate-950 text-white rounded-[2rem] flex items-center justify-center gap-4 font-black text-sm uppercase tracking-widest hover:bg-black transition-all shadow-xl group-hover:shadow-emerald-100/50 dark:group-hover:shadow-none">
-                                Open Clinical Portal <ExternalLink className="w-5 h-5 text-emerald-400" />
+                                {t('back')} <ExternalLink className="w-5 h-5 text-emerald-400" />
                              </a>
                           </div>
                        )})}
@@ -199,7 +199,7 @@ const NavigatorView: React.FC<{ role: UserRole, language: AppLanguage, savedReso
                  <section className="space-y-10">
                     <div className="flex items-center gap-5 px-8">
                        <div className="p-3 bg-blue-100 dark:bg-blue-950 rounded-2xl"><Hospital className="w-8 h-8 text-blue-600" /></div>
-                       <h3 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight uppercase">Strategic Facilities</h3>
+                       <h3 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight uppercase">{t('nav_strategic_facilities')}</h3>
                     </div>
                     <div className="space-y-6">
                        {plan?.hospitals.map((h, i) => {
@@ -220,7 +220,7 @@ const NavigatorView: React.FC<{ role: UserRole, language: AppLanguage, savedReso
                              </div>
                              <div className="flex gap-4">
                                 <a href={`https://www.google.com/maps/search/${encodeURIComponent(h.name + ' ' + h.location)}`} target="_blank" rel="noopener noreferrer" className="flex-1 py-6 bg-blue-600 text-white rounded-[2rem] flex items-center justify-center gap-4 font-black text-sm uppercase tracking-widest hover:bg-blue-700 transition-all shadow-[0_15px_40px_-10px_rgba(37,99,235,0.4)]">
-                                   <MapPin className="w-5 h-5" /> Launch Route
+                                   <MapPin className="w-5 h-5" /> {t('finder')}
                                 </a>
                              </div>
                           </div>

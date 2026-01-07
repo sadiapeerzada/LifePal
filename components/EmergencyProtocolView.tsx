@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { 
   ShieldAlert, AlertTriangle, Phone, FileText, 
@@ -29,7 +28,7 @@ const EmergencyProtocolView: React.FC<{ language: AppLanguage }> = ({ language }
          <div className="absolute top-0 right-0 p-12 opacity-10 rotate-12"><AlertTriangle className="w-64 h-64" /></div>
          <div className="relative z-10 flex items-center gap-6">
             <div className="p-5 bg-white/20 rounded-[2.5rem] backdrop-blur-md border border-white/30"><Smartphone className="w-12 h-12" /></div>
-            <h2 className="text-4xl md:text-5xl font-black tracking-tighter uppercase">Immediate Action (First 5 Mins)</h2>
+            <h2 className="text-4xl md:text-5xl font-black tracking-tighter uppercase">{t('emergency_immediate_action')}</h2>
          </div>
          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 relative z-10">
             <div className="space-y-6">
@@ -38,7 +37,7 @@ const EmergencyProtocolView: React.FC<{ language: AppLanguage }> = ({ language }
                <ActionStep num="3" text="Keep the patient calm and laying down. Do not offer food or water." />
             </div>
             <div className="bg-white/10 p-8 rounded-[3rem] border border-white/20 backdrop-blur-xl space-y-6">
-               <h3 className="text-2xl font-black flex items-center gap-3"><Phone className="w-6 h-6" /> Key Numbers</h3>
+               <h3 className="text-2xl font-black flex items-center gap-3"><Phone className="w-6 h-6" /> {t('emergency_key_numbers')}</h3>
                <div className="space-y-4">
                   <ContactLink label="JNMCH Emergency Desk" num="0571-2700921" />
                   <ContactLink label="AMU Medical Helpline" num="0571-2700021" />
@@ -52,7 +51,7 @@ const EmergencyProtocolView: React.FC<{ language: AppLanguage }> = ({ language }
          <section className="lg:col-span-7 bg-white dark:bg-slate-900 p-12 rounded-[4rem] border-4 border-slate-50 dark:border-slate-800 shadow-xl space-y-10">
             <div className="space-y-4">
                <h3 className="text-3xl font-black text-slate-900 dark:text-white flex items-center gap-4">
-                  <FileText className="w-8 h-8 text-rose-500" /> The "Red Folder" Checklist
+                  <FileText className="w-8 h-8 text-rose-500" /> {t('emergency_red_folder')}
                </h3>
                <p className="text-slate-500 dark:text-slate-400 font-medium text-lg leading-relaxed italic">
                  Keep these items in a bright red folder near your front door. It avoids panic when seconds count.
@@ -74,7 +73,7 @@ const EmergencyProtocolView: React.FC<{ language: AppLanguage }> = ({ language }
             <div className="bg-slate-50 dark:bg-slate-950 p-10 rounded-[3.5rem] shadow-inner space-y-8 border-2 border-slate-100 dark:border-transparent">
                <div className="flex items-center gap-4 text-rose-600">
                   <Thermometer className="w-8 h-8" />
-                  <h3 className="text-2xl font-black tracking-tight uppercase leading-none">Prevention Vigilance</h3>
+                  <h3 className="text-2xl font-black tracking-tight uppercase leading-none">{t('emergency_prevention')}</h3>
                </div>
                <div className="space-y-6">
                   <RedFlag title="Fever (Neutropenic)" text="Any temp above 100.4°F (38°C) is a clinical emergency during chemo." />
@@ -89,7 +88,7 @@ const EmergencyProtocolView: React.FC<{ language: AppLanguage }> = ({ language }
                   <h4 className="text-xl font-black">Avoid Crises</h4>
                </div>
                <p className="text-indigo-100 font-medium leading-relaxed italic">"Regularly syncing your Med Scanner history and using the Symptom Tracker daily helps AI identify 'slow' shifts before they turn into emergencies."</p>
-               <button className="w-full py-4 bg-white text-indigo-600 rounded-2xl font-black uppercase text-xs tracking-widest hover:scale-105 transition-all shadow-xl">Review Symptom Logs</button>
+               <button className="w-full py-4 bg-white text-indigo-600 rounded-2xl font-black uppercase text-xs tracking-widest hover:scale-105 transition-all shadow-xl">{t('symptom_log')}</button>
             </div>
          </section>
       </div>
@@ -127,7 +126,7 @@ const ContactLink = ({ label, num }: { label: string, num: string }) => (
 
 const CheckItem = ({ text }: { text: string }) => (
   <div className="flex items-center gap-4 p-5 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border-2 border-slate-100 dark:border-slate-700 group hover:border-rose-200 dark:hover:border-rose-900 transition-all">
-     <div className="w-6 h-6 rounded-full bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 flex items-center justify-center font-black text-slate-400 group-hover:border-rose-500 group-hover:text-rose-600 transition-all">
+     <div className="w-6 h-6 rounded-full bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 flex items-center justify-center font-black text-slate-400 group-hover:border-rose-500 group-hover:text-rose-600 transition-all shrink-0">
         <CheckCircle2 className="w-4 h-4" />
      </div>
      <p className="font-black text-sm text-slate-700 dark:text-slate-300">{text}</p>

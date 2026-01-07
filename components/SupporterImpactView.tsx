@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { UserProfile, AppLanguage } from '../types';
 import { 
@@ -37,10 +36,10 @@ const SupporterImpactView: React.FC<Props> = ({ profile }) => {
   }, []);
 
   const stats = [
-    { label: "Patients Supported", value: `${impactStats.patients.toLocaleString()}+`, icon: <Users />, color: "text-blue-600", bg: "bg-blue-50 dark:bg-blue-900/30" },
-    { label: "Care Interactions", value: `${impactStats.interactions.toLocaleString()}+`, icon: <Activity />, color: "text-emerald-600", bg: "bg-emerald-50 dark:bg-emerald-900/30" },
-    { label: "Mental Health Check-ins", value: `${impactStats.checkins.toLocaleString()}+`, icon: <Heart />, color: "text-rose-600", bg: "bg-rose-50 dark:bg-rose-900/30" },
-    { label: "Navigation Sessions", value: `${impactStats.sessions.toLocaleString()}+`, icon: <Globe />, color: "text-amber-600", bg: "bg-amber-50 dark:bg-amber-900/30" },
+    { label: t('impact_patients_supported'), value: `${impactStats.patients.toLocaleString()}+`, icon: <Users />, color: "text-blue-600", bg: "bg-blue-50 dark:bg-blue-900/30" },
+    { label: t('impact_care_interactions'), value: `${impactStats.interactions.toLocaleString()}+`, icon: <Activity />, color: "text-emerald-600", bg: "bg-emerald-50 dark:bg-emerald-900/30" },
+    { label: t('impact_mental_health'), value: `${impactStats.checkins.toLocaleString()}+`, icon: <Heart />, color: "text-rose-600", bg: "bg-rose-50 dark:bg-rose-900/30" },
+    { label: t('impact_navigation'), value: `${impactStats.sessions.toLocaleString()}+`, icon: <Globe />, color: "text-amber-600", bg: "bg-amber-50 dark:bg-amber-900/30" },
   ];
 
   return (
@@ -60,7 +59,7 @@ const SupporterImpactView: React.FC<Props> = ({ profile }) => {
          <div className="absolute top-0 right-0 p-10 opacity-5 group-hover:scale-110 transition-transform duration-[5s]"><Sparkles className="w-64 h-64 text-blue-600" /></div>
          <div className="relative z-10 space-y-6">
             <h2 className="text-3xl font-black text-indigo-950 dark:text-white flex items-center gap-4">
-               <Heart className="w-8 h-8 text-rose-500 fill-rose-500" /> The Power of Your Kindness
+               <Heart className="w-8 h-8 text-rose-500 fill-rose-500" /> {t('impact_kindness_title')}
             </h2>
             <p className="text-2xl text-indigo-900 dark:text-indigo-200 font-medium leading-relaxed italic border-l-8 border-indigo-300 dark:border-indigo-600 pl-8">
                For thousands of families across Aligarh and Western Uttar Pradesh, cancer is as much a financial crisis as it is a medical one. Lower-income patients often face the heartbreaking choice between continuing life-saving chemotherapy or putting food on the table. Your donations act as a clinical lifeline—directly settling pharmacy bills and surgical costs that would otherwise go unpaid. Every unit of blood, every warm blanket, and every rupee gifted is a profound act of defiance against despair, ensuring that dignity and world-class care are never a luxury, but a human right for every brave hero fighting this battle.
@@ -86,7 +85,7 @@ const SupporterImpactView: React.FC<Props> = ({ profile }) => {
          <div className="absolute top-0 right-0 p-10 opacity-10"><Heart className="w-64 h-64 text-rose-500" /></div>
          
          <div className="relative z-10 space-y-4 text-center md:text-left">
-            <h2 className="text-4xl md:text-5xl font-black tracking-tight">Ways to Be a Hero</h2>
+            <h2 className="text-4xl md:text-5xl font-black tracking-tight">{t('impact_hero_ways')}</h2>
             <p className="text-slate-400 text-xl font-medium max-w-2xl leading-relaxed">
                Cancer care isn't just about medicine. It's about resources, blood, and dignity. Here is exactly how your specific contribution saves lives today.
             </p>
@@ -97,12 +96,12 @@ const SupporterImpactView: React.FC<Props> = ({ profile }) => {
                <div className="w-16 h-16 bg-emerald-500 rounded-full flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform">
                   <Wallet className="w-8 h-8 text-white" />
                </div>
-               <h3 className="text-2xl font-black mb-3">Sponsor Treatment</h3>
+               <h3 className="text-2xl font-black mb-3">{t('impact_sponsor_title')}</h3>
                <p className="text-slate-300 font-medium leading-relaxed mb-6">
-                  Many patients pause chemo due to lack of funds. Your donation buys specific vials of life-saving drugs directly from the hospital pharmacy.
+                  {t('impact_sponsor_desc')}
                </p>
                <a href="https://aligscare.org/donate" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 font-black text-emerald-400 uppercase text-xs tracking-widest hover:text-emerald-300 transition-colors">
-                  Donate Securely <ArrowRight className="w-4 h-4" />
+                  {t('give_aid')} <ArrowRight className="w-4 h-4" />
                </a>
             </div>
 
@@ -110,12 +109,12 @@ const SupporterImpactView: React.FC<Props> = ({ profile }) => {
                <div className="w-16 h-16 bg-rose-500 rounded-full flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform">
                   <Droplets className="w-8 h-8 text-white" />
                </div>
-               <h3 className="text-2xl font-black mb-3">Gift Life Flow</h3>
+               <h3 className="text-2xl font-black mb-3">{t('impact_gift_life')}</h3>
                <p className="text-slate-300 font-medium leading-relaxed mb-6">
-                  Chemotherapy depletes platelets, risking internal bleeding. One unit of your blood can separate into 3 components to save 3 different patients.
+                  {t('impact_gift_life_desc')}
                </p>
                <a href="https://bloodlinks.in/details_bank?id=1206" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 font-black text-rose-400 uppercase text-xs tracking-widest hover:text-rose-300 transition-colors">
-                  Connect to Bank <ArrowRight className="w-4 h-4" />
+                  {t('finder_header')} <ArrowRight className="w-4 h-4" />
                </a>
             </div>
 
@@ -123,12 +122,12 @@ const SupporterImpactView: React.FC<Props> = ({ profile }) => {
                <div className="w-16 h-16 bg-amber-500 rounded-full flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform">
                   <Gift className="w-8 h-8 text-white" />
                </div>
-               <h3 className="text-2xl font-black mb-3">Share Warmth</h3>
+               <h3 className="text-2xl font-black mb-3">{t('impact_share_warmth')}</h3>
                <p className="text-slate-300 font-medium leading-relaxed mb-6">
-                  Winter is hard in the wards. Donate blankets, nutritional supplements, or toys for the pediatric wing.
+                  {t('impact_share_warmth_desc')}
                </p>
                <a href="tel:0571-2700921" className="flex items-center gap-3 font-black text-amber-400 uppercase text-xs tracking-widest hover:text-amber-300 transition-colors">
-                  Contact Coordinator <Phone className="w-4 h-4" />
+                  {t('companion')} <Phone className="w-4 h-4" />
                </a>
             </div>
          </div>
@@ -138,7 +137,7 @@ const SupporterImpactView: React.FC<Props> = ({ profile }) => {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
         <div className="lg:col-span-8 space-y-10">
           <section className="bg-white dark:bg-slate-900 p-10 md:p-12 rounded-[4rem] border-4 border-slate-50 dark:border-slate-800 shadow-xl space-y-8">
-            <h2 className="text-4xl font-black text-slate-900 dark:text-white tracking-tight">Active Support Zones</h2>
+            <h2 className="text-4xl font-black text-slate-900 dark:text-white tracking-tight">{t('impact_active_zones')}</h2>
             <p className="text-slate-600 dark:text-slate-400 font-medium text-lg leading-relaxed">
               Supporter participation helps us scale our reach. Select an area to see how your commitment fuels progress.
             </p>
@@ -179,7 +178,7 @@ const SupporterImpactView: React.FC<Props> = ({ profile }) => {
         <div className="lg:col-span-4 space-y-8">
           <section className="bg-slate-100 dark:bg-slate-950 p-10 rounded-[3.5rem] shadow-xl space-y-6 relative overflow-hidden">
              <div className="absolute top-0 right-0 p-4 opacity-5 dark:opacity-10"><Award className="w-24 h-24" /></div>
-             <h3 className="text-2xl font-black tracking-tight leading-none text-slate-900 dark:text-white">Your Milestones</h3>
+             <h3 className="text-2xl font-black tracking-tight leading-none text-slate-900 dark:text-white">{t('impact_milestones')}</h3>
              <p className="text-slate-600 dark:text-slate-400 font-medium text-sm leading-relaxed">
                Recognizing your time and commitment to social care through active participation.
              </p>
