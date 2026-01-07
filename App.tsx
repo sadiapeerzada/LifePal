@@ -104,7 +104,7 @@ const HeroActionCard: React.FC<{ title: string; subtitle: string; icon: React.Re
       <ChevronRight className="w-6 h-6 text-slate-200 group-hover:text-blue-50 transition-all ml-auto shrink-0" />
     </>
   );
-  const className = "bg-white dark:bg-slate-900 p-6 rounded-[2.5rem] border-4 border-slate-50 dark:border-slate-800 shadow-xl flex items-center gap-6 group hover:-translate-y-1 transition-all hover:shadow-2xl relative z-30 cursor-pointer isolate overflow-hidden";
+  const className = "bg-white dark:bg-slate-900 p-6 rounded-[2.5rem] border-4 border-slate-50 border-slate-800 shadow-xl flex items-center gap-6 group hover:-translate-y-1 transition-all hover:shadow-2xl relative z-30 cursor-pointer isolate overflow-hidden";
   if (to) return <Link to={to} className={className}>{content}</Link>;
   return <button onClick={onClick} className={className}>{content}</button>;
 };
@@ -503,6 +503,7 @@ const App: React.FC = () => {
             <Route path="/settings" element={<SettingsView profile={safeProfile} onUpdate={updateProfile} onLogout={handleLogout} />} />
             <Route path="/companion" element={<ChatBot role={safeProfile.role} language={safeProfile.language} gender={safeProfile.gender} isChild={safeProfile.role === UserRole.CHILD} />} />
             <Route path="/emergency" element={<EmergencyProtocolView language={safeProfile.language} />} />
+            <Route path="/transparency" element={<TransparencyPage />} />
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
         </div>

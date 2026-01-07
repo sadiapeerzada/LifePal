@@ -130,20 +130,21 @@ export const uploadToAzureVault = async (base64: string, metadata: any) => {
 
 export const fetchOncoLinkNews = async (lang: AppLanguage) => {
   try {
-    // Instructions are optimized to force ONLY JSON, which helps prevent search citations from breaking the parse
     const res = await callGateway('news', 
       `ACT AS A MEDICAL NEWS ENGINE. Language: ${lang}. 
        Search for: "latest verified cancer oncology news patients 2024 2025".
-       Respond ONLY with a valid JSON array. Do not include markdown blocks or citations outside JSON.
+       Respond ONLY with a valid JSON array.
        Format: [{"title": "...", "summary": "...", "url": "...", "source": "...", "date": "..."}]`,
       { model: 'gemini-3-flash-preview', tools: [{ googleSearch: {} }] }
     );
     
     const text = res.output;
-    // Robust cleaning to extract JSON array
-    const jsonMatch = text.match(/\[[\s\S]*\]/);
-    if (jsonMatch) {
-      return JSON.parse(jsonMatch[0].replace(/```json/g, '').replace(/```/g, ''));
+    // Aggressive extraction of JSON array from possible Markdown wrapper or citation text
+    const startIdx = text.indexOf('[');
+    const endIdx = text.lastIndexOf(']');
+    if (startIdx !== -1 && endIdx !== -1 && endIdx > startIdx) {
+      const jsonStr = text.substring(startIdx, endIdx + 1);
+      return JSON.parse(jsonStr);
     }
     return [];
   } catch (e) {
@@ -256,24 +257,23 @@ export const getCareNavigationPlan = async (context: CareContext): Promise<Navig
     required: ["roadmap", "schemes", "hospitals", "nextSteps"]
   };
 
-  const prompt = `PERSONALIZED ONCOLOGY STRATEGY for a ${context.role} dealing with ${context.cancerType} in ${context.location}.
-  Financial Status: ${context.financialStatus}. Focus Priority: ${context.priority}. 
-  Provide specific Aligarh and National Indian resources. 
-  Respond ONLY with valid JSON.`;
+  const prompt = `STRATEGY for ${context.role} dealing with ${context.cancerType} in ${context.location}. 
+  Status: ${context.financialStatus}. Priority: ${context.priority}. 
+  JSON Output Mandatory.`;
   
-  // SWITCHED TO FLASH: Pro-thinking is too slow for Vercel Hobby 10s limit. 
-  // Gemini 3 Flash is instant and highly capable for JSON structuring.
+  // Flash is critical for speed on Vercel to prevent 10s timeouts.
   const res = await callGateway('nav', prompt, { 
     model: 'gemini-3-flash-preview', 
     responseSchema: schema 
   });
   
   const text = res.output;
-  const jsonMatch = text.match(/\{[\s\S]*\}/);
-  if (jsonMatch) {
-    return JSON.parse(jsonMatch[0].replace(/```json/g, '').replace(/```/g, ''));
+  const startIdx = text.indexOf('{');
+  const endIdx = text.lastIndexOf('}');
+  if (startIdx !== -1 && endIdx !== -1) {
+    return JSON.parse(text.substring(startIdx, endIdx + 1));
   }
-  throw new Error("Invalid Navigator Response");
+  throw new Error("Invalid Navigator Response Format");
 };
 
 export const generateImage = async (prompt: string, size: "1K" | "2K" | "4K" = "1K") => {

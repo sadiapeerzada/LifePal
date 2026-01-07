@@ -42,15 +42,18 @@ const NavigatorView: React.FC<{ role: UserRole, language: AppLanguage, savedReso
         return;
     }
     setLoading(true);
-    const result = await getCareNavigationPlan(context);
+    setQuotaError(false);
     
-    if (result && 'error' in result) {
-      setQuotaError(true);
-    } else if (result && 'roadmap' in result) {
-      setPlan(result as NavigationPlan);
+    try {
+      const result = await getCareNavigationPlan(context);
+      setPlan(result);
       setStep(4);
+    } catch (error) {
+      console.error("[Navigator Error]:", error);
+      setQuotaError(true);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   return (
@@ -91,9 +94,9 @@ const NavigatorView: React.FC<{ role: UserRole, language: AppLanguage, savedReso
       {quotaError ? (
         <section className="bg-rose-50 dark:bg-rose-900/10 p-16 rounded-[4rem] border-4 border-rose-100 dark:border-rose-900/30 text-center space-y-10 shadow-2xl animate-in zoom-in-95">
            <div className="w-24 h-24 bg-rose-100 rounded-full flex items-center justify-center mx-auto shadow-xl"><AlertCircle className="w-12 h-12 text-rose-600" /></div>
-           <h2 className="text-5xl font-black text-slate-900 dark:text-white tracking-tighter">Sanctuary Capacity Exceeded</h2>
-           <p className="text-slate-500 dark:text-slate-400 font-medium max-w-lg mx-auto text-xl">The intelligence engine is currently handling high volume. Please re-engage the navigator in a few minutes.</p>
-           <button onClick={() => setQuotaError(false)} className="px-14 py-6 bg-blue-600 text-white rounded-[2rem] font-black text-xl shadow-xl hover:scale-105 transition-all">Retry Logic</button>
+           <h2 className="text-5xl font-black text-slate-900 dark:text-white tracking-tighter">Sanctuary Sync Issue</h2>
+           <p className="text-slate-500 dark:text-slate-400 font-medium max-w-lg mx-auto text-xl">We couldn't generate your path right now. Please check your internet or retry with a shorter cancer type description.</p>
+           <button onClick={() => setQuotaError(false)} className="px-14 py-6 bg-blue-600 text-white rounded-[2rem] font-black text-xl shadow-xl hover:scale-105 transition-all">Retry Pathfinding</button>
         </section>
       ) : step < 4 ? (
         <div className="bg-white dark:bg-slate-900 p-12 md:p-16 rounded-[4.5rem] border-4 border-slate-50 dark:border-slate-800 shadow-[0_40px_80px_-20px_rgba(30,41,59,0.15)] space-y-16 animate-in slide-in-from-bottom-8 duration-700">
@@ -131,7 +134,7 @@ const NavigatorView: React.FC<{ role: UserRole, language: AppLanguage, savedReso
                      {loading ? (
                        <div className="flex items-center gap-4">
                          <Loader2 className="animate-spin w-10 h-10" />
-                         <span className="animate-pulse">Reasoning Care Path...</span>
+                         <span className="animate-pulse">Building Your Map...</span>
                        </div>
                      ) : (
                        <>
@@ -140,7 +143,7 @@ const NavigatorView: React.FC<{ role: UserRole, language: AppLanguage, savedReso
                        </>
                      )}
                    </button>
-                   <p className="text-center text-[10px] font-black text-slate-300 dark:text-slate-600 uppercase tracking-[0.5em] mt-8">Grounded in Gemini 3 Pro Reasoning Logic</p>
+                   <p className="text-center text-[10px] font-black text-slate-300 dark:text-slate-600 uppercase tracking-[0.5em] mt-8">Grounded in Gemini Flash v3.1 Logic</p>
                 </div>
               </div>
             )}
