@@ -243,7 +243,7 @@ const App: React.FC = () => {
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
   const [currentVideo, setCurrentVideo] = useState<ChildVideo | null>(null);
   const [isMysteryModalOpen, setIsMysteryModalOpen] = useState(false);
-  const [revealedTreasure, setRevealedTreasure] = useState<{type: string, content: string} | null>(null);
+  const [revealedTreasure, setRevealedTreasure] = useState<{type: string, content: string, xp?: number} | null>(null);
   const [mysteryUnlocked, setMysteryUnlocked] = useState(false);
   const [isGameOpen, setIsGameOpen] = useState(false);
 
@@ -278,27 +278,35 @@ const App: React.FC = () => {
 
   const openMysteryBox = () => {
     const treasures = [
-      { type: 'STICKER', content: '🦖' },
-      { type: 'MESSAGE', content: "You are stronger than you know!" },
-      { type: 'FACT', content: "Octopuses have three hearts!" },
-      { type: 'BADGE', content: "🏅 Bravery Medal Unlocked!" },
-      { type: 'STICKER', content: '🐉' },
-      { type: 'MESSAGE', content: "Every step forward is a victory." },
-      { type: 'FACT', content: "Honey never spoils. Archaeologists found edible honey in 3000-year-old tombs!" },
-      { type: 'STICKER', content: '🌈' },
-      { type: 'MESSAGE', content: "You're a legendary hero!" },
-      { type: 'STICKER', content: '🍦' },
-      { type: 'STICKER', content: '👑' },
-      { type: 'STICKER', content: '🏆' },
-      { type: 'FACT', content: "The world's oldest tree is over 5,000 years old!" },
-      { type: 'STICKER', content: '🧬' },
-      { type: 'MESSAGE', content: "Believe in the magic within you!" },
-      { type: 'FACT', content: "Sloths can hold their breath longer than dolphins!" }
+      { type: 'STICKER', content: '🦖', xp: 50 },
+      { type: 'MESSAGE', content: "You are stronger than you know!", xp: 100 },
+      { type: 'FACT', content: "Octopuses have three hearts!", xp: 50 },
+      { type: 'BADGE', content: "🏅 Bravery Medal Unlocked!", xp: 500 },
+      { type: 'STICKER', content: '🐉', xp: 150 },
+      { type: 'MESSAGE', content: "Every step forward is a victory.", xp: 200 },
+      { type: 'FACT', content: "Honey never spoils. Archaeologists found edible honey in 3000-year-old tombs!", xp: 50 },
+      { type: 'STICKER', content: '🌈', xp: 0 },
+      { type: 'MESSAGE', content: "You're a legendary hero!", xp: 50 },
+      { type: 'STICKER', content: '🍦', xp: 0 },
+      { type: 'STICKER', content: '👑', xp: 300 },
+      { type: 'STICKER', content: '🏆', xp: 0 },
+      { type: 'FACT', content: "The world's oldest tree is over 5,000 years old!", xp: 100 },
+      { type: 'STICKER', content: '🧬', xp: 50 },
+      { type: 'MESSAGE', content: "Believe in the magic within you!", xp: 150 },
+      { type: 'FACT', content: "Sloths can hold their breath longer than dolphins!", xp: 50 },
+      { type: 'COLLECTIBLE', content: '🛡️ Shield of Bravery', xp: 0 },
+      { type: 'COLLECTIBLE', content: '⚔️ Sword of Resilience', xp: 250 },
+      { type: 'COLLECTIBLE', content: '💎 Crystal of Hope', xp: 0 },
+      { type: 'COLLECTIBLE', content: '🔭 Telescope of Dreams', xp: 100 }
     ];
     const pick = treasures[Math.floor(Math.random() * treasures.length)];
     setRevealedTreasure(pick);
     setMysteryUnlocked(true);
-    addXP(500, pick.type === 'STICKER' ? pick.content : undefined);
+    
+    // Reward logic: only give XP if the item has an XP value
+    const xpReward = pick.xp !== undefined ? pick.xp : 0;
+    addXP(xpReward, pick.type === 'STICKER' ? pick.content : undefined);
+    
     setTimeout(() => {
         setIsMysteryModalOpen(false);
         setRevealedTreasure(null);
@@ -406,6 +414,8 @@ const App: React.FC = () => {
                         <div className="text-9xl animate-pulse filter drop-shadow-[0_10px_20px_rgba(245,158,11,0.4)]">{revealedTreasure.content}</div>
                       ) : revealedTreasure.type === 'BADGE' ? (
                         <div className="text-7xl animate-bounce">{revealedTreasure.content}</div>
+                      ) : revealedTreasure.type === 'COLLECTIBLE' ? (
+                        <div className="text-6xl animate-bounce drop-shadow-xl">{revealedTreasure.content}</div>
                       ) : (
                         <div className="p-8 text-center"><p className="text-3xl font-black text-amber-600 dark:text-amber-400 italic leading-tight">{revealedTreasure.content}</p></div>
                       )}
@@ -413,13 +423,15 @@ const App: React.FC = () => {
                    </div>
                    <div className="space-y-4">
                       <h2 className="text-6xl md:text-7xl font-black text-amber-600 dark:text-amber-400 uppercase tracking-tighter animate-bounce leading-none">
-                        {revealedTreasure.type === 'STICKER' ? t('new_sticker') : 'Found It!'}
+                        {revealedTreasure.type === 'STICKER' ? t('new_sticker') : revealedTreasure.type === 'COLLECTIBLE' ? 'New Treasure!' : 'Found It!'}
                       </h2>
                       <p className="text-slate-500 dark:text-slate-400 text-2xl font-bold italic max-w-md mx-auto">{t('bravery_sparkle')}</p>
                    </div>
-                   <div className="w-full p-8 bg-emerald-50 dark:bg-emerald-900/20 rounded-[3rem] border-4 border-emerald-100 dark:border-emerald-800/40 flex items-center justify-center gap-5 text-emerald-600 dark:text-emerald-400 font-black text-2xl shadow-lg">
-                      <Trophy className="w-10 h-10" /> +500 {t('xp_awarded')}
-                   </div>
+                   {(revealedTreasure.xp || 0) > 0 && (
+                     <div className="w-full p-8 bg-emerald-50 dark:bg-emerald-900/20 rounded-[3rem] border-4 border-emerald-100 dark:border-emerald-800/40 flex items-center justify-center gap-5 text-emerald-600 dark:text-emerald-400 font-black text-2xl shadow-lg">
+                        <Trophy className="w-10 h-10" /> +{revealedTreasure.xp} {t('xp_awarded')}
+                     </div>
+                   )}
                 </div>
               )}
            </div>
