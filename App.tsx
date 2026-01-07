@@ -94,17 +94,17 @@ const FeatureCard: React.FC<{ to: string; icon: React.ReactNode; title: string; 
 const HeroActionCard: React.FC<{ title: string; subtitle: string; icon: React.ReactNode; color: string; onClick?: () => void; to?: string }> = ({ title, subtitle, icon, color, onClick, to }) => {
   const content = (
     <>
-      <div className={`p-4 rounded-2xl ${color} shadow-lg group-hover:scale-110 transition-transform`}>
-        {icon}
+      <div className={`p-3 md:p-4 rounded-2xl ${color} shadow-lg group-hover:scale-110 transition-transform shrink-0`}>
+        {React.cloneElement(icon as any, { className: 'w-8 h-8 md:w-10 md:h-10 text-white' } as any)}
       </div>
-      <div className="text-left flex-1 overflow-hidden">
-        <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">{subtitle}</p>
-        <h3 className="text-lg font-black text-slate-900 dark:text-white leading-tight">{title}</h3>
+      <div className="text-left flex-1 min-w-0">
+        <p className="text-[9px] font-black uppercase tracking-wider text-slate-400 mb-1 leading-none">{subtitle}</p>
+        <h3 className="text-base md:text-lg font-black text-slate-900 dark:text-white leading-tight">{title}</h3>
       </div>
-      <ChevronRight className="w-6 h-6 text-slate-200 group-hover:text-blue-50 transition-all ml-auto shrink-0" />
+      <ChevronRight className="w-5 h-5 text-slate-200 group-hover:text-blue-50 transition-all shrink-0 ml-1" />
     </>
   );
-  const className = "bg-white dark:bg-slate-900 p-6 rounded-[2.5rem] border-4 border-slate-50 border-slate-800 shadow-xl flex items-center gap-6 group hover:-translate-y-1 transition-all hover:shadow-2xl relative z-30 cursor-pointer isolate overflow-hidden";
+  const className = "bg-white dark:bg-slate-900 p-5 md:p-6 rounded-[2.5rem] border-4 border-slate-50 border-slate-800 shadow-xl flex items-center gap-4 md:gap-5 group hover:-translate-y-1 transition-all hover:shadow-2xl relative z-30 cursor-pointer isolate overflow-hidden";
   if (to) return <Link to={to} className={className}>{content}</Link>;
   return <button onClick={onClick} className={className}>{content}</button>;
 };
@@ -408,28 +408,28 @@ const App: React.FC = () => {
                    </div>
                 </div>
               ) : (
-                <div className="space-y-8 py-8 animate-in zoom-in duration-1000 w-full flex flex-col items-center">
-                   <div className="relative w-48 h-48 md:w-64 md:h-64 flex items-center justify-center bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-900/30 dark:to-orange-900/30 rounded-full border-4 border-amber-200 dark:border-amber-700 shadow-inner">
+                <div className="space-y-6 py-6 animate-in zoom-in duration-1000 w-full flex flex-col items-center">
+                   <div className="relative w-40 h-40 md:w-56 md:h-56 flex items-center justify-center bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-900/30 dark:to-orange-900/30 rounded-full border-4 border-amber-200 dark:border-amber-700 shadow-inner">
                       {revealedTreasure.type === 'STICKER' ? (
-                        <div className="text-8xl animate-pulse filter drop-shadow-[0_10px_20px_rgba(245,158,11,0.4)]">{revealedTreasure.content}</div>
+                        <div className="text-7xl md:text-8xl animate-pulse filter drop-shadow-[0:10px:20px:rgba(245,158,11,0.4)]">{revealedTreasure.content}</div>
                       ) : revealedTreasure.type === 'BADGE' ? (
-                        <div className="text-5xl animate-bounce">{revealedTreasure.content}</div>
+                        <div className="text-4xl md:text-5xl animate-bounce">{revealedTreasure.content}</div>
                       ) : revealedTreasure.type === 'COLLECTIBLE' ? (
-                        <div className="text-5xl animate-bounce drop-shadow-xl">{revealedTreasure.content}</div>
+                        <div className="text-4xl md:text-5xl animate-bounce drop-shadow-xl">{revealedTreasure.content}</div>
                       ) : (
-                        <div className="p-8 text-center"><p className="text-xl font-black text-amber-600 dark:text-amber-400 italic leading-tight">{revealedTreasure.content}</p></div>
+                        <div className="px-6 text-center"><p className="text-base md:text-lg font-black text-amber-600 dark:text-amber-400 italic leading-tight">{revealedTreasure.content}</p></div>
                       )}
                       <div className="absolute inset-0 bg-yellow-400 rounded-full animate-ping opacity-10" />
                    </div>
                    <div className="space-y-2">
-                      <h2 className="text-4xl md:text-5xl font-black text-amber-600 dark:text-amber-400 uppercase tracking-tighter animate-bounce leading-none">
+                      <h2 className="text-2xl md:text-3xl font-black text-amber-600 dark:text-amber-400 uppercase tracking-tighter animate-bounce leading-none">
                         {revealedTreasure.type === 'STICKER' ? t('new_sticker') : revealedTreasure.type === 'COLLECTIBLE' ? 'New Treasure!' : 'Found It!'}
                       </h2>
-                      <p className="text-slate-500 dark:text-slate-400 text-xl font-bold italic max-w-md mx-auto">{t('bravery_sparkle')}</p>
+                      <p className="text-slate-500 dark:text-slate-400 text-base md:text-lg font-bold italic max-w-md mx-auto">{t('bravery_sparkle')}</p>
                    </div>
                    {(revealedTreasure.xp || 0) > 0 && (
-                     <div className="w-full max-w-sm p-6 bg-emerald-50 dark:bg-emerald-900/20 rounded-[2.5rem] border-4 border-emerald-100 dark:border-emerald-800/40 flex items-center justify-center gap-4 text-emerald-600 dark:text-emerald-400 font-black text-xl shadow-lg">
-                        <Trophy className="w-8 h-8" /> +{revealedTreasure.xp} {t('xp_awarded')}
+                     <div className="w-full max-w-xs p-4 bg-emerald-50 dark:bg-emerald-900/20 rounded-[2rem] border-4 border-emerald-100 dark:border-emerald-800/40 flex items-center justify-center gap-3 text-emerald-600 dark:text-emerald-400 font-black text-base shadow-lg">
+                        <Trophy className="w-6 h-6" /> +{revealedTreasure.xp} {t('xp_awarded')}
                      </div>
                    )}
                 </div>
@@ -682,10 +682,10 @@ const HeroKidDashboard = ({ profile: safeProfile, t, onOpenStudio, onQuestComple
       </header>
 
       <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 relative z-30">
-         <HeroActionCard title={t('memory_quest')} subtitle={t('train_brain')} icon={<Gamepad2 className="w-10 h-10 text-white" />} color="bg-blue-500" onClick={onOpenGame} />
-         <HeroActionCard title={t('magic_studio')} subtitle={t('open_studio')} icon={<Wand2 className="w-10 h-10 text-white" />} color="bg-purple-500" onClick={onOpenStudio} />
-         <HeroActionCard title={t('buddy_chat')} subtitle={t('buddy_desc')} icon={<Ghost className="w-10 h-10 text-white" />} color="bg-emerald-500" to="/companion" />
-         <HeroActionCard title={t('mystery_box')} subtitle={mysteryUnlocked ? t('unlocked') : t('tap_to_open')} icon={<Box className={`w-10 h-10 text-white ${!mysteryUnlocked ? 'animate-bounce' : ''}`} />} color="bg-amber-500" onClick={onOpenMystery} />
+         <HeroActionCard title={t('memory_quest')} subtitle={t('train_brain')} icon={<Gamepad2 />} color="bg-blue-500" onClick={onOpenGame} />
+         <HeroActionCard title={t('magic_studio')} subtitle={t('open_studio')} icon={<Wand2 />} color="bg-purple-500" onClick={onOpenStudio} />
+         <HeroActionCard title={t('buddy_chat')} subtitle={t('buddy_desc')} icon={<Ghost />} color="bg-emerald-500" to="/companion" />
+         <HeroActionCard title={t('mystery_box')} subtitle={mysteryUnlocked ? t('unlocked') : t('tap_to_open')} icon={<Box />} color="bg-amber-500" onClick={onOpenMystery} />
       </section>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 relative z-30">
