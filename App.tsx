@@ -98,8 +98,8 @@ const HeroActionCard: React.FC<{ title: string; subtitle: string; icon: React.Re
         {icon}
       </div>
       <div className="text-left flex-1 overflow-hidden">
-        <p className="text-xs font-black uppercase tracking-widest text-slate-400 mb-1 truncate">{subtitle}</p>
-        <h3 className="text-xl font-black text-slate-900 dark:text-white leading-tight truncate">{title}</h3>
+        <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">{subtitle}</p>
+        <h3 className="text-lg font-black text-slate-900 dark:text-white leading-tight">{title}</h3>
       </div>
       <ChevronRight className="w-6 h-6 text-slate-200 group-hover:text-blue-50 transition-all ml-auto shrink-0" />
     </>
