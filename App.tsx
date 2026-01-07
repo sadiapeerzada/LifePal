@@ -408,28 +408,28 @@ const App: React.FC = () => {
                    </div>
                 </div>
               ) : (
-                <div className="space-y-10 py-10 animate-in zoom-in duration-1000 w-full flex flex-col items-center">
-                   <div className="relative w-64 h-64 flex items-center justify-center bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-900/30 dark:to-orange-900/30 rounded-full border-4 border-amber-200 dark:border-amber-700 shadow-inner">
+                <div className="space-y-8 py-8 animate-in zoom-in duration-1000 w-full flex flex-col items-center">
+                   <div className="relative w-48 h-48 md:w-64 md:h-64 flex items-center justify-center bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-900/30 dark:to-orange-900/30 rounded-full border-4 border-amber-200 dark:border-amber-700 shadow-inner">
                       {revealedTreasure.type === 'STICKER' ? (
-                        <div className="text-9xl animate-pulse filter drop-shadow-[0_10px_20px_rgba(245,158,11,0.4)]">{revealedTreasure.content}</div>
+                        <div className="text-8xl animate-pulse filter drop-shadow-[0_10px_20px_rgba(245,158,11,0.4)]">{revealedTreasure.content}</div>
                       ) : revealedTreasure.type === 'BADGE' ? (
-                        <div className="text-7xl animate-bounce">{revealedTreasure.content}</div>
+                        <div className="text-5xl animate-bounce">{revealedTreasure.content}</div>
                       ) : revealedTreasure.type === 'COLLECTIBLE' ? (
-                        <div className="text-6xl animate-bounce drop-shadow-xl">{revealedTreasure.content}</div>
+                        <div className="text-5xl animate-bounce drop-shadow-xl">{revealedTreasure.content}</div>
                       ) : (
-                        <div className="p-8 text-center"><p className="text-3xl font-black text-amber-600 dark:text-amber-400 italic leading-tight">{revealedTreasure.content}</p></div>
+                        <div className="p-8 text-center"><p className="text-xl font-black text-amber-600 dark:text-amber-400 italic leading-tight">{revealedTreasure.content}</p></div>
                       )}
                       <div className="absolute inset-0 bg-yellow-400 rounded-full animate-ping opacity-10" />
                    </div>
-                   <div className="space-y-4">
-                      <h2 className="text-6xl md:text-7xl font-black text-amber-600 dark:text-amber-400 uppercase tracking-tighter animate-bounce leading-none">
+                   <div className="space-y-2">
+                      <h2 className="text-4xl md:text-5xl font-black text-amber-600 dark:text-amber-400 uppercase tracking-tighter animate-bounce leading-none">
                         {revealedTreasure.type === 'STICKER' ? t('new_sticker') : revealedTreasure.type === 'COLLECTIBLE' ? 'New Treasure!' : 'Found It!'}
                       </h2>
-                      <p className="text-slate-500 dark:text-slate-400 text-2xl font-bold italic max-w-md mx-auto">{t('bravery_sparkle')}</p>
+                      <p className="text-slate-500 dark:text-slate-400 text-xl font-bold italic max-w-md mx-auto">{t('bravery_sparkle')}</p>
                    </div>
                    {(revealedTreasure.xp || 0) > 0 && (
-                     <div className="w-full p-8 bg-emerald-50 dark:bg-emerald-900/20 rounded-[3rem] border-4 border-emerald-100 dark:border-emerald-800/40 flex items-center justify-center gap-5 text-emerald-600 dark:text-emerald-400 font-black text-2xl shadow-lg">
-                        <Trophy className="w-10 h-10" /> +{revealedTreasure.xp} {t('xp_awarded')}
+                     <div className="w-full max-w-sm p-6 bg-emerald-50 dark:bg-emerald-900/20 rounded-[2.5rem] border-4 border-emerald-100 dark:border-emerald-800/40 flex items-center justify-center gap-4 text-emerald-600 dark:text-emerald-400 font-black text-xl shadow-lg">
+                        <Trophy className="w-8 h-8" /> +{revealedTreasure.xp} {t('xp_awarded')}
                      </div>
                    )}
                 </div>
