@@ -1,394 +1,281 @@
-# LifePal: System Architecture and Clinical Scaffolding Blueprint
+# LifePal: Systems Architecture and Clinical Support Infrastructure
 
-## 1. Executive Summary
+## 1. Executive Overview
 
-### 1.1 The Clinical Void
-LifePal is an advanced digital infrastructure designed to solve the "Clinical Silence"—the high-risk period between hospital discharge and the reality of home-based oncology recovery. While modern oncology achieves remarkable results within the clinical perimeter, the patient’s home environment often remains a void characterized by medical jargon confusion, psychological isolation, and fragmented logistical support.
+LifePal is a distributed, AI-augmented infrastructure designed to bridge the structural gaps in longitudinal oncology care. It operates as a digital sanctuary that provides continuous clinical navigation, emotional mirroring, and logistical coordination for stakeholders within the cancer care ecosystem.
 
-### 1.2 Mission and Vision
-Developed with technical and clinical guidance from the Department of Radiotherapy at AMU (Aligarh Muslim University), LifePal provides a multi-agent, offline-first sanctuary. Our mission is to democratize world-class oncology navigation by grounding high-level generative intelligence in verified institutional protocols, ensuring that every patient, caregiver, and child has a 24/7 intelligent companion.
+At its core, LifePal addresses the class of problems known as the clinical silence—the high-risk period between episodic hospital treatments where patients and caregivers must manage complex recovery protocols without real-time professional oversight. The system is designed to serve five primary actors: adult patients, pediatric patients, primary caregivers, survivors, and institutional donors.
 
-### 1.3 Systemic Purpose
-This document outlines a platform that treats healthcare not as a series of data points, but as a continuous human experience. By leveraging the Gemini 3 series for multimodal reasoning and a local-first architecture for high availability, LifePal ensures that logic is the weapon and compassion is the shield in the fight against cancer.
+LifePal is defined as a non-diagnostic support system. It leverages generative reasoning engines and multimodal vision models to translate clinical documentation into actionable roadmaps, ensuring that institutional protocols—specifically those grounded in the Aligarh Muslim University JNMCH radiotherapy guidelines—are accessible at the point of care.
 
----
+## 2. Problem Space and Motivation
 
-## 2. Problem Landscape (Deep Analysis)
+The current oncology landscape suffers from systemic fragmentation. This document identifies and addresses several critical failure points in existing care models.
 
-### 2.1 The Fragmentation of Care
-Episodic treatment (Chemo/Radio) creates a sawtooth pattern of care. In the "troughs"—the days between visits—patients are expected to manage complex anti-emetic schedules and monitor neutropenic symptoms without immediate professional oversight. This fragmentation leads to sub-optimal compliance and late-stage emergency presentations.
+### 2.1 Ecosystem Fragmentation
+Cancer treatment is episodic, yet the disease is continuous. Current EHR systems focus on intra-hospital data points, leaving the home environment as a data vacuum. This lack of continuity leads to sub-optimal compliance with anti-emetic schedules and delayed identification of neutropenic emergencies.
 
-### 2.2 Emotional Isolation and "Patient Silencing"
-Oncology patients frequently suppress their own psychological distress to shield their family members, a phenomenon known as "emotional silencing." This internal trauma accelerates cognitive fatigue and physical decline. Existing social networks are often too broad and unmoderated to provide the specific, gentle mirroring required for real-time anxiety management.
+### 2.2 Informational Asymmetry
+Patients are frequently overwhelmed by jargon-heavy documentation. This cognitive load, compounded by the physiological effects of chemotherapy, creates an informational barrier that prevents patients from participating effectively in their own care navigation.
 
-### 2.3 The Invisible Crisis: Caregiver Burnout
-Caregivers are the silent backbone of oncology, yet they operate without a safety net. Managing finances, logistics, and nursing care while suppressing personal grief leads to a "slow-burn" collapse of the home support system.
+### 2.3 The Caregiver Load Crisis
+Primary caregivers operate as the silent infrastructure of oncology. The lack of a structured monitoring system for caregiver resilience leads to invisible burnout, which clinically correlates with degraded patient outcomes and family unit collapse.
 
-### 2.4 Pediatric Understanding Gaps
-Children undergoing treatment suffer from "Jargon Trauma." Cold clinical terms—malignancy, infusion, leukocyte—are terrifying. There is a systemic failure in translating clinical reality into age-appropriate metaphors that empower rather than intimidate.
+### 2.4 Pediatric Comprehension Gaps
+Traditional clinical communication is terrifying for children. The absence of age-appropriate, metaphor-driven interaction models leads to treatment resistance and long-term psychological trauma in pediatric wards.
 
-### 2.5 Regional Inequality in Aid Access
-In regional contexts like Western Uttar Pradesh, financial aid (Ayushman Bharat, RAN, PMNRF) is available but the bureaucracy is a secondary trauma. Fragmented information prevents eligible patients from accessing the funds they desperately need.
+### 2.5 Regional Inequity
+In regional contexts, access to financial aid schemes like Ayushman Bharat or RAN is often blocked by bureaucratic friction rather than eligibility. There is a systemic need for a localized discovery engine that automates the mapping of clinical status to institutional relief.
 
----
+## 3. Design Philosophy
 
-## 3. LifePal Solution Overview
+LifePal is built upon four fundamental architectural pillars.
 
-### 3.1 Role-Based Design Philosophy
-The system is polymorphic. LifePal does not provide a single interface; it provides five distinct sanctuaries. The UI/UX, tone of voice, and AI agent behavior morph based on the user's role (Patient, Child, Caregiver, Survivor, Donor).
+### 3.1 Safety-First Engineering
+The system assumes that any unconstrained AI output in a medical context is a potential risk. Therefore, LifePal utilizes a governance layer that enforces strict boundaries: no diagnosis, no dosage modification, and mandatory institutional grounding.
 
-### 3.2 Offline-First Healthcare Logic
-Oncology patients are frequently in "connectivity bunkers"—radiation-shielded wards or rural districts. LifePal treats the network as a transient resource, using IndexedDB and device-level encryption to ensure the sanctuary is always operational.
+### 3.2 Offline-First Durability
+Recognizing that oncology patients are often in signal-shielded hospital environments or rural regions with high network latency, LifePal treats the internet as a transient enhancement rather than a requirement. All core clinical ledgers reside on the local device.
 
-### 3.3 Dignity and Privacy-First System Thinking
-Privacy is a component of clinical dignity. Sensitive emotional check-ins and journals remain on the device by default. System trust is built on a "Need-to-Know" data minimization strategy.
+### 3.3 Privacy as an Architectural Constraint
+Dignity is treated as a functional requirement. The system employs a data minimization strategy where the most sensitive psychological data never leaves the edge device. Cloud-based reasoning is performed on redacted, anonymized clinical fragments.
 
----
+### 3.4 Assistive AI vs. Authoritative AI
+The system positions generative intelligence as a cognitive assistant. AI agents are prohibited from making clinical decisions. Their role is restricted to summarization, translation, mirroring, and escalation to human professionals.
 
-## 4. User Personas
+## 4. Conceptual Model of LifePal
 
-### 4.1 Adult Patient: Ramesh (Age 52)
-*   **Profile:** Primary breadwinner diagnosed with Stage III Colorectal Cancer.
-*   **Emotional State:** High financial anxiety; memorial fatigue.
-*   **Daily Struggle:** Distinguishing between normal chemo side effects and clinical "Red Flags."
-*   **LifePal Fit:** Ramesh uses the Navigator for scheme discovery and the Doc Intel Vault for report clarification.
+The system operates as a polymorphic environment that mutates based on the resolved actor role.
 
-### 4.2 Child Patient: Zoya (Age 7)
-*   **Profile:** Undergoing treatment for Leukemia.
-*   **Emotional State:** Fear of "the medicine"; misses her school environment.
-*   **Daily Struggle:** Resisting meals due to metallic taste (common side effect).
-*   **LifePal Fit:** Zoya interacts with "Hero HQ," where her medicine is "Magic Juice" that powers her character's shields.
+### 4.1 System Actors
+*   Patient: The primary consumer of navigation and symptom monitoring.
+*   Child: Interacts with a gamified, metaphor-rich abstraction of the system.
+*   Caregiver: Manages logistics and monitors personal resilience capacity.
+*   Survivor: Engages in long-term vigilance and post-cancer thriving protocols.
+*   Donor: Interfaces with a transparency layer to witness direct social impact.
 
-### 4.3 Caregiver: Anita (Age 45)
-*   **Profile:** Spouse and primary home-nurse.
-*   **Emotional State:** Operating on 4 hours of sleep; "Autopilot" mode.
-*   **Daily Struggle:** Managing a calendar of 3 different doctors and 2 lab sets.
-*   **LifePal Fit:** Anita uses the Caregiver Dashboard to monitor her own burnout levels and the Anchor Hub for team coordination.
+### 4.2 Boundaries of Operation
+LifePal intentionally avoids the following domains:
+1.  Primary Diagnosis: The system will never interpret symptoms to identify disease presence.
+2.  Prescription Modification: The system will never suggest changes to drug types or quantities.
+3.  EHR Source of Truth: LifePal acts as a shadow ledger for the patient; it does not replace official hospital records.
 
-### 4.4 Survivor: Vikram (Age 58)
-*   **Profile:** Two years post-remission from Prostate Cancer.
-*   **Emotional State:** "Scanxiety"—fear of recurrence with every minor physical symptom.
-*   **Daily Struggle:** Feeling "abandoned" by the hospital system post-treatment.
-*   **LifePal Fit:** Vikram uses the Survivor Hub for long-term vigilance and psychological check-ins.
+## 5. System Architecture
 
-### 4.5 Donor: The Alig Alumnus
-*   **Profile:** Successful professional living abroad.
-*   **Emotional State:** Desires impact but distrusts administrative overhead.
-*   **Daily Struggle:** Lack of transparency in traditional charity flows.
-*   **LifePal Fit:** He uses the Impact Hub to see real-time, anonymized data on direct hospital billing settlements.
+### 5.1 High-Level System Architecture
 
----
+The architecture follows a tiered Hybrid-Edge-Cloud model.
 
-## 5. High-Level System Architecture
-
-### Diagram 1: Platform Overview
-
-**Textual Layout for Recreation:**
-```text
-[ USER TIER ]
-    |-- Mobile/Web Device (React/PWA)
-    |-- Local Persistence (IndexedDB)
-    |-- Device Enclave (Encryption Keys)
-    |
-    v (HTTPS / TLS 1.3)
-    |
-[ GATEWAY TIER (Secure Proxy) ]
-    |-- Vercel Edge Functions
-    |-- Request Sanitization (Prompt Injection Guard)
-    |-- Managed Identity Resolver
-    |
-    v
-    |
-[ INTELLIGENCE TIER (AI Orchestration) ]
-    |-- Multi-Agent Dispatcher (Gemini 3 Pro)
-    |-- Grounding Engine (Google Search/Maps API)
-    |-- Protocol Knowledge Base (RAG)
-    |
-    v
-    |
-[ INFRASTRUCTURE TIER (Cloud) ]
-    |-- Azure Blob Storage (Encrypted Binaries)
-    |-- Microsoft Key Vault (Secret Rotation)
-    |-- Aggregated Analytics (Cosmos DB)
+```mermaid
+graph TD
+    UserDevice[User Device - PWA/Mobile] -->|Local Persistence| LocalDB[(IndexedDB)]
+    UserDevice -->|Encrypted Requests| GatewayProxy[Gateway Proxy - Vercel Edge]
+    GatewayProxy -->|PII Redaction| AIOrchestrator[AI Orchestration Layer]
+    AIOrchestrator -->|Reasoning| GeminiFlash[Gemini 3 Flash - Rapid Response]
+    AIOrchestrator -->|Complex Logic| GeminiPro[Gemini 3 Pro - Deep Intel]
+    AIOrchestrator -->|Grounding| GoogleSearch[Search/Maps Grounding]
+    GatewayProxy -->|Secure Storage| AzureVault[Azure Private Blob Vault]
+    GatewayProxy -->|Secrets| KeyVault[Microsoft Key Vault]
 ```
 
-**Description:**
-The architecture follows a "Hybrid Edge-Cloud" model. The **User Tier** handles immediate rendering and maintains the primary clinical ledger. The **Gateway Tier** acts as a high-security air-gap, redacting PII (Personally Identifiable Information) before requests reach the **Intelligence Tier**. The **Cloud Tier** provides enterprise-grade archival and secrets management.
+This structure ensures that the client remains functional during network partitions. The Gateway Proxy serves as a security air-gap, preventing client-side code from interacting directly with model keys or unredacted infrastructure.
 
----
+### 5.2 Component-Level Architecture
 
-## 6. Frontend Architecture
+The frontend is structured as a state-orchestrated polymorphic application.
 
-### Diagram 2: Client-Side Structural Model
-
-**Textual Layout for Recreation:**
-```text
-[ REACT APP ROOT ]
-    |-- [ ROUTING GUARD ] (Role-based state check)
-    |-- [ THEME PROVIDER ] (Light/Dark/Child-Focus)
-    |
-[ STATE ORCHESTRATOR ]
-    |-- Profile State (User Metadata)
-    |-- Clinical State (Meds/Logs/Vault)
-    |-- Gamification State (XP/Levels/Stickers)
-    |
-[ PERSISTENCE LAYER ]
-    |-- Sync Service (Causal Ledger)
-    |-- IndexedDB Driver (Structured Records)
-    |-- Blob Cache (Document Thumbnails)
+```mermaid
+graph LR
+    subgraph ClientLayer
+        StateOrchestrator[React State Orchestrator]
+        SyncManager[Background Sync Manager]
+        RoleRouter[Role-Based Router]
+    end
+    subgraph DataLayer
+        IndexedDB[Local Clinical Ledger]
+        AESKeys[Device Key Enclave]
+    end
+    StateOrchestrator --> RoleRouter
+    RoleRouter --> IndexedDB
+    SyncManager --> IndexedDB
+    SyncManager -.-> GatewayProxy
 ```
 
-**Description:**
-The client-side is built as a Progressive Web App (PWA). The **Routing Guard** ensures that a child never accesses financial stressors, and a donor never accesses clinical logs. **IndexedDB** is chosen for its multi-gigabyte capacity, allowing the app to store high-res medical reports offline.
+The State Orchestrator manages the transition between different role-based views while the Sync Manager ensures eventual consistency with the cloud vault using an append-only ledger strategy.
 
----
+### 5.3 Execution Lifecycle
 
-## 7. Offline Synchronization Model
+When a user interacts with the system, the lifecycle follows a strict path to ensure data integrity.
 
-### Diagram 3: Event-Ledger Sync Flow
+1.  Interaction: User inputs a symptom or uploads a report.
+2.  Local Persistence: Data is encrypted and written to IndexedDB immediately.
+3.  UI Update: The interface reflects the change optimistically.
+4.  Event Queue: The Sync Manager adds the action to a pending queue.
+5.  Gateway Transmission: Upon network availability, a redacted payload is sent to the Gateway Proxy.
+6.  AI Augmentation: Specialized agents process the data.
+7.  Augmented Update: The local record is updated with AI insights (e.g., term explanations).
 
-**Textual Layout for Recreation:**
-```text
-[ USER ACTION ] (e.g., Log Pain)
-    |
-    v
-[ APPEND-ONLY LEDGER ] (IndexedDB Event Queue)
-    |
-    v
-[ SYNC WORKER ] <--- [ NETWORK OBSERVER ] (navigator.onLine)
-    |
-    |-- [ OFFLINE ] --> [ WAIT FOR ONLINE EVENT ]
-    |-- [ ONLINE ] ---> [ ATOMIC BATCH PUSH ]
-                            |
-                            v
-                    [ CONFLICT RESOLVER ]
-                            |-- Causal Consistency
-                            |-- Vector Clocks
+### 5.4 Safety and Trust Boundaries
+
+LifePal implements a zero-trust model between the client and the AI models.
+
+```mermaid
+sequenceDiagram
+    participant Client
+    participant Proxy
+    participant AI
+    Client->>Proxy: Encrypted Document + Metadata
+    Proxy->>Proxy: Strip PII (Name, ID, Phone)
+    Proxy->>AI: Redacted Data + System Guardrails
+    AI-->>Proxy: Structured Insights (JSON)
+    Proxy-->>Client: Insights + Validation Token
 ```
 
-**Description:**
-LifePal utilizes an Eventual Consistency model. Every clinical entry is an immutable event in the local ledger. When the network is restored, the **Sync Worker** pushes these events. In the event of a conflict (e.g., patient and caregiver updating the same record), the system uses a Causal Chain to preserve the medical timeline accurately.
+The validation token ensures that the response originated from the trusted proxy and has passed the internal safety filters.
 
----
+### 5.5 Offline-Only vs. Online-Augmented Paths
 
-## 8. AI Agent Architecture
+| Feature | Offline Behavior | Online Enhancement |
+| :--- | :--- | :--- |
+| Symptom Logging | Full ledger persistence | Pattern analysis and clinical alerts |
+| Med Scanner | Image capture and local storage | Vision-AI identification and interaction checks |
+| Doc Intel | Encrypted storage and manual tags | OCR summarization and term clarification |
+| Hero HQ | Full quest state and sticker vault | Generative storytelling and cinema sync |
+| Navigator | Cached roadmaps | Dynamic strategy generation via Search |
 
-### Diagram 4: Multi-Agent Intelligence System
+## 6. Core Subsystems
 
-**Textual Layout for Recreation:**
-```text
-[ INTENT ORCHESTRATOR ] (Gemini 3 Pro)
-    |
-    |-- [ CLARIFIER AGENT ] (Navigator)
-    |       |-- Scope: Medical Reports / Protocol Mapping
-    |
-    |-- [ COMPANION AGENT ] (Buddy)
-    |       |-- Scope: Emotional Mirroring / Grounding
-    |
-    |-- [ HERO AGENT ] (Pediatric)
-    |       |-- Scope: Storytelling / Metaphoric Gamification
-    |
-    |-- [ DISCOVERY AGENT ] (Aid & Schemes)
-    |       |-- Scope: Regional Gov Schemes / Document Checklists
-```
+### 6.1 User Role and Context Resolution
+This subsystem identifies the cognitive and emotional requirements of the user. It resolves the actor type upon onboarding and maintains a context object that includes language preferences (Hindi, Urdu, Telugu, English) and current emotional state.
 
-**Description:**
-The **Intent Orchestrator** parses the user query and routes it to specialized agents. Each agent has a "Safe-Context Window." For example, the **Clarifier Agent** has zero access to the user's emotional state, ensuring that medical protocol mapping remains clinical and accurate.
+### 6.2 Offline Storage and Sync Engine
+Built on top of IndexedDB, this engine manages multi-gigabyte medical document blobs. It uses a causal consistency model to resolve conflicts between multiple caregivers updating the same patient record.
 
----
+### 6.3 Clinical Navigation Support Module
+This module provides the strategic roadmap for treatment. It consumes clinical identifiers and financial status to produce a list of institutional next steps. Failure mode: If clinical status is ambiguous, it reverts to a hardcoded list of standard AMU protocols.
 
-## 9. AI Safety & Guardrail Architecture
+### 6.4 Emotional Support and Coping Assistance
+Utilizing Native Audio processing, this subsystem provides therapeutic mirroring. It detects crisis signals in user speech or text and immediately triggers the SOS Emergency Protocol, bypassing the AI entirely.
 
-### Diagram 5: AI Safety & Escalation Flow
+### 6.5 Pediatric Interaction and Gamified Learning
+Hero HQ translates clinical reality into metaphors. XP, levels, and mystery boxes serve as incentives for hydration and rest. Safety guarantee: All pediatric AI sessions are time-limited and summarized for the guardian.
 
-**Textual Layout for Recreation:**
-```text
-[ AGENT OUTPUT ]
-    |
-    v
-[ SAFETY GATEWAY ] (Regex + LLM Classifier)
-    |
-    |-- [ DETECTED: DIAGNOSIS ] ---> [ REDIRECT: 'Contact Oncologist' ]
-    |-- [ DETECTED: DOSAGE ] --------> [ BLOCK: 'Follow prescription' ]
-    |-- [ DETECTED: CRISIS ] --------> [ ACTION: ACTIVATE EMERGENCY SOS ]
-    |
-    v
-[ CONFIDENCE SCORE ]
-    |-- [ < 0.85 ] ---> [ SAFE PIVOT: 'Consult JNMCH Team' ]
-    |-- [ > 0.85 ] ---> [ RETURN RESPONSE ]
-```
+### 6.6 Caregiver Load and Burnout Awareness
+This module analyzes sentiment trends in caregiver journals and monitors metric consistency. It employs a Resilience Capacity model to suggest task hand-offs to the care network when stress thresholds are exceeded.
 
-**Description:**
-Rigorous constraints are hardcoded. LifePal operates on "AI Humility"—the system would rather refuse an answer than provide a dangerous clinical hallucination. If a crisis (e.g., self-harm or severe clinical emergency) is detected, the AI is bypassed entirely in favor of a full-screen **SOS Emergency Protocol**.
+### 6.7 Regional Aid and Scheme Discovery
+Using Search Grounding, this system navigates the bureaucracy of Indian national and regional schemes. It provides a specific document checklist for each scheme to reduce application rejection rates.
 
----
+## 7. AI Agent Architecture and Reasoning Model
 
-## 10. Data Architecture
+LifePal employs a multi-agent specialized architecture.
 
-### Diagram 6: Tiered Data Storage
-
-**Textual Layout for Recreation:**
-```text
-[ TIER 1: VOLATILE ] (Memory)
-    |-- Session UI State
+```mermaid
+graph TD
+    Orchestrator[Gemini 3 Pro Orchestrator] --> Navigator[Navigator Agent]
+    Orchestrator --> Buddy[Buddy/Companion Agent]
+    Orchestrator --> Hero[Hero/Pediatric Agent]
+    Orchestrator --> SchemeBot[Aid/Scheme Agent]
     
-[ TIER 2: SENSITIVE LOCAL ] (IndexedDB)
-    |-- Mood History
-    |-- Symptom Logs
-    |-- Private Journal
-    |-- (Encrypted via Device Master Key)
-    
-[ TIER 3: COMPLIANT CLOUD ] (Azure Blob Storage)
-    |-- Redacted Medical PDFs
-    |-- Med Scanner History (Metadata Only)
+    subgraph Guardrails
+        P_Gov[Prompt Governance Layer]
+        C_Scope[Context Scoping]
+        F_Closed[Fail-Closed Mechanism]
+    end
 ```
 
-**Description:**
-Breach containment is achieved by separating PII from metadata. Even if the cloud layer is compromised, the data is useless without the identity keys stored exclusively in Tier 2 (on the user's device).
+### 7.1 Agent Isolation
+Each agent is provided with a distinct system instruction envelope. The Hero Agent, for instance, has zero visibility into the financial aid logic to prevent exposing children to adult stressors.
 
----
+### 7.2 Prompt Governance
+All interactions are wrapped in a system prompt that mandates the use of devnagari for Hindi, nastaliq for Urdu, and ensures that the AI never attempts to override the authority of a medical professional.
 
-## 11. Security & Secrets Management
+## 8. Offline-First Data and Sync Theory
 
-### Diagram 7: Trust Zones
+### 8.1 Criticality of Localism
+In oncology care, losing access to a medication schedule because of a server outage is a clinical risk. LifePal's architecture ensures that the source of truth is always the device in the patient's hand.
 
-**Textual Layout for Recreation:**
-```text
-[ ZONE A: PUBLIC INTERNET ]
-    |-- Static Assets / PWA Bundle
-    
-[ ZONE B: AUTHENTICATED CLIENT ]
-    |-- Role Identity (JWT)
-    |-- Local AES Key (Secure Enclave)
-    
-[ ZONE C: PROTECTED BACKEND ]
-    |-- Azure Key Vault Connection
-    |-- Managed Identity (Gemini API Key)
-```
+### 8.2 Event Queues and Conflict Resolution
+The system treats every user action as an immutable event.
+*   Metadata updates: Last-Write-Wins.
+*   Clinical logs: Vector clock-based merge.
+*   Document uploads: Checksum verification to prevent duplicates.
 
-**Description:**
-LifePal utilizes Azure Managed Identity. The application code never handles the Gemini API Key directly; it requests a short-lived bearer token from the identity provider, reducing the blast-radius of a potential source-code leak.
+## 9. Security, Privacy and Data Minimization
 
----
+### 9.1 Local-First Ownership
+The encryption keys for the clinical ledger are derived from the user's LifePal PIN and stored in the device's secure enclave. LifePal infrastructure never possesses the keys required to decrypt the local symptom logs.
 
-## 12. Pediatric Interaction Flow
+### 9.2 Secrets Management
+Infrastructure secrets, including Google Gemini API keys, are rotated every 30 days via Microsoft Key Vault. The client-side code never handles raw keys; all communication is signed by a short-lived token provided by the Gateway Proxy.
 
-### Diagram 8: Child-Safe AI Sequence
+## 10. Pediatric Safety and Ethical Constraints
 
-**Textual Layout for Recreation:**
-```text
-[ CLINICAL EVENT ] (e.g., Chemotherapy)
-    |
-    v
-[ METAPHORIC TRANSLATOR ] (Gemini 3 Flash)
-    |-- "Drinking Magic Juice to power up the shield."
-    |
-[ GUARDIAN INTERLOCK ] (Auditor)
-    |-- Interaction summary sent to parent dashboard.
-    |
-[ GAMIFIED REWARD ] (XP / Sticker Vault)
-```
+The pediatric model is governed by the principle of protective abstraction.
 
-**Description:**
-Pediatric sessions have a "Hard-Stop" after 15 minutes to prevent digital fatigue. All interactions are summarized for the guardian, ensuring parental oversight of the AI's guidance.
+1.  Language Simplification: Clinical terms are replaced by metaphors (e.g., Magic Juice for Chemotherapy).
+2.  Guardian Interlock: Caregivers must approve the activation of Hero HQ and can review all AI-led storytelling.
+3.  Content Boundaries: The pediatric agent is hard-coded to ignore any prompts related to prognosis or mortality.
 
----
+## 11. Caregiver Burnout Detection Theory
 
-## 13. Caregiver Burnout Detection Model
+Burnout is modeled as a degradation of consistency. The system looks for:
+*   Increased sentiment intensity in private journals.
+*   Gaps in medication reminders (neglect signals).
+*   High frequency of overwhelmed mood logs.
 
-### Diagram 9: Burnout Signal Flow
+Escalation is gentle. The system does not notify the patient—avoiding patient guilt—but instead triggers an alert for the Backup Care Network.
 
-**Textual Layout for Recreation:**
-```text
-[ SIGNALS ]
-    |-- Log Frequency (Is the user skipping logs?)
-    |-- Sentiment Trend (Using words of exhaustion?)
-    |-- Sleep Metrics (Wearable sync)
-    
-    v
-[ RESILIENCE AGGREGATOR ] (1-100 Score)
-    
-    v
-[ THRESHOLDS ]
-    |-- [ < 40% ] --> [ SUGGEST: Hand-off task ]
-    |-- [ < 15% ] --> [ ALERT: Activate Backup Circle ]
-```
+## 12. Survivor Lifecycle Support Model
 
-**Description:**
-This is a social safety net, not a medical claim. It uses cognitive load tracking to preserve the "Anchor" of the family care unit.
+The transition to remission is a psychological desert. LifePal maintains engagement through:
+*   Vigilance logs: Structured monthly check-ins to monitor for recurrence markers.
+*   Thriving protocols: Evidence-based lifestyle guidance for post-cancer health.
+*   Meetup coordination: Linking survivors to regional support circles in Western UP.
 
----
+## 13. Deployment and Infrastructure
 
-## 14. Survivor Lifecycle Architecture
+LifePal is deployed as a globally distributed PWA.
 
-### Diagram 10: Post-Treatment Support Flow
+*   Frontend: React/Vite/TypeScript hosted on Vercel Edge.
+*   Gateway: Vercel Edge Functions for low-latency PII scrubbing.
+*   Cloud Persistence: Azure Private Blobs for encrypted document archives.
+*   Database: Cosmos DB for aggregated, anonymized social impact metrics.
 
-**Textual Layout for Recreation:**
-```text
-[ REMISSION ONBOARDING ]
-    |
-    v
-[ VIGILANCE CYCLE ] (Monthly AI-led check-in)
-    |
-    v
-[ TREND MONITORING ] (Aggregating minor symptoms)
-    |
-    v
-[ REPORT GENERATOR ] (Summary for 6-month oncology visit)
-```
+## 14. Extensibility and Evolution
 
-**Description:**
-The system distinguishes between "Aging Symptoms" and "Recurrence Markers," grounding responses in survivorship protocols provided by AMU.
+The role-based architecture allows for the future addition of specialized roles:
+*   Palliative Nurse Role: For managing end-of-life comfort protocols.
+*   Clinical Research Role: For patient-approved, anonymized data contribution to oncology studies.
+*   Physiotherapist Role: For guided recovery movements.
 
----
+## 15. Use Cases
 
-## 15. Technology Stack (Justified)
+### 15.1 Patient Daily Navigation
+Ramesh, a colon cancer patient at JNMCH, uses the Med Scanner to identify his morning tablets and logs a level 6 pain event. The AI Navigator suggests he mentions this at his Thursday appointment.
 
-### 15.1 React & PWA
-Selected for high-performance UI rendering and the ability to package as a Progressive Web App. This bypasses app store friction and allows for true offline operation on mobile.
+### 15.2 Caregiver Coordination
+Anita uses the Anchor Hub to coordinate her brother driving Ramesh to Aligarh. She logs her own tiredness, and the system suggests she takes a 15-minute rest while the brother is on duty.
 
-### 15.2 IndexedDB
-Traditional `localStorage` is capped at 5MB. Oncology reports are often high-res PDFs. IndexedDB provides the structured, high-capacity local database essential for a local-first medical record.
+### 15.3 Pediatric Empowerment
+Zoya, age 7, finishes her Quest for Water. She earns a Legendary Sticker and watches a Brave Knight story in the Hero Cinema to distract her from the metallic taste of her medicine.
 
-### 15.3 Azure Infrastructure
-Azure provides the robust healthcare compliance framework (HIPAA/GDPR readiness) and seamless integration of Key Vault for managing sensitive model keys.
+## 16. Known Limitations and Tradeoffs
 
-### 15.4 Google Gemini (Multimodal)
-The Gemini 3 series is the only model currently capable of processing Native Audio, high-fidelity Vision (Med-Scanner), and complex reasoning within a single 1M-token context window.
+1.  Latency: High-fidelity reasoning via Gemini Pro can take up to 5 seconds. The system uses a shimmering UI state to manage user anxiety during this window.
+2.  Non-Medical Device: LifePal is not a regulated medical device and should never be used as the sole basis for clinical decisions.
+3.  Hardware Dependency: The quality of the Med Scanner is bounded by the user's device camera resolution.
 
----
+## 17. Contributing
 
-## 16. Ethical AI Design Principles
+LifePal is a mission-driven project. We expect contributors to adhere to a strict Sanctuary Code of Conduct.
 
-1.  **Safety over Capability:** We would rather the AI refuse to answer than provide a dangerous clinical hallucination.
-2.  **AI Humility:** The system explicitly states its limitations. It is a "Cognitive Assistant," not a clinical authority.
-3.  **Institutional Grounding:** No regional advice is generated without citation from JNMCH Aligarh or verified oncology hubs.
+*   Clinical contributions must be grounded in verified oncology protocols.
+*   AI safety contributions should focus on improving hallucination detection and PII scrubbing.
+*   Design contributions must prioritize cognitive ease for patients in active treatment.
 
----
+## 18. License
 
-## 17. Scalability & Evolution
+This system is licensed under the MIT License. Copyright (c) 2025 LifePal Contributors.
 
-*   **Phase 1:** Institutional Pilot at JNMCH AMU.
-*   **Phase 2:** FHIR/HL7 Integration for direct lab ingestion.
-*   **Phase 3:** Research collaboration for longitudinal recovery data in Western UP.
-
----
-
-## 18. Known Limitations
-
-*   **Multimodal Latency:** Deep clinical reasoning can take 3-5 seconds. The system trades speed for protocol accuracy.
-*   **Hardware Dependency:** As a local-first app, if a user loses their phone without cloud-backup, local logs are lost. This is a deliberate tradeoff to preserve maximum privacy.
-
----
-
-## 19. Contribution Philosophy
-
-Contributors must adhere to the "Sanctuary Code of Conduct." This means prioritizing user dignity, clinical safety, and data privacy above all performance metrics. We welcome contributions in AI safety, trauma-informed design, and regional language localization.
-
----
-
-## 20. Final Vision Statement
-
-LifePal is built for the **2:00 AM moment**. It is for the father in Aligarh staring at a report he doesn't understand. It is for the mother too exhausted to remember the next dosage. It is for the child who thinks the "magic juice" is a punishment. We believe that by combining the rigor of oncology with the warmth of intelligent companionship, we can ensure that while the battle against cancer is hard, no one has to fight it in the dark.
-
-**Stay Brave. Logic is our Weapon, Compassion is our Shield.**
+Stay Brave. Logic as the Weapon, Compassion as the Shield.
