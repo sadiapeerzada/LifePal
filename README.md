@@ -4,6 +4,10 @@
 
 LifePal is a distributed, AI-augmented infrastructure designed to bridge the structural gaps in longitudinal oncology care. It operates as a digital sanctuary that provides continuous clinical navigation, emotional mirroring, and logistical coordination for stakeholders within the cancer care ecosystem.
 
+## 🏗️ System Architecture
+
+![System Architecture Diagram](./LifePal.png)
+
 At its core, LifePal addresses the class of problems known as the clinical silence—the high-risk period between episodic hospital treatments where patients and caregivers must manage complex recovery protocols without real-time professional oversight. The system is designed to serve five primary actors: adult patients, pediatric patients, primary caregivers, survivors, and institutional donors.
 
 LifePal is defined as a non-diagnostic support system. It leverages generative reasoning engines and multimodal vision models to translate clinical documentation into actionable roadmaps, ensuring that institutional protocols—specifically those grounded in the Aligarh Muslim University JNMCH radiotherapy guidelines—are accessible at the point of care.
