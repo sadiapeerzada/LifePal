@@ -4,7 +4,7 @@
 
 LifePal is a distributed, AI-augmented infrastructure designed to bridge the structural gaps in longitudinal oncology care. It operates as a digital sanctuary that provides continuous clinical navigation, emotional mirroring, and logistical coordination for stakeholders within the cancer care ecosystem.
 
-## 🏗️ System Architecture
+## System Architecture
 
 ![System Architecture Diagram](./LifePal.png)
 
