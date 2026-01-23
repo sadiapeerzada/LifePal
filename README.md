@@ -468,7 +468,7 @@ LifePal is hosted on **Vercel** with **edge-optimized delivery** and support for
 
 ## 18. Check Out LifePal
 
-- **Live App:** [Click here to view LifePal live](https://lifepal.vercel.app)  
+- **Live App:** [Click here to view LifePal live](https://life-pal.vercel.app/)  
 - **Demo Pitch:** [Click here to watch the pitch](https://vimeo.com/1152650698?share=copy&fl=sv&fe=ci)  
 - **Video Demo:** [Click here to watch the app demo](https://vimeo.com/1152650698?share=copy&fl=sv&fe=ci)  
 
