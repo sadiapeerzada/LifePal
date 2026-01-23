@@ -8,7 +8,7 @@ LifePal is a distributed, AI-augmented infrastructure designed to bridge the str
 
 ## System Architecture
 
-![System Architecture Diagram](./LifePal.png)
+![System Architecture Diagram](./lifepal_diagram.png)
 
 At its core, LifePal addresses the class of problems known as the clinical silence—the high-risk period between episodic hospital treatments where patients and caregivers must manage complex recovery protocols without real-time professional oversight. The system is designed to serve five primary actors: adult patients, pediatric patients, primary caregivers, survivors, and institutional donors.
 
