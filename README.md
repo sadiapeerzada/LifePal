@@ -266,6 +266,8 @@ Anita uses the Anchor Hub to coordinate her brother driving Ramesh to Aligarh. S
 ### 15.3 Pediatric Empowerment
 Zoya, age 7, finishes her Quest for Water. She earns a Legendary Sticker and watches a Brave Knight story in the Hero Cinema to distract her from the metallic taste of her medicine.
 
+![HeroKid](./HeroKid.png)
+
 ## 16. Known Limitations and Tradeoffs
 
 1.  Latency: High-fidelity reasoning via Gemini Pro can take up to 5 seconds. The system uses a shimmering UI state to manage user anxiety during this window.
