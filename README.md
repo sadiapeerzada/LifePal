@@ -25,6 +25,8 @@ An offline-first, AI-augmented clinical support sanctuary for longitudinal oncol
 ## 📑 Table of Contents
 
 - [1. Executive Overview](#1-executive-overview)
+  - [1.1 Features](#11-features)
+  - [1.2 System Architecture](#12-system-architecture)
 - [2. Problem Space and Motivation](#2-problem-space-and-motivation)
   - [2.1 Ecosystem Fragmentation](#21-ecosystem-fragmentation)
   - [2.2 Informational Asymmetry](#22-informational-asymmetry)
@@ -385,7 +387,7 @@ LifePal’s documentation is detailed, theory-backed, and structured to cover **
 ### Primary Documentation Hub
 
 - **LifePal Notion Workspace**  
-  [https://www.notion.so/LifePal-An-All-in-One-Cancer-Care-Sanctuary-2d7f7dee167380f8acfdf311ec3050ab](https://www.notion.so/LifePal-An-All-in-One-Cancer-Care-Sanctuary-2d7f7dee167380f8acfdf311ec3050ab)  
+  [LifePal Documentation (Notion)](https://www.notion.so/LifePal-An-All-in-One-Cancer-Care-Sanctuary-2d7f7dee167380f8acfdf311ec3050ab)
 
 This is the central hub for all LifePal documentation, including system design, AI agent details, and operational guidelines.
 
