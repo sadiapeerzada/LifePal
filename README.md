@@ -152,7 +152,7 @@ Dignity is treated as a functional requirement. The system employs a data minimi
 ### 3.4 Assistive AI vs. Authoritative AI
 The system positions generative intelligence as a cognitive assistant. AI agents are prohibited from making clinical decisions. Their role is restricted to summarization, translation, mirroring, and escalation to human professionals.
 
-![Banner](./Assistive-AI-Model.png)
+![Assistive AI Model](./Assistive%20AI%20Model.png)
 
 
 ## 4. Conceptual Model of LifePal
