@@ -1,5 +1,19 @@
 # LifePal: Systems Architecture and Clinical Support Infrastructure
 
+# 🧠 LifePal
+
+**An offline-first, AI-augmented clinical support sanctuary for longitudinal oncology care**
+
+![React](https://img.shields.io/badge/React-19-blue)
+![TypeScript](https://img.shields.io/badge/TypeScript-Strict-blue)
+![PWA](https://img.shields.io/badge/PWA-Offline--First-green)
+![AI](https://img.shields.io/badge/AI-Assistive--Only-orange)
+![License](https://img.shields.io/badge/License-MIT-yellow)
+
+---
+
+
+
 ## 1. Executive Overview
 
 LifePal is a distributed, AI-augmented infrastructure designed to bridge the structural gaps in longitudinal oncology care. It operates as a digital sanctuary that provides continuous clinical navigation, emotional mirroring, and logistical coordination for stakeholders within the cancer care ecosystem.
