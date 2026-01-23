@@ -20,7 +20,7 @@ An offline-first, AI-augmented clinical support sanctuary for longitudinal oncol
 [Installation](#-installation) ·
 [Architecture](#system-architecture) ·
 [Documentation](#documentation) ·
-[Contributing](#contributing)
+[Contributing](#Contributing)
 
 </div>
 
