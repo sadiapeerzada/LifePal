@@ -13,10 +13,10 @@ An offline-first, AI-augmented clinical support sanctuary for longitudinal oncol
 ---
 
 ### 🔗 Navigation
-[Features](#-features) ·
+[Features](#features) ·
 [Architecture](#system-architecture) ·
-[Documentation](#documentation) ·
-[Contributing](#contributing)
+[Documentation](#171-documentation) ·
+[Contributing](#17-contributing)
 
 </div>
 
@@ -70,6 +70,7 @@ An offline-first, AI-augmented clinical support sanctuary for longitudinal oncol
 - [15. Use Cases](#15-use-cases)
 - [16. Known Limitations and Tradeoffs](#16-known-limitations-and-tradeoffs)
 - [17. Contributing](#17-contributing)
+  - [17.1 Documentation](#171-documentation)
 - [18. License](#18-license)
 
 
