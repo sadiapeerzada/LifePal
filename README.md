@@ -81,6 +81,29 @@ LifePal is a distributed, AI-augmented infrastructure designed to bridge the str
 
 ![Banner](./LifePal.png)
 
+##  Features
+
+-  **Assistive AI by Design**  
+  Generative intelligence operates strictly as a cognitive assistant — summarization, translation, mirroring, and safe escalation only. No clinical decisions are ever made by AI.
+
+-  **Clinical Navigation Support**  
+  Helps patients and caregivers understand care pathways, terminology, and next steps without replacing medical professionals.
+
+-  **Pediatric-Safe Interaction Layer**  
+  Age-aware explanations and gamified learning experiences designed with strict ethical and safety constraints.
+
+-  **Caregiver Load Awareness**  
+  Tracks capacity signals and provides burnout-aware nudges and resources.
+
+-  **Regional Aid & Scheme Discovery**  
+  Contextual discovery of government and non-profit support programs.
+
+-  **Offline-First Architecture**  
+  Core functionality remains available without connectivity, ensuring reliability in low-infrastructure settings.
+
+-  **Privacy-First by Architecture**  
+  Local-first data ownership with minimal cloud exposure and explicit trust boundaries.
+
 ## System Architecture
 
 ![System Architecture Diagram](./lifepal_diagram.png)
