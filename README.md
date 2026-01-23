@@ -152,6 +152,9 @@ Dignity is treated as a functional requirement. The system employs a data minimi
 ### 3.4 Assistive AI vs. Authoritative AI
 The system positions generative intelligence as a cognitive assistant. AI agents are prohibited from making clinical decisions. Their role is restricted to summarization, translation, mirroring, and escalation to human professionals.
 
+![Banner](./Assistive-AI-Model.png)
+
+
 ## 4. Conceptual Model of LifePal
 
 The system operates as a polymorphic environment that mutates based on the resolved actor role.
@@ -350,6 +353,9 @@ LifePal is deployed as a globally distributed PWA.
 *   Gateway: Vercel Edge Functions for low-latency PII scrubbing.
 *   Cloud Persistence: Azure Private Blobs for encrypted document archives.
 *   Database: Cosmos DB for aggregated, anonymized social impact metrics.
+
+  ![Banner](./deployment.png)
+
 
 ## 14. Extensibility and Evolution
 
