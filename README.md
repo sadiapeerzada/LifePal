@@ -12,6 +12,70 @@
 
 ---
 
+### 🔗 Navigation
+[Executive Overview](#1-executive-overview) ·
+[Problem Space](#2-problem-space-and-motivation) ·
+[Design Philosophy](#3-design-philosophy) ·
+[Conceptual Model](#4-conceptual-model-of-lifepal) ·
+[System Architecture](#5-system-architecture) ·
+[AI Agent Model](#7-ai-agent-architecture-and-reasoning-model) ·
+[Offline-First](#8-offline-first-data-and-sync-theory) ·
+[Security](#9-security-privacy-and-data-minimization) ·
+[Deployment](#13-deployment-and-infrastructure) ·
+[Contributing](#17-contributing) ·
+[License](#18-license)
+
+---
+
+## 📑 Table of Contents
+
+- [1. Executive Overview](#1-executive-overview)
+- [2. Problem Space and Motivation](#2-problem-space-and-motivation)
+  - [2.1 Ecosystem Fragmentation](#21-ecosystem-fragmentation)
+  - [2.2 Informational Asymmetry](#22-informational-asymmetry)
+  - [2.3 The Caregiver Load Crisis](#23-the-caregiver-load-crisis)
+  - [2.4 Pediatric Comprehension Gaps](#24-pediatric-comprehension-gaps)
+  - [2.5 Regional Inequity](#25-regional-inequity)
+- [3. Design Philosophy](#3-design-philosophy)
+  - [3.1 Safety-First Engineering](#31-safety-first-engineering)
+  - [3.2 Offline-First Durability](#32-offline-first-durability)
+  - [3.3 Privacy as an Architectural Constraint](#33-privacy-as-an-architectural-constraint)
+  - [3.4 Assistive AI vs. Authoritative AI](#34-assistive-ai-vs-authoritative-ai)
+- [4. Conceptual Model of LifePal](#4-conceptual-model-of-lifepal)
+  - [4.1 System Actors](#41-system-actors)
+  - [4.2 Boundaries of Operation](#42-boundaries-of-operation)
+- [5. System Architecture](#5-system-architecture)
+  - [5.1 High-Level System Architecture](#51-high-level-system-architecture)
+  - [5.2 Component-Level Architecture](#52-component-level-architecture)
+  - [5.3 Execution Lifecycle](#53-execution-lifecycle)
+  - [5.4 Safety and Trust Boundaries](#54-safety-and-trust-boundaries)
+  - [5.5 Offline-Only vs. Online-Augmented Paths](#55-offline-only-vs-online-augmented-paths)
+- [6. Core Subsystems](#6-core-subsystems)
+  - [6.1 User Role and Context Resolution](#61-user-role-and-context-resolution)
+  - [6.2 Offline Storage and Sync Engine](#62-offline-storage-and-sync-engine)
+  - [6.3 Clinical Navigation Support Module](#63-clinical-navigation-support-module)
+  - [6.4 Emotional Support and Coping Assistance](#64-emotional-support-and-coping-assistance)
+  - [6.5 Pediatric Interaction and Gamified Learning](#65-pediatric-interaction-and-gamified-learning)
+  - [6.6 Caregiver Load and Burnout Awareness](#66-caregiver-load-and-burnout-awareness)
+  - [6.7 Regional Aid and Scheme Discovery](#67-regional-aid-and-scheme-discovery)
+- [7. AI Agent Architecture and Reasoning Model](#7-ai-agent-architecture-and-reasoning-model)
+  - [7.1 Agent Isolation](#71-agent-isolation)
+  - [7.2 Prompt Governance](#72-prompt-governance)
+- [8. Offline-First Data and Sync Theory](#8-offline-first-data-and-sync-theory)
+  - [8.1 Criticality of Localism](#81-criticality-of-localism)
+  - [8.2 Event Queues and Conflict Resolution](#82-event-queues-and-conflict-resolution)
+- [9. Security, Privacy and Data Minimization](#9-security-privacy-and-data-minimization)
+  - [9.1 Local-First Ownership](#91-local-first-ownership)
+  - [9.2 Secrets Management](#92-secrets-management)
+- [10. Pediatric Safety and Ethical Constraints](#10-pediatric-safety-and-ethical-constraints)
+- [11. Caregiver Burnout Detection Theory](#11-caregiver-burnout-detection-theory)
+- [12. Survivor Lifecycle Support Model](#12-survivor-lifecycle-support-model)
+- [13. Deployment and Infrastructure](#13-deployment-and-infrastructure)
+- [14. Extensibility and Evolution](#14-extensibility-and-evolution)
+- [15. Use Cases](#15-use-cases)
+- [16. Known Limitations and Tradeoffs](#16-known-limitations-and-tradeoffs)
+- [17. Contributing](#17-contributing)
+- [18. License](#18-license)
 
 
 ## 1. Executive Overview
