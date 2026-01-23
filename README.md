@@ -1,4 +1,4 @@
-# LifePal: Systems Architecture and Clinical Support Infrastructure
+# LifePal: AI-Driven Sanctuary for Longitudinal Cancer Care
 
 <div align="center">
 
