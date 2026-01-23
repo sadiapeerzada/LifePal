@@ -80,7 +80,7 @@ LifePal is a distributed, AI-augmented infrastructure designed to bridge the str
 
 ![Banner](./LifePal.png)
 
-##  Features
+## 1.1 Features
 
 -  **Assistive AI by Design**  
   Generative intelligence operates strictly as a cognitive assistant — summarization, translation, mirroring, and safe escalation only. No clinical decisions are ever made by AI.
@@ -103,7 +103,7 @@ LifePal is a distributed, AI-augmented infrastructure designed to bridge the str
 -  **Privacy-First by Architecture**  
   Local-first data ownership with minimal cloud exposure and explicit trust boundaries.
 
-## System Architecture
+## 1.2 System Architecture
 
 ![System Architecture Diagram](./lifepal_diagram.png)
 
