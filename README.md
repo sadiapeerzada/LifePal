@@ -13,17 +13,12 @@
 ---
 
 ### 🔗 Navigation
-[Executive Overview](#1-executive-overview) ·
-[Problem Space](#2-problem-space-and-motivation) ·
-[Design Philosophy](#3-design-philosophy) ·
-[Conceptual Model](#4-conceptual-model-of-lifepal) ·
-[System Architecture](#5-system-architecture) ·
-[AI Agent Model](#7-ai-agent-architecture-and-reasoning-model) ·
-[Offline-First](#8-offline-first-data-and-sync-theory) ·
-[Security](#9-security-privacy-and-data-minimization) ·
-[Deployment](#13-deployment-and-infrastructure) ·
-[Contributing](#17-contributing) ·
-[License](#18-license)
+[Features](#-features) ·
+[Quick Start](#-quick-start) ·
+[Installation](#-installation) ·
+[Architecture](#system-architecture) ·
+[Documentation](#documentation) ·
+[Contributing](#contributing)
 
 ---
 
