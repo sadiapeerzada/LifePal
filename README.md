@@ -465,7 +465,7 @@ LifePal is hosted on **Vercel** with **edge-optimized delivery** and support for
 > **Note:** Refer to the **LifePal Notion Workspace** for in-depth guidelines, diagrams, and workflow explanations. This section serves as a quick-access reference to primary sources and best practices.
 
 
-## 18. 🔗 Check Out LifePal
+## 18. Check Out LifePal
 
 - **Live App:** [Click here to view LifePal live](https://lifepal.vercel.app)  
 - **Demo Pitch:** [Click here to watch the pitch](https://vimeo.com/1152650698?share=copy&fl=sv&fe=ci)  
@@ -473,7 +473,7 @@ LifePal is hosted on **Vercel** with **edge-optimized delivery** and support for
 
 ---
 
-## 18.1 👥 Team Members
+## 18.1 Team Members
 
 - **Sadia Peerzada** – Team Lead & Back-end
 - **Sadia Zafreen** – Front-end  
