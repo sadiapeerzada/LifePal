@@ -12,7 +12,7 @@ An offline-first, AI-augmented clinical support sanctuary for longitudinal oncol
 [![License](https://img.shields.io/badge/License-MIT-yellow?logo=github&logoColor=black)](https://github.com/sadiapeerzada/lifepal/blob/main/LICENSE)
 
 
-### 🔗 Navigation
+### Navigation
 [Features](#features) ·
 [Architecture](#system-architecture) ·
 [Documentation](#171-documentation) ·
