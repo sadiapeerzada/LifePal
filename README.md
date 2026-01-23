@@ -1,14 +1,18 @@
 # LifePal: Systems Architecture and Clinical Support Infrastructure
 
-# 🧠 LifePal
+## LifePal
+
 <div align="center">
+
 An offline-first, AI-augmented clinical support sanctuary for longitudinal oncology care
 
-![React](https://img.shields.io/badge/React-19-blue)
-![TypeScript](https://img.shields.io/badge/TypeScript-Strict-blue)
-![PWA](https://img.shields.io/badge/PWA-Offline--First-green)
-![AI](https://img.shields.io/badge/AI-Assistive--Only-orange)
-![License](https://img.shields.io/badge/License-MIT-yellow)
+[![React](https://img.shields.io/badge/React-19-blue)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-Strict-blue)](https://www.typescriptlang.org/)
+[![PWA](https://img.shields.io/badge/PWA-Offline--First-green)](https://web.dev/progressive-web-apps/)
+[![AI](https://img.shields.io/badge/AI-Assistive--Only-orange)](https://www.who.int/publications/i/item/WHO-RHR-22.07)
+[![License](https://img.shields.io/badge/License-MIT-yellow)](LICENSE)
+
+</div>
 
 ---
 
