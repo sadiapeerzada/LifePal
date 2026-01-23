@@ -377,6 +377,86 @@ LifePal is a mission-driven project. We expect contributors to adhere to a stric
 *   Clinical contributions must be grounded in verified oncology protocols.
 *   AI safety contributions should focus on improving hallucination detection and PII scrubbing.
 *   Design contributions must prioritize cognitive ease for patients in active treatment.
+## 17.1 Documentation
+
+LifePal’s documentation is detailed, theory-backed, and structured to cover **architectural, ethical, and operational aspects** of the system.
+
+### Primary Documentation Hub
+
+- **LifePal Notion Workspace**  
+  [https://www.notion.so/LifePal-An-All-in-One-Cancer-Care-Sanctuary-2d7f7dee167380f8acfdf311ec3050ab](https://www.notion.so/LifePal-An-All-in-One-Cancer-Care-Sanctuary-2d7f7dee167380f8acfdf311ec3050ab)  
+
+This is the central hub for all LifePal documentation, including system design, AI agent details, and operational guidelines.
+
+---
+
+### Core Topics
+
+#### Design Philosophy
+LifePal is built on **safety-first, offline-first, and privacy-first principles**.
+
+- **Practical Architecture Principles**  
+  [https://martinfowler.com/articles/practical-architecture.html](https://martinfowler.com/articles/practical-architecture.html)
+- **Progressive Web Apps Overview**  
+  [https://web.dev/progressive-web-apps/](https://web.dev/progressive-web-apps/)
+
+---
+
+#### System Architecture
+LifePal uses **component isolation**, **trust boundaries**, and **offline-first execution** to ensure reliability and privacy.
+
+- **React Component-Based Architecture**  
+  [https://react.dev/learn](https://react.dev/learn)
+- **PWA & Offline Capabilities**  
+  [https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps](https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps)
+- **Mermaid Diagram Reference for Architecture**  
+  [https://mermaid.js.org/](https://mermaid.js.org/)
+
+---
+
+#### AI Agent Model
+LifePal’s AI is **assistive and non-authoritative**, designed to support users without making clinical decisions.
+
+- **WHO Guidelines on AI in Healthcare**  
+  [https://www.who.int/publications/i/item/WHO-RHR-22.07](https://www.who.int/publications/i/item/WHO-RHR-22.07)
+- **UNESCO Report on AI Ethics**  
+  [https://unesdoc.unesco.org/ark:/48223/pf0000381137](https://unesdoc.unesco.org/ark:/48223/pf0000381137)
+
+---
+
+#### Security and Privacy
+LifePal prioritizes **data minimization, local-first ownership**, and strict privacy guarantees.
+
+- **OWASP Top Ten Security Risks**  
+  [https://owasp.org/www-project-top-ten/](https://owasp.org/www-project-top-ten/)
+- **GDPR Overview**  
+  [https://gdpr.eu/](https://gdpr.eu/)
+- **Best Practices for Local-First Apps**  
+  [https://web.dev/local-first/](https://web.dev/local-first/)
+
+---
+
+#### Deployment and Hosting
+LifePal is hosted on **Vercel** with **edge-optimized delivery** and support for offline usage.
+
+- **Vercel Documentation**  
+  [https://vercel.com/docs](https://vercel.com/docs)
+- **Continuous Deployment Practices**  
+  [https://docs.github.com/en/actions](https://docs.github.com/en/actions)
+
+---
+
+#### Additional Resources
+- **Accessibility & Inclusive Design Principles**  
+  [https://www.w3.org/WAI/](https://www.w3.org/WAI/)
+- **Healthcare Data Standards & Interoperability**  
+  [https://www.hl7.org/](https://www.hl7.org/)
+- **React + PWA Example Projects**  
+  [https://github.com/topics/pwa](https://github.com/topics/pwa)
+
+---
+
+> **Note:** Refer to the **LifePal Notion Workspace** for in-depth guidelines, diagrams, and workflow explanations. This section serves as a quick-access reference to primary sources and best practices.
 
 ## 18. License
 
