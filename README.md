@@ -1,7 +1,5 @@
 # LifePal: Systems Architecture and Clinical Support Infrastructure
 
-## LifePal
-
 <div align="center">
 
 An offline-first, AI-augmented clinical support sanctuary for longitudinal oncology care
