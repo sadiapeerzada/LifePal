@@ -72,7 +72,11 @@ An offline-first, AI-augmented clinical support sanctuary for longitudinal oncol
 - [16. Known Limitations and Tradeoffs](#16-known-limitations-and-tradeoffs)
 - [17. Contributing](#17-contributing)
   - [17.1 Documentation](#171-documentation)
-- [18. License](#18-license)
+- [18. Check Out LifePal](#18-check-out-lifepal)
+  - [18.1 Team Members](#181-team-members)
+- [19. License](#19-license)
+
+
 
 
 ## 1. Executive Overview
@@ -460,8 +464,26 @@ LifePal is hosted on **Vercel** with **edge-optimized delivery** and support for
 
 > **Note:** Refer to the **LifePal Notion Workspace** for in-depth guidelines, diagrams, and workflow explanations. This section serves as a quick-access reference to primary sources and best practices.
 
-## 18. License
 
-This system is licensed under the MIT License. Copyright (c) 2025 LifePal Contributors.
+## 18. 🔗 Check Out LifePal
 
-Stay Brave. Logic as the Weapon, Compassion as the Shield.
+- **Live App:** [Click here to view LifePal live](https://lifepal.vercel.app)  
+- **Demo Pitch:** [Click here to watch the pitch](https://vimeo.com/1152650698?share=copy&fl=sv&fe=ci)  
+- **Video Demo:** [Click here to watch the app demo](https://vimeo.com/1152650698?share=copy&fl=sv&fe=ci)  
+
+---
+
+## 18.1 👥 Team Members
+
+- **Sadia Peerzada** – Team Lead & Back-end
+- **Sadia Zafreen** – Front-end  
+- **Alisha Hasan** – System Architecture  
+- **Hania Hayat** – Research
+  
+## 19. License
+
+LifePal is licensed under the **MIT License**. You are free to use, copy, modify, and distribute this software, provided you include this copyright notice.  
+See the full license details in [LICENSE](LICENSE).
+
+> Stay Brave. Logic as the Weapon, Compassion as the Shield.
+
