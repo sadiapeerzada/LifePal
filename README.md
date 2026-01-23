@@ -13,7 +13,7 @@ An offline-first, AI-augmented clinical support sanctuary for longitudinal oncol
 
 
 ### Navigation
-[Features](#features) ·
+[Features](#11-features) ·
 [Architecture](#system-architecture) ·
 [Documentation](#171-documentation) ·
 [Contributing](#17-contributing)
@@ -408,32 +408,38 @@ This is the central hub for all LifePal documentation, including system design, 
 #### Design Philosophy
 LifePal is built on **safety-first, offline-first, and privacy-first principles**.
 
-- **Practical Architecture Principles**  
-  [https://martinfowler.com/articles/practical-architecture.html](https://martinfowler.com/articles/practical-architecture.html)
-- **Progressive Web Apps Overview**  
-  [https://web.dev/progressive-web-apps/](https://web.dev/progressive-web-apps/)
+- **Practical Architecture Principles** –  
+  [Martin Fowler: Practical Architecture](https://martinfowler.com/articles/practical-architecture.html)
+
+- **Progressive Web Apps Overview** –  
+  [Progressive Web Apps Documentation](https://web.dev/progressive-web-apps/)
 
 ---
 
 #### System Architecture
 LifePal uses **component isolation**, **trust boundaries**, and **offline-first execution** to ensure reliability and privacy.
 
-- **React Component-Based Architecture**  
-  [https://react.dev/learn](https://react.dev/learn)
-- **PWA & Offline Capabilities**  
-  [https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps](https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps)
-- **Mermaid Diagram Reference for Architecture**  
-  [https://mermaid.js.org/](https://mermaid.js.org/)
+- **React Component-Based Architecture** –  
+  [React Architecture & Core Concepts](https://react.dev/learn)
+
+- **PWA & Offline Capabilities** –  
+  [MDN: Progressive Web Apps](https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps)
+
+- **Mermaid Diagram Reference for Architecture** –  
+  [Mermaid Official Documentation](https://mermaid.js.org/)
+
 
 ---
 
 #### AI Agent Model
 LifePal’s AI is **assistive and non-authoritative**, designed to support users without making clinical decisions.
 
-- **WHO Guidelines on AI in Healthcare**  
-  [https://www.who.int/publications/i/item/WHO-RHR-22.07](https://www.who.int/publications/i/item/WHO-RHR-22.07)
-- **UNESCO Report on AI Ethics**  
-  [https://unesdoc.unesco.org/ark:/48223/pf0000381137](https://unesdoc.unesco.org/ark:/48223/pf0000381137)
+- **WHO Guidelines on AI in Healthcare** –  
+  [WHO: Ethical AI for Health Systems](https://www.who.int/publications/i/item/WHO-RHR-22.07)
+
+- **UNESCO Report on AI Ethics** –  
+  [UNESCO: Ethics of Artificial Intelligence](https://unesdoc.unesco.org/ark:/48223/pf0000381137)
+
 
 ---
 
@@ -441,31 +447,38 @@ LifePal’s AI is **assistive and non-authoritative**, designed to support users
 LifePal prioritizes **data minimization, local-first ownership**, and strict privacy guarantees.
 
 - **OWASP Top Ten Security Risks**  
-  [https://owasp.org/www-project-top-ten/](https://owasp.org/www-project-top-ten/)
+  [OWASP Top 10 – Web Application Security Standards](https://owasp.org/www-project-top-ten/)
+
 - **GDPR Overview**  
-  [https://gdpr.eu/](https://gdpr.eu/)
+  [General Data Protection Regulation (GDPR) Explained](https://gdpr.eu/)
+
 - **Best Practices for Local-First Apps**  
-  [https://web.dev/local-first/](https://web.dev/local-first/)
+  [Google Web.dev – Local-First Application Design](https://web.dev/local-first/)
 
 ---
 
 #### Deployment and Hosting
 LifePal is hosted on **Vercel** with **edge-optimized delivery** and support for offline usage.
 
-- **Vercel Documentation**  
-  [https://vercel.com/docs](https://vercel.com/docs)
-- **Continuous Deployment Practices**  
-  [https://docs.github.com/en/actions](https://docs.github.com/en/actions)
+- **Vercel Documentation** –  
+  [Vercel Deployment & Platform Docs](https://vercel.com/docs)
+
+- **Continuous Deployment Practices** –  
+  [GitHub Actions CI/CD Documentation](https://docs.github.com/en/actions)
 
 ---
 
 #### Additional Resources
+
 - **Accessibility & Inclusive Design Principles**  
-  [https://www.w3.org/WAI/](https://www.w3.org/WAI/)
+  [W3C Web Accessibility Initiative (WAI) Guidelines](https://www.w3.org/WAI/)
+
 - **Healthcare Data Standards & Interoperability**  
-  [https://www.hl7.org/](https://www.hl7.org/)
+  [HL7 – Health Level Seven International Standards](https://www.hl7.org/)
+
 - **React + PWA Example Projects**  
-  [https://github.com/topics/pwa](https://github.com/topics/pwa)
+  [Progressive Web App Examples on GitHub](https://github.com/topics/pwa)
+
 
 ---
 
