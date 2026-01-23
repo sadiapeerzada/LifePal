@@ -12,8 +12,6 @@ An offline-first, AI-augmented clinical support sanctuary for longitudinal oncol
 [![AI](https://img.shields.io/badge/AI-Assistive--Only-orange)](https://www.who.int/publications/i/item/WHO-RHR-22.07)
 [![License](https://img.shields.io/badge/License-MIT-yellow)](LICENSE)
 
-</div>
-
 ---
 
 ### 🔗 Navigation
