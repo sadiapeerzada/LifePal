@@ -484,6 +484,136 @@ LifePal is hosted on **Vercel** with **edge-optimized delivery** and support for
 
 > **Note:** Refer to the **LifePal Notion Workspace** for in-depth guidelines, diagrams, and workflow explanations. This section serves as a quick-access reference to primary sources and best practices.
 
+### 17.2 High-Level Data Flow
+
+User Action  
+*(Patient / Caregiver / Survivor / Child / Donor)*  
+→ Web / Mobile App *(React / React Native)*  
+→ API Gateway *(FastAPI / Node)*  
+→ AI Orchestration Layer  
+→ **Context & Policy Decision Engine**  
+→ Agent Routing 
+
+```mermaid
+
+flowchart TD
+
+U[User<br>Patient Caregiver Survivor Child Donor]
+A[Web or Mobile App<br>React React Native]
+B[API Gateway<br>FastAPI Node]
+C[AI Orchestration Layer]
+D[Context and Policy Decision Engine]
+E[Agent Routing]
+
+U --> A
+A --> B
+B --> C
+C --> D
+D --> E
+
+E --> CS[Clinical Support Agent<br>Navigation Followups Schemes Reports]
+E --> EC[Emotional Companion Agent<br>Chat Emotional Support Gamified Learning]
+
+CS --> T[Tool Execution<br>Rules RAG APIs]
+EC --> M[Model Inference<br>Large Language Models]
+
+T --> S[Secure Data and Memory Layer<br>Offline Cache IndexedDB Cloud Storage]
+M --> S
+
+S --> F[Response Personalization and Safety Filters]
+F --> O[User Friendly Output<br>UI Notifications Insights]
+```
+
+
+---
+            
+## 17.3 LifePal Project Structure
+### Project Structure
+
+```text
+lifepal/
+├── app/
+│   ├── __init__.py                # Package initializer
+│   ├── api.py                     # Main API entry point
+│   ├── server.py                  # Backend server (FastAPI)
+│   ├── auth.py                    # Authentication & role handling
+│   ├── orchestration.py           # AI routing & agent control
+│   ├── safety.py                  # Medical safety & validation filters
+│   ├── memory.py                  # Context & conversation memory
+│   │
+│   ├── agents/
+│   │   ├── clinical_agent.py      # Medical navigation & follow-ups
+│   │   ├── caregiver_agent.py     # Caregiver burnout & workload support
+│   │   ├── survivor_agent.py      # Long-term survivorship guidance
+│   │   ├── child_agent.py         # Gamified “Hero Buddy” experience
+│   │   └── donor_agent.py         # Donor guidance & transparency
+│   │
+│   ├── tools/
+│   │   ├── hospital_tools.py      # Appointments & schedules
+│   │   ├── scheme_tools.py        # Ayushman Bharat, CM Care, etc.
+│   │   ├── report_tools.py        # Medical report simplification
+│   │   └── tracker_tools.py       # Mood, symptoms & adherence tracking
+│   │
+│   ├── policy/
+│   │   ├── decision.py            # What AI can / cannot answer
+│   │   ├── rules.py               # Medical & ethical constraints
+│   │   └── escalation.py          # Doctor referral & emergency triggers
+│   │
+│   ├── triggers/
+│   │   ├── followups.py           # Scheduled care follow-ups
+│   │   ├── alerts.py              # Risk & symptom alerts
+│   │   └── reminders.py           # Medication & appointment reminders
+│   │
+│   └── storage/
+│       ├── offline.py             # IndexedDB / local cache
+│       ├── cloud.py               # Azure Blob / database access
+│       └── encryption.py          # Key Vault & data security
+│
+├── frontend/
+│   ├── web/                       # React web application
+│   ├── mobile/                    # React Native mobile app
+│   └── ui-system/                 # Sanctuary design system
+│
+├── docs/
+│   ├── ARCHITECTURE.md
+│   ├── SAFETY_MODEL.md
+│   ├── USER_FLOWS.md
+│   └── DEPLOYMENT.md
+│
+├── scripts/                       # Development & deployment scripts
+├── env.example                    # Environment variable template
+├── requirements.txt
+├── LICENSE
+└── README.md
+```
+
+## 17.4 Usage Scenarios (Natural Language)
+
+Users interact with **LifePal** through chat-like, natural language prompts tailored to their role:
+
+- “What should I do after today’s radiotherapy session?”
+- “Explain my report in simple terms.”
+- “Are there any government schemes I am eligible for?”
+- “Track my mood this week.”
+- “Help my child understand what chemotherapy is.”
+- “What follow-up tests are due next?”
+- “How can a caregiver reduce burnout?”
+
+---
+
+## 17.5 Core Architectural Principles
+
+- **Human-first, safety-gated AI**
+- **Offline-first design**  
+  *(critical in hospital and low-connectivity settings)*
+- **Role-aware intelligence**  
+  *(patient, caregiver, child, survivor, donor)*
+- **Policy-driven medical boundaries**  
+  *(no unsafe or diagnostic advice)*
+- **Explainability over automation**
+- **Clinical escalation over confidence**
+
+---
 
 ## 18. Check Out LifePal
 
