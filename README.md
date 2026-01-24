@@ -8,7 +8,7 @@ An offline-first, AI-augmented clinical support sanctuary for longitudinal oncol
 [![TypeScript](https://img.shields.io/badge/TypeScript-Strict-blue)](https://www.typescriptlang.org/)
 [![Gemini](https://img.shields.io/badge/Gemini-3-orange?logo=google&logoColor=white)](https://ai.google.dev/)
 [![PWA](https://img.shields.io/badge/PWA-Offline--First-green)](https://web.dev/progressive-web-apps/)
-[![AI](https://img.shields.io/badge/AI-Assistive--Only-orange)](https://www.who.int/publications/i/item/WHO-RHR-22.07)
+[![AI](https://img.shields.io/badge/AI-Assistive--Only-orange)](https://www.who.int/publications)
 [![License](https://img.shields.io/badge/License-MIT-yellow?logo=github&logoColor=black)](https://github.com/sadiapeerzada/lifepal/blob/main/LICENSE)
 
 
